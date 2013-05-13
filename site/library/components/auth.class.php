@@ -22,4 +22,8 @@ class AuthComponent extends Component {
 		return md5(sha1(md5($pwd)));
 	}
 
+	public function persist() {
+		// fait une connexion persistant en cookie (cf. tuto grafikart)
+	}
+
 }

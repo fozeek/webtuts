@@ -2,7 +2,7 @@
 
 class Kernel {
 
-	public static $APP;
+	public static $_app;
 	public static $LANG;
 	public static $LANGS;
 	public static $LANG_DEFAULT;
@@ -13,9 +13,7 @@ class Kernel {
 	public static $_paths;
 
 	static public function get($attr) {
-		if($attr=="app")
-			return self::$APP;
-		elseif($attr=="lang")
+		if($attr=="lang")
 			return self::$LANG;
 		elseif($attr=="autoloads_controller")
 			return self::$AUTOLOADS_CONTROLLER;
@@ -32,6 +30,14 @@ class Kernel {
 	static public function setup($url) {
 		$kernel = new Kernel();
 		return $kernel->dispatcher($kernel->parse($url));
+	}
+
+	static public function setApp($app) {
+		self::$_app = $app;
+	}
+
+	static public function getApp() {
+		return self::$_app;
 	}
 
 	static public function loadPaths($paths) {
@@ -51,9 +57,7 @@ class Kernel {
 	}
 
 	static public function write($attr, $value) {
-		if($attr == "app")
-			self::$APP = $value;
-		elseif($attr == "debug")
+		if($attr == "debug")
 			self::$DEBUG = $value;
 		elseif($attr == "lang_default") {
 			self::$LANG_DEFAULT = $value;
@@ -96,10 +100,10 @@ class Kernel {
 		self::$_route = array("controller" => $route["controller"], "action" => $route["action"]);
 		$ControllerName = ucfirst($route["controller"])."Controller";
 		$Controller = new $ControllerName();
-		if(self::$_paramsToControllerMode=="array")
-			call_user_func_array(array($Controller, ucfirst($route["action"]."Action")), array("0" => $route["params"]));
-		else
-			call_user_func_array(array($Controller, ucfirst($route["action"]."Action")), $route["params"]);
+		call_user_func_array(
+				array($Controller, ucfirst($route["action"]."Action")),
+				(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
+			);
 	}
 }
 

@@ -26,6 +26,11 @@
  	*/
 	Kernel::setParamsToControllerMode("linear");
 
+	/* 
+		Définition de l'application
+	*/
+	Kernel::setApp("backend");
+
 	/*
 		Paths files
 	*/
@@ -36,9 +41,9 @@
 			"components" => "{library}components/",
 			"helpers" => "{library}helpers/",
 			"model" => "{root}model/",
-			"apps" => "{root}apps/",
-			"webroot" => "{root}",
-			"themes" => "{apps}themes/",
+			"app" => "{root}apps/".Kernel::getApp()."/",
+			"webroot" => "{root}".Kernel::getApp()."/",
+			"themes" => "{webroot}themes/",
 			"uploads" => "{root}uploads/",
 			"cache" => "{root}cache/",
 		));
@@ -48,11 +53,6 @@
 			Les differents users de bdd sont dans bdd.config.php
 	*/
 	Sql::connect("default");
-
-	/* 
-		Définition de l'application
-	*/
-	Kernel::write("app", "backend");
 
 	/* 
 		Autoloads Components for Controllers
