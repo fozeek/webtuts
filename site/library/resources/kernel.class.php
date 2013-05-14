@@ -27,7 +27,7 @@ class Kernel {
 			return false;
 	}
 
-	static public function setup($url) {
+	static public function run($url) {
 		$kernel = new Kernel();
 		return $kernel->dispatcher($kernel->parse($url));
 	}
@@ -45,7 +45,7 @@ class Kernel {
 			$pathTmp = array_values(array_filter(explode("%", preg_replace("#{([".Router::$_regex."]+)}#i", "%*$1*%", $value))));
 			foreach ($pathTmp as $key2 => $value2) {
 				if(preg_match("#\*([".Router::$_regex."]+)\*#i", $value2))
-					$pathTmp[$key2] = $paths[str_replace(array("%", "*"), "", $value2)];
+					$pathTmp[$key2] = $paths[str_replace("*", "", $value2)];
 			}
 			$paths[$key] = implode("", $pathTmp);
 		}

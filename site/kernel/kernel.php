@@ -1,8 +1,6 @@
 <?php
-	/* Routes */
-	require_once('route.php');
 
-	foreach (glob(__library_dir__.'resources/*') as $file)
+	foreach (glob('site/library/resources/*') as $file)
 		require_once($file);
 
 	/* Component class */
@@ -12,4 +10,4 @@
 	include('config.php');
 
 	// Lancement du kernel
-	Kernel::setup($_SERVER['REQUEST_URI']);
+	Kernel::run($_SERVER['REQUEST_URI']);
