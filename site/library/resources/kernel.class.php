@@ -3,27 +3,25 @@
 class Kernel {
 
 	public static $_app;
-	public static $DEBUG;
-	public static $AUTOLOADS_CONTROLLER;
 	public static $_route;
 	public static $_paramsToControllerMode;
 	public static $_paths;
 	public static $_defaultLang;
 	public static $_langs;
 	public static $_currentLang;
-
-	static public function get($attr) {
-		if($attr=="autoloads_controller")
-			return self::$AUTOLOADS_CONTROLLER;
-		elseif($attr=="params")
-			return self::$PARAMS;
-		else
-			return false;
-	}
+	public static $_autoloadsController;
 
 	static public function run($url) {
 		$kernel = new Kernel();
 		return $kernel->dispatcher($kernel->parse($url));
+	}
+
+	static public function setAutoloadsController($autoloads) {
+		self::$_autoloadsController = $autoloads;
+	}
+
+	static public function getAutoloadsController() {
+		return self::$_autoloadsController;
 	}
 
 	static public function setApp($app) {
@@ -72,15 +70,6 @@ class Kernel {
 
 	static public function path($name) {
 		return (isset(self::$_paths[$name])) ? self::$_paths[$name] : false ;
-	}
-
-	static public function write($attr, $value) {
-		if($attr == "debug")
-			self::$DEBUG = $value;
-		elseif($attr=="autoloads_controller")
-			self::$AUTOLOADS_CONTROLLER = $value;
-		else
-			return false;
 	}
 
 	public static function route($attribut = null) {

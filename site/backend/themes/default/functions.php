@@ -2,7 +2,6 @@
 	
 
 
-	$cache = new Cache(Kernel::get("theme_path")."cache/", 1);
 	/*
 	if(!$cache->start("test")) {
 
@@ -13,7 +12,7 @@
 */
 
 	function text($text) {
-		$lang = file_get_contents(Kernel::get("theme_path")."lang/".__lang__.".json");
+		$lang = file_get_contents(Kernel::path("themes")."lang/".__lang__.".json");
 		$lang = json_decode($lang);
 		foreach ($lang as $value) {
 			if(!empty($value->$text)) {
@@ -24,8 +23,8 @@
 	}
 
 	function createLink($link) {
-		if(Kernel::get("langdefault")!=Kernel::get("lang"))
-			return "/".Kernel::get("lang").$link;
+		if(Kernel::getDefaultLang()!=Kernel::get("lang"))
+			return "/".Kernel::getCurrentLang().$link;
 		else
 			return $link;
 	}
@@ -34,10 +33,10 @@
 	function partial($page, $params = null) {
 		if($params!=null)
 			extract($params);
-		include(Kernel::get("theme_path")."partials/".$page.".php");
+		include("partials/".$page.".php");
 	}
 	function img($name) {
-		echo '/'.Kernel::get("theme_path") . 'images/'.$name;
+		echo '/'.Kernel::path("themes"). 'images/'.$name;
 	}
 	function lang($lang){
 		if($lang != "")

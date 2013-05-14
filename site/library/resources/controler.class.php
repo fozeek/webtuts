@@ -10,7 +10,7 @@ abstract class Controler {
 	public function __construct() {
 
 		// Autoloads
-		foreach (Kernel::get("autoloads_controller") as $key => $value) {
+		foreach (Kernel::getAutoloadsController() as $key => $value) {
 			if(is_numeric($key))
 				$this->load($value);
 			else

@@ -57,7 +57,7 @@
 	/* 
 		Autoloads Components for Controllers
 	*/
-	Kernel::write("autoloads_controller", array(
+	Kernel::setAutoloadsController(array(
 			"Cache" => Kernel::path("cache"),
 			"Session",
 			"Request",
@@ -98,4 +98,4 @@
 			true		active le mode débug
 			false		désative le mode débug
 	*/
-	Kernel::write("debug", true);
+	// Kernel::write("debug", true);
