@@ -49,7 +49,7 @@ class Sql {
 	private static $_PDO;
 	private static $_users;
 
-	static public function addUser($name, $params) {
+	static public function addUser($name, $rang, $params) {
 		self::$_users[$name] = $params;
 	}
 

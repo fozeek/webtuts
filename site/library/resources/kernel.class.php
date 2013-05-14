@@ -3,24 +3,18 @@
 class Kernel {
 
 	public static $_app;
-	public static $LANG;
-	public static $LANGS;
-	public static $LANG_DEFAULT;
 	public static $DEBUG;
 	public static $AUTOLOADS_CONTROLLER;
 	public static $_route;
 	public static $_paramsToControllerMode;
 	public static $_paths;
+	public static $_defaultLang;
+	public static $_langs;
+	public static $_currentLang;
 
 	static public function get($attr) {
-		if($attr=="lang")
-			return self::$LANG;
-		elseif($attr=="autoloads_controller")
+		if($attr=="autoloads_controller")
 			return self::$AUTOLOADS_CONTROLLER;
-		elseif($attr=="langs")
-			return self::$LANGS;
-		elseif($attr=="langdefault")
-			return self::$LANG_DEFAULT;
 		elseif($attr=="params")
 			return self::$PARAMS;
 		else
@@ -38,6 +32,30 @@ class Kernel {
 
 	static public function getApp() {
 		return self::$_app;
+	}
+
+	static public function setDefaultLang($lang) {
+		self::$_defaultLang = $lang;
+	}
+
+	static public function getDefaultLang() {
+		return self::$_defaultLang;
+	}
+
+	static public function setLangs($langs) {
+		self::$_langs = $langs;
+	}
+
+	static public function getLangs() {
+		return self::$_langs;
+	}
+
+	static public function setCurrentLang($lang) {
+		self::$_currentLang = $lang;
+	}
+
+	static public function getCurrentLang() {
+		return self::$_currentLang;
 	}
 
 	static public function loadPaths($paths) {
@@ -59,12 +77,6 @@ class Kernel {
 	static public function write($attr, $value) {
 		if($attr == "debug")
 			self::$DEBUG = $value;
-		elseif($attr == "lang_default") {
-			self::$LANG_DEFAULT = $value;
-			self::$LANG = $value;
-		}
-		elseif($attr == "langs")
-			self::$LANGS = $value;
 		elseif($attr=="autoloads_controller")
 			self::$AUTOLOADS_CONTROLLER = $value;
 		else
@@ -86,11 +98,11 @@ class Kernel {
 		$parseUrl = array_slice(explode("/", $url), 1, null, false); // On supprime le premier vide
 		
 		// Gestion de la langue
-		if(!in_array($parseUrl[0], self::$LANGS)) {
-			header("Location:/".self::$LANG_DEFAULT.$url);
+		if(!in_array($parseUrl[0], self::getLangs())) {
+			header("Location:/".self::getDefaultLang().$url);
 			die();
 		}
-		self::$LANG = $parseUrl[0];
+		self::setCurrentLang($parseUrl[0]);
 		$parseUrl = array_slice($parseUrl, 1, null, false); // On supprime la langue de l'url
 
 		return Router::getRoute("/".implode("/", $parseUrl));

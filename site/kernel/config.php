@@ -87,8 +87,8 @@
 	/*
 		Langues
 	*/
-	Kernel::write("lang_default", "fr");
-	Kernel::write("langs", array("fr", "en"));
+	Kernel::setDefaultLang("fr");
+	Kernel::setLangs(array("fr", "en"));
 
 	/* 
 		DEBUG MODE 
@@ -99,5 +99,3 @@
 			false		désative le mode débug
 	*/
 	Kernel::write("debug", true);
-	
-?>
