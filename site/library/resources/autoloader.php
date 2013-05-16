@@ -5,10 +5,8 @@ spl_autoload_register(function ($class) {
 		$url = Kernel::path("app").str_replace("controller", "", mb_strtolower($class)).'/index.php';
 		if(file_exists($url))
 			require_once($url);
-		else {
-			header("Location:/".Router::getUrl("error", "kernel", array("code" => 2, "controller" => $class)));
-			die();
-		}
+		else
+			Error::render(1, $class);
 	}
 });
 

@@ -108,10 +108,8 @@ class Kernel {
 					array($Controller, $function),
 					(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
 				);
-		else {
-			header("Location:/".Router::getUrl("error", "kernel", array("code" => 1, "callback" => $ControllerName."::".$function."()")));
-			die();
-		}
+		else
+			Error::render(2, $ControllerName."::".$function."()");
 	}
 }
 

@@ -23,7 +23,10 @@ class ViewComponent extends Component {
 	public function render($vars = null) {
 		if($vars != null)
 			extract($vars);
-		include(Kernel::path("themes").$this->_defaultTheme.'/index.php');
+		if(file_exists(Kernel::path("themes").$this->_defaultTheme.'/index.php'))
+			include(Kernel::path("themes").$this->_defaultTheme.'/index.php');
+		else
+			Error::render(3, $this->_defaultTheme);
 	}
 
 	public function __get($attribut) {
