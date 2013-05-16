@@ -58,8 +58,7 @@ class Sql {
 			self::$_PDO = new PDO('mysql:host='.self::$_users[$name]["host"].';dbname='.self::$_users[$name]["database"], self::$_users[$name]["user"], self::$_users[$name]["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 			self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
-		    echo 'ERREUR: ' . $e->getMessage(); 
-		    die();
+		    Error::render(5, $e->getMessage());
 		}
 	}
 
