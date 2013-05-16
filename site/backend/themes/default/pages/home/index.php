@@ -1,3 +1,4 @@
+<?php partial("header"); ?>
 salut
 <?= $this->Form->start(); ?>
 <?= $this->Form->input("lol", array(

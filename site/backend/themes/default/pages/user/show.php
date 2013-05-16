@@ -44,6 +44,7 @@
 		<div style="font-size: 1.2em;">
 			Actualités
 		</div>
+		<?php for($cpt=0;$cpt<5;$cpt++) : ?>
 		<div style="border-bottom: 1px solid rgb(223, 227, 235);font-size: 0.8em;color: #373737;padding: 10px;padding-left: 0px;">
 			<div style="float: left;width: 50px;height: 50px;margin-right: 10px;position: relative;background: #F9F9F9 url(http://img.hebus.com/hebus_2012/07/31/1343752964_44072.jpg) center center no-repeat;">
 				<div style="position: absolute;bottom: 0px;right: 0px;height: 1px;width: 100%;background: rgba(0,0,0, 0.2);">
@@ -76,7 +77,7 @@
 				</div>
 			</div>
 			<div style="overflow: hidden;">
-				<a>Dolitia</a> commented his article <a>fuckers</a> :
+				<a>Dolitia</a> commented his article <a>fuckers II</a> :
 				<div style="padding: 5px;border-left: 3px solid rgb(223, 227, 235);margin-top: 4px;">
 					Lorem iure rerum vel officiis placeat ipsum consectetur saepe incidunt doloribus dolorum at sunt dolores architecto repellat culpa ducimus facere.
 				</div>
@@ -84,6 +85,7 @@
 			<div style="clear: both;">
 			</div>
 		</div>
+		<?php endfor; ?>
 	</div>
 	<div style="clear: both;">
 	</div>

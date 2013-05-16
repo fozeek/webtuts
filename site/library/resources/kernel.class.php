@@ -68,8 +68,9 @@ class Kernel {
 		self::$_paths = $paths;
 	}
 
-	static public function path($name) {
-		return (isset(self::$_paths[$name])) ? self::$_paths[$name] : false ;
+	static public function path($name, $absolute = false) {
+		$beforeLink = ($absolute) ? "/" : "";
+		return (isset(self::$_paths[$name])) ? $beforeLink.self::$_paths[$name] : false ;
 	}
 
 	public static function route($attribut = null) {

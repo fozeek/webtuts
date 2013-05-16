@@ -14,11 +14,13 @@ class ModelComponent extends Component {
 	}
 
 	private function getTable($table, $options = null) {
-		import("model", strtolower($table)."table");
-		import("model", strtolower($table)."class");
-		$name = ucfirst($table)."Table";
-		$this->_tables[$table] = new $name($options);
-		return $this->_tables[$table];
+		if(import("model", strtolower($table)."table") && import("model", strtolower($table)."class")) {
+			$name = ucfirst($table)."Table";
+			$this->_tables[$table] = new $name($options);
+			return $this->_tables[$table];
+		}
+		else
+			return false;
 	}
 
 	public function __get($table) {

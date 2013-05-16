@@ -8,7 +8,7 @@
 
 		
 <div id="search-box" style="float: left;padding: 9px;padding-left: 35px;color: #232323;border-bottom: 1px solid #ccc;background: #f8f8f8;">
-	Node 
+	Node
 </div>
 <div style="overflow: hidden;">
 		<input id="search-input" type="text" placeholder="Rechercher" style="text-indent: 35px;border-left: none;border-bottom: 1px solid #ccc;padding: 0px;padding-top: 9px;padding-bottom: 9px;border-right: none;border-top: none;margin-bottom: 0px;max-width: 100%;border-radius: 0px;"/>

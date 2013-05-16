@@ -1,6 +1,6 @@
 <?php
 
-abstract class Controler {
+abstract class Controller {
 
 	private $_components = array();
 

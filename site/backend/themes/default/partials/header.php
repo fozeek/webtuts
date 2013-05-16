@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php partial("meta");//Kernel::get("cache")->inc(_theme_path_."partials/meta.php"); ?>
+		<?php partial("meta"); ?>
 		<title>Page d'accueil Webtuts</title>
 		<script></script>
 	</head>
@@ -131,32 +131,32 @@
 				<div style="position: absolute;right: 0px;top: 0px;width: 1px;height: 100%;background: rgba(152, 148, 193, 0.6);">
 				</div>
 				<div style="overflow: auto;height: 100%;">
-				<a href="<?php echo Kernel::getUrl("content/index"); ?>" style="color: none;">
+				<a href="<?php echo Router::getUrl("content", "index"); ?>" style="color: none;">
 					<div class="menu-onglet<?php if($header=="content") { ?>-active<?php } ?>">
 						Content
 					</div>
 				</a>
-				<a href="<?php echo Kernel::getUrl("taxonomy/index"); ?>">
+				<a href="<?php echo Router::getUrl("taxonomy", "index"); ?>">
 					<div class="menu-onglet<?php if($header=="taxonomy") { ?>-active<?php } ?>">
 						Taxonomy
 					</div>
 				</a>
-				<a href="<?php echo Kernel::getUrl("plugin/index"); ?>">
+				<a href="<?php echo Router::getUrl("plugin", "index"); ?>">
 					<div class="menu-onglet<?php if($header=="plugins") { ?>-active<?php } ?>">
 						Plug-ins
 					</div>
 				</a>
-				<a href="<?php echo Kernel::getUrl("theme/index"); ?>" style="color: none;">
+				<a href="<?php echo Router::getUrl("theme", "index"); ?>" style="color: none;">
 					<div class="menu-onglet<?php if($header=="theme") { ?>-active<?php } ?>">
 						Thèmes
 					</div>
 				</a>
-				<a href="<?php echo Kernel::getUrl("mail/index"); ?>">
+				<a href="<?php echo Router::getUrl("mail", "index"); ?>">
 					<div class="menu-onglet<?php if($header=="emailling") { ?>-active<?php } ?>">
 						E-mailling
 					</div>
 				</a>
-				<a href="<?php echo Kernel::getUrl("param/index"); ?>">
+				<a href="<?php echo Router::getUrl("param", "index"); ?>">
 					<div class="menu-onglet<?php if($header=="param") { ?>-active<?php } ?>">
 						Paramêtres
 					</div>

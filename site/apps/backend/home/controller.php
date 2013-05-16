@@ -1,8 +1,11 @@
 <?php
 
 
-class HomeController extends Controler {
+class HomeController extends Controller {
 	public function IndexAction($param1, $param2) {
+		echo "<pre>";
+		print_r($this->Model->Content);
+		echo "</pre>";
  		return $this->render(compact("param1", "param2"));
 	}
 
