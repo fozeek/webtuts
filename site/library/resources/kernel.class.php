@@ -102,10 +102,16 @@ class Kernel {
 		self::$_route = array("controller" => $route["controller"], "action" => $route["action"]);
 		$ControllerName = ucfirst($route["controller"])."Controller";
 		$Controller = new $ControllerName();
-		call_user_func_array(
-				array($Controller, ucfirst($route["action"]."Action")),
-				(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
-			);
+		$function = ucfirst($route["action"]."Action");
+		if(method_exists($ControllerName, $function))
+			call_user_func_array(
+					array($Controller, $function),
+					(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
+				);
+		else {
+			header("Location:/".Router::getUrl("error", "kernel", array("code" => 1, "callback" => $ControllerName."::".$function."()")));
+			die();
+		}
 	}
 }
 

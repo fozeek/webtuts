@@ -6,7 +6,7 @@ spl_autoload_register(function ($class) {
 		if(file_exists($url))
 			require_once($url);
 		else {
-			header("Location:".Router::getUrl("error", "http", array("code" => 404)));
+			header("Location:/".Router::getUrl("error", "kernel", array("code" => 2, "controller" => $class)));
 			die();
 		}
 	}
