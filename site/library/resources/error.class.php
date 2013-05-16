@@ -17,7 +17,7 @@ class Error {
 	static public function render($code, $params) {
 		header("HTTP/1.0 503 Service Unavailable");
 		?>
-			<div style="padding: 30px;border: 1px solid #E5E5E5;background: #F9F9F9;width: 400px;margin: auto;margin-top: 40px;border-radius: 5px;">
+			<div style="font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;padding: 30px;border: 1px solid #E5E5E5;background: #F9F9F9;width: 400px;margin: auto;margin-top: 40px;border-radius: 5px;">
 			
 			<?php switch ($code) {
 				case 1:
@@ -33,6 +33,11 @@ class Error {
 				case 3:
 					$message = "Theme not found";
 					$origin = "theme :";
+					break;
+
+				case 4:
+					$message = "Number of required parameters for action has not been reached";
+					$origin = "function :";
 					break;
 				
 				default:

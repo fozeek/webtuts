@@ -103,11 +103,17 @@ class Kernel {
 		$ControllerName = ucfirst($route["controller"])."Controller";
 		$Controller = new $ControllerName();
 		$function = ucfirst($route["action"]."Action");
-		if(method_exists($ControllerName, $function))
-			call_user_func_array(
-					array($Controller, $function),
-					(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
-				);
+		if(method_exists($ControllerName, $function)) {
+			$functionParameters = new ReflectionMethod($ControllerName, $function);
+			$numberOfRequiredParameters = $functionParameters->getNumberOfRequiredParameters();
+			if(self::$_paramsToControllerMode=="array" || $numberOfRequiredParameters <= count($route["params"]))
+				call_user_func_array(
+						array($Controller, $function),
+						(self::$_paramsToControllerMode=="array") ? array("0" => $route["params"]) : $route["params"]
+					);
+			else
+				Error::render(4, $ControllerName."::".$function."()");
+		}		
 		else
 			Error::render(2, $ControllerName."::".$function."()");
 	}
