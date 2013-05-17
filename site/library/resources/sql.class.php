@@ -66,7 +66,7 @@ class Sql {
 	}
 
 	static public function create() {
-		return new Sql2();
+		return new Sql();
 	}
 
 	public function select($select = null) {
@@ -81,13 +81,13 @@ class Sql {
 	}
 
 	public function insert($into) {
-		$this->type = Sql2::$TYPE_INSERT;
+		$this->type = Sql::$TYPE_INSERT;
 		$this->class = $into;
 		return $this;
 	}
 
 	public function update($table) {
-		$this->type = Sql2::$TYPE_UPDATE;
+		$this->type = Sql::$TYPE_UPDATE;
 		$this->from = $table;
 		return $this;
 	}
@@ -164,7 +164,7 @@ class Sql {
 	}
 
 	public function from($from) {
-		$this->type = Sql2::$TYPE_SELECT;
+		$this->type = Sql::$TYPE_SELECT;
 		if(is_array($from)) {
 			foreach ($from as $value) {
 				$this->from[] = $value;
@@ -220,11 +220,11 @@ class Sql {
 
 	private function getRequete() {
 		$requete = "";
-		if($this->type == Sql2::$TYPE_SELECT)
+		if($this->type == Sql::$TYPE_SELECT)
 			$requete = $this->getselectRequete();
-		elseif($this->type == Sql2::$TYPE_INSERT)
+		elseif($this->type == Sql::$TYPE_INSERT)
 			$requete = $this->getInsertRequete();
-		elseif($this->type == Sql2::$TYPE_UPDATE)
+		elseif($this->type == Sql::$TYPE_UPDATE)
 			$requete = $this->getUpdateRequete();
 		else
 			return new Error(1);
@@ -318,13 +318,13 @@ class Sql {
 	}
 	
 	public function fetchClass() {
-		if($this->type==Sql2::$TYPE_SELECT)	{
+		if($this->type==Sql::$TYPE_SELECT)	{
 			$requete = $this->getRequete();
 			if(!class_exists($this->class))
 				$class = "Std";
 			else $class = $this->class;
-			Sql2::$COUNT += 1;
-			Sql2::$HISTO[] = $requete;
+			Sql::$COUNT += 1;
+			Sql::$HISTO[] = $requete;
 			$return = Sql::$_PDO->query($requete)->fetchObject($class);
 			if(method_exists($return,'setNameClass')) {
 				$return->setNameClass($this->class);
@@ -338,19 +338,19 @@ class Sql {
 	public function fetchArray() {
 		$requete = $this->getRequete();
 		$return = array();
-		Sql2::$COUNT += 1;
-		Sql2::$HISTO[] = $requete;
+		Sql::$COUNT += 1;
+		Sql::$HISTO[] = $requete;
 		foreach(Sql::$_PDO->query($requete) as $ligne) 
 			$return[] = $ligne;
 		return $return;
 	}
 
 	public function fetchClassArray() {
-		if($this->type==Sql2::$TYPE_SELECT)	{
+		if($this->type==Sql::$TYPE_SELECT)	{
 			$requete = $this->getRequete();
 			$collection = new Collection();
-			Sql2::$COUNT += 1;
-			Sql2::$HISTO[] = $requete;
+			Sql::$COUNT += 1;
+			Sql::$HISTO[] = $requete;
 			foreach(Sql::$_PDO->query($requete) as $value) {
 				$object = OrmStdAbstract::n($this->class)->hydrate($value);
 				$collection->hydrate($object);
@@ -362,12 +362,12 @@ class Sql {
 	}
 
 	public function execute() {
-		if($this->type == Sql2::$TYPE_INSERT || $this->type == Sql2::$TYPE_UPDATE){
+		if($this->type == Sql::$TYPE_INSERT || $this->type == Sql::$TYPE_UPDATE){
 			$requete = $this->getRequete();
-			Sql2::$COUNT += 1;
-			Sql2::$HISTO[] = $requete;
+			Sql::$COUNT += 1;
+			Sql::$HISTO[] = $requete;
 			if(Sql::$_PDO->exec($requete)) {
-				if($this->type == Sql2::$TYPE_INSERT)
+				if($this->type == Sql::$TYPE_INSERT)
 					return Sql::$_PDO->lastInsertId();
 				else
 					return true;
@@ -382,8 +382,8 @@ class Sql {
 	public function fetch($rang=0) {
 		if($this->type == Sql::$_SELECT) {
 			$requete = $this->getRequete();
-			Sql2::$COUNT += 1;
-			Sql2::$HISTO[] = $requete;
+			Sql::$COUNT += 1;
+			Sql::$HISTO[] = $requete;
 			return Sql::$_PDO->query($requete)->fetchColumn($rang);
 		}
 		else

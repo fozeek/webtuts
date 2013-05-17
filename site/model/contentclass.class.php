@@ -6,7 +6,7 @@ class ContentClass extends ClassModel {
 	private $_attributes;
 
 	public function __construct() {
-		$attributs = Sql2::create()
+		/*$attributs = Sql2::create()
 							->select("*")
 							->from("_cms_node_attribut", "content")
 							->where("A.id_node", "=", "B.id", false)
@@ -15,7 +15,7 @@ class ContentClass extends ClassModel {
 		foreach ($attributs as $key => $value) {
 			$types_node[] = $value["attribut"];
 		}
-		print_r($types_node);
+		print_r($types_node);*/
 	}
 	
 

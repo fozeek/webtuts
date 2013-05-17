@@ -24,6 +24,14 @@ class ContentTable extends TableModel {
 	public $hasAndBelongToMany = array(
 			
 		);*/
+
+
+	public function getAll() {
+		return Sql::create()
+				->select("*")
+				->from("content")
+				->fetchArray();
+	}
 	
 
 
