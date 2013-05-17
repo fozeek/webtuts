@@ -2,14 +2,15 @@
 
 class Kernel {
 
-	public static $_app;
-	public static $_route;
-	public static $_paramsToControllerMode;
-	public static $_paths;
-	public static $_defaultLang;
-	public static $_langs;
-	public static $_currentLang;
-	public static $_autoloadsController;
+	private static $_app;
+	private static $_route;
+	private static $_paramsToControllerMode;
+	private static $_paths;
+	private static $_defaultLang;
+	private static $_langs;
+	private static $_debugMode;
+	private static $_currentLang;
+	private static $_autoloadsController;
 
 	static public function run($url) {
 		$kernel = new Kernel();
@@ -30,6 +31,14 @@ class Kernel {
 
 	static public function getApp() {
 		return self::$_app;
+	}
+
+	static public function setDebugMode($debugMode) {
+		self::$_debugMode = $debugMode;
+	}
+
+	static public function getDebugMode() {
+		return self::$_debugMode;
 	}
 
 	static public function setDefaultLang($lang) {

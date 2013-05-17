@@ -8,36 +8,50 @@
 
 class Error {
 
+	static public function redirect($url) {
+		header("Location:/".$url);
+	}
+
 	static public function render($code, $params) {
 		header("HTTP/1.0 503 Service Unavailable");
 		switch ($code) {
 			case 1:
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
 				$message = "Controller not found";
 				$origin = "class";
 				break;
 
 			case 2:
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
 				$message = "Action not found";
 				$origin = "function";
 				break;
 
 			case 3:
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
 				$message = "Theme not found";
 				$origin = "theme :";
 				break;
 
 			case 4:
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
 				$message = "Number of required parameters for action has not been reached";
 				$origin = "function :";
 				break;
 
 			case 5:
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
 				$message = "Database connection failed";
 				$origin = "Message :";
 				break;
 			
 			default:
-				# code...
+				die("erreur default");
 				break;
 		} 
 

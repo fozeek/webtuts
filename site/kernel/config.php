@@ -98,4 +98,4 @@
 			true		active le mode débug
 			false		désative le mode débug
 	*/
-	// Kernel::write("debug", true);
+	Kernel::setDebugMode(true);
