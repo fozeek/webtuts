@@ -14,7 +14,7 @@ class ModelComponent extends Component {
 	}
 
 	private function getTable($table, $options = null) {
-		if(import("model", strtolower($table)."table") && import("model", strtolower($table)."class")) {
+		if(import("model", strtolower($table)."table") && import("model", strtolower($table)."object")) {
 			$name = ucfirst($table)."Table";
 			$this->_tables[$table] = new $name($options);
 			return $this->_tables[$table];

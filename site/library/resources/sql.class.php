@@ -45,6 +45,7 @@ class Sql {
 	private $values = array();
 	private $orderby;
 	private $limit;
+	private $group;
 
 	private static $_PDO;
 	private static $_users;
@@ -218,6 +219,11 @@ class Sql {
 		return $this;
 	}
 
+	public function groupBy($group) {
+		$this->group = $group;
+		return $this;
+	}
+
 	private function getRequete() {
 		$requete = "";
 		if($this->type == Sql::$TYPE_SELECT)
@@ -260,6 +266,9 @@ class Sql {
 
 		// WHERE
 		$requete .= $this->getWhereString();
+
+		if(!empty($this->group))
+			$requete .= " GROUP BY ".$this->group;
 
 		// ORDER BY
 		if(!empty($this->orderby)) {
@@ -380,14 +389,17 @@ class Sql {
 	}
 
 	public function fetch($rang=0) {
-		if($this->type == Sql::$_SELECT) {
+		$requete = $this->getRequete();
+		return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
+
+		/*if($this->type == Sql::$_SELECT) {
 			$requete = $this->getRequete();
 			Sql::$COUNT += 1;
 			Sql::$HISTO[] = $requete;
 			return Sql::$_PDO->query($requete)->fetchColumn($rang);
 		}
 		else
-			return new Error(3);
+			return new Error(3);*/
 	}
 
 	private function getWhereString() {

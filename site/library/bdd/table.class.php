@@ -1,27 +1,12 @@
 <?php
 
 
-class TableModel {
-	public function beforeSave($params) {
-		return true;
-	}
+class TableModel implements Iterator, Countable {
 
-	public function afterSave($params) {
-		return true;
-	}
-
-	public function beforeFind($queries) {
-		return $true;
-	}
-
-	public function AfterFind($resutls) {
-		return $results;
-	}
-
-
-	public function save($attributs) {
-
-	}
+	// For Iterator implement
+	private $_key = 0;
+	private $_collection = array();
+	private $_initialized = false;
 
 	public function update($id, $attributs = null) {
 		if($attributs == null) {
@@ -35,6 +20,14 @@ class TableModel {
 		}
 
 
+	}
+
+	private function isInitialized() {
+		return $this->_initialized;
+	}
+
+	private function setInitializedStatut() {
+		$this->_initialized = true;
 	}
 
 	/*
@@ -60,6 +53,44 @@ class TableModel {
 	public function __call($name, $params) {
 
 	}
+
+    public function getCollection() {
+    	if (!$this->isInitialized())
+        	$this->setCollection();
+        return $this->_collection;
+    }
+
+    private function setCollection() {
+    	$data = array();
+    	$this->setInitializedStatut();
+    	$this->_collection = $this->afterGet($data); // Traitement par la classe fille
+    }
+
+
+ 	// For Iterator implement
+    public function __construct() {
+        $this->_key = 0;
+    }
+    public function rewind() {
+        $this->_key = 0;
+    }
+    public function valid() {
+        return array_key_exists($this->_key, $this->_collection);
+    }
+    public function key() {
+        return $this->_key;
+    }
+    public function current() {
+        return $this->_collection[$this->_key];
+    }
+    public function next() {
+        ++$this->_key;
+    }
+
+    // For Countable implement
+    public function count() {
+         return sizeof($this->_collection);
+    }
 
 
 }

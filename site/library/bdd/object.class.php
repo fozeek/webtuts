@@ -1,12 +1,16 @@
 <?php
 
 
-class ClassModel {
+class ObjectModel {
 
-	private $_shema;
+	private $_attributs;
 
-	public function getShema() {
-		return $this->_shema;
+	protected function initializeAttributs(array $attributs) {
+		$this->_attributs = $attributs;
+	}
+
+	public function get($attribut) {
+		return $this->_attributs[$attribut];
 	}
 
 }
