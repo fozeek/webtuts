@@ -5,49 +5,18 @@ class TableModel implements Iterator, Countable {
 
 	// For Iterator implement
 	private $_key = 0;
-	private $_collection = array();
+	private $_collection;
 
 	 public function __construct() {
-        $this->_key = 0;
         $this->setCollection();
     }
 
-	public function update($id, $attributs = null) {
-		if($attributs == null) {
-			if(is_array($id))
-				$attributs = $id;
-			else return false;
-		}
-		else {
-			if(!is_integer($id) || !is_array($attributs))
-				return false;
-		}
-
-
-	}
-
-	/*
-		Un objet ou un id
-	*/
-	public function delete($id) {
-		if(is_object($id)) $id = $id->get("id");
-
-	}
-
-	public function find($query, $options = null) {
-		if($query == "all") {
-			return true;
-		}
-		elseif($query == "first") {
-			return true;
-		}
-		elseif($query == "last") {
-			return true;
-		}
-	}
-
 	public function __call($name, $params) {
-
+		if($name == "getById") {
+			
+		}
+		else
+			return false;
 	}
 
     private function setCollection() {
@@ -55,10 +24,11 @@ class TableModel implements Iterator, Countable {
 		$this->_collection = $this->afterFind($data); // Traitement par la classe fille
     }
 
-    // Function de la classe fille
-    protected function afterFind($data) {
-    }
-
+    // Functions de la classe fille
+    protected function beforeFind() {}
+    protected function afterFind($data) {}
+    protected function beforeSave($data) {}
+    protected function afterSave() {}
 
  	// For Iterator implement
     public function rewind() {
