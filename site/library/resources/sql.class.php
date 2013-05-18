@@ -391,15 +391,6 @@ class Sql {
 	public function fetch($rang=0) {
 		$requete = $this->getRequete();
 		return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
-
-		/*if($this->type == Sql::$_SELECT) {
-			$requete = $this->getRequete();
-			Sql::$COUNT += 1;
-			Sql::$HISTO[] = $requete;
-			return Sql::$_PDO->query($requete)->fetchColumn($rang);
-		}
-		else
-			return new Error(3);*/
 	}
 
 	private function getWhereString() {
@@ -408,8 +399,10 @@ class Sql {
 			$requete .= " WHERE ";
 			foreach ($this->where as $key => $value) {
 				if(is_array($value)) {
-					if(is_string($value[3]) && $value[4]) $cote2='\''; else $cote2='';
-					$requete .= " ".$this->OPE_LOGIC_TAB[$value[0]]." ".$value[1]." ".$value[2]." ".$cote2.$value[3].$cote2." ";
+					$args = ($value[2] == "IN" || $value[2] == "NOT IN" ) ?
+						"(".implode(",", $value[3]).")" : $value[3];
+					$cote2 = (is_string($value[3]) && $value[4]) ? '\'' : '';
+					$requete .= " ".$this->OPE_LOGIC_TAB[$value[0]]." ".$value[1]." ".$value[2]." ".$cote2.$args.$cote2." ";
 				}
 				elseif(is_string($value)) {
 					$requete .= $value;
@@ -426,8 +419,10 @@ class Sql {
 		$requete = "(";
 		foreach ($object->where as $key2 => $value2) {
 			if(is_array($value)) {
-				if(is_string($value2[3]) && $value2[4]) $cote2='\''; else $cote2='';
-				$requete .= " ".$this->OPE_LOGIC_TAB[$value2[0]]." ".$value2[1]." ".$value2[2]." ".$cote2.$value2[3].$cote2." ";
+				$args = ($value[2] == "IN" || $value[2] == "NOT IN" ) ?
+					"(".implode(",", $value[3]).")" : $value[3];
+				$cote2 = (is_string($value[3]) && $value[4]) ? '\'' : '';
+				$requete .= " ".$this->OPE_LOGIC_TAB[$value[0]]." ".$value[1]." ".$value[2]." ".$cote2.$args.$cote2." ";
 			}
 			elseif(is_string($value2)) {
 					$requete .= $value2;

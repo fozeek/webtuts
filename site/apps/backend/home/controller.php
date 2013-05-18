@@ -4,6 +4,7 @@
 class HomeController extends Controller {
 	public function IndexAction() {
 		echo "<pre>";
+		print_r($this->Model->User);
 		print_r($this->Model->Content);
 		echo "</pre>";
 		die();

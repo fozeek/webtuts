@@ -1,5 +1,5 @@
 <?php
 
-class UserTable extends TbaleModel {
-	
+class UserTable extends TableModel {
+
 }
