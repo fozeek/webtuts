@@ -3,7 +3,7 @@
 
 class ContentTable extends TableModel {
 
-	protected function afterGet($data) {
+	protected function afterFind($data) {
 		$collection = array();
 		$data = Sql::create()
 				->select("B.id", "A.value", "C.attribut", "C.link", "C.reference")

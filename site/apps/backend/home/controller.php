@@ -4,7 +4,7 @@
 class HomeController extends Controller {
 	public function IndexAction() {
 		echo "<pre>";
-		print_r($this->Model->Content->getCollection());
+		print_r($this->Model->Content);
 		echo "</pre>";
 		die();
  		return $this->render(compact("param1", "param2"));

@@ -6,7 +6,11 @@ class TableModel implements Iterator, Countable {
 	// For Iterator implement
 	private $_key = 0;
 	private $_collection = array();
-	private $_initialized = false;
+
+	 public function __construct() {
+        $this->_key = 0;
+        $this->setCollection();
+    }
 
 	public function update($id, $attributs = null) {
 		if($attributs == null) {
@@ -20,14 +24,6 @@ class TableModel implements Iterator, Countable {
 		}
 
 
-	}
-
-	private function isInitialized() {
-		return $this->_initialized;
-	}
-
-	private function setInitializedStatut() {
-		$this->_initialized = true;
 	}
 
 	/*
@@ -54,23 +50,17 @@ class TableModel implements Iterator, Countable {
 
 	}
 
-    public function getCollection() {
-    	if (!$this->isInitialized())
-        	$this->setCollection();
-        return $this->_collection;
+    private function setCollection() {
+		$data = array();
+		$this->_collection = $this->afterFind($data); // Traitement par la classe fille
     }
 
-    private function setCollection() {
-    	$data = array();
-    	$this->setInitializedStatut();
-    	$this->_collection = $this->afterGet($data); // Traitement par la classe fille
+    // Function de la classe fille
+    protected function afterFind($data) {
     }
 
 
  	// For Iterator implement
-    public function __construct() {
-        $this->_key = 0;
-    }
     public function rewind() {
         $this->_key = 0;
     }
