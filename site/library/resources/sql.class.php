@@ -47,6 +47,8 @@ class Sql {
 	private $limit;
 	private $group;
 
+	public static $_historique = array();
+
 	private static $_PDO;
 	private static $_users;
 
@@ -389,8 +391,8 @@ class Sql {
 	}
 
 	public function fetch($rang=0) {
-		$requete = $this->getRequete();
-		return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
+		array_push(self::$_historique, $this->getRequete());
+		return Sql::$_PDO->query($this->getRequete())->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function getWhereString() {

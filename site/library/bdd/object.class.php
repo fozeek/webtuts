@@ -4,22 +4,27 @@
 class ObjectModel {
 
 	private $_attributs;
+	protected $_links;
 
-	public function __construct($attributs) {
-		$this->initializeAttributs($attributs);
-	}
-
-	protected function initializeAttributs(array $attributs) {
+	public function __construct(array $attributs, array $links) {
 		$this->_attributs = $attributs;
+		$this->_links = $links;
 	}
 
 	public function get($attributName) {
-		if(is_array($attribut = $this->_attributs[$attributName])) {
-			import("model", strtolower($attribut["reference"])."object");
-			import("model", strtolower($attribut["reference"])."table");
-			$this->_attributs[$attributName] = $objectTable->getLinkTo(get_class($this), $attribut["link"], $attribut["value"]);
+		if(array_key_exists($attributName, $this->_links) && (!isset($this->_attributs[$attributName]) || (isset($this->_attributs[$attributName]) && !is_object($this->_attributs[$attributName])))) {
+			import("model", strtolower($this->_links[$attributName]["reference"])."object");
+			import("model", strtolower($this->_links[$attributName]["reference"])."table");
+			$objectTable = ucfirst($this->_links[$attributName]["reference"])."Table";
+			$link = (isset($this->_links[$attributName]["link"])) ? $this->_links[$attributName]["link"] : null ;
+			$value = (isset($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->get("id");
+			$code = (isset($this->_links[$attributName]["code"])) ? $this->_links[$attributName]["code"] : null ;
+			$this->_attributs[$attributName] = TableModel::getLinkTo($objectTable, str_replace("Object", "", get_class($this))."Table", $link, $value, $code);
 		}
-		return $this->_attributs[$attributName];
+		if(isset($this->_attributs[$attributName]))
+			return $this->_attributs[$attributName];
+		else
+			return null;
 	}
 
 }
