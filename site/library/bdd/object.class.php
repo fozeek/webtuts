@@ -5,10 +5,12 @@ class ObjectModel {
 
 	private $_attributs;
 	protected $_links;
+	protected $_rules;
 
-	public function __construct(array $attributs, array $links) {
+	public function __construct(array $attributs, array $links, array $rules) {
 		$this->_attributs = $attributs;
 		$this->_links = $links;
+		$this->_rules = $rules;
 	}
 
 	public function get($attributName) {

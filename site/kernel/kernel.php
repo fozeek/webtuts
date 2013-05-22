@@ -4,10 +4,10 @@
 		require_once($file);
 
 	/* Component class */
-	include('bdd.config.php');
+	require('bdd.config.php');
 
 	/* Fichier config */
-	include('config.php');
+	require('config.php');
 
 	// Lancement du kernel
 	Kernel::run($_SERVER['REQUEST_URI']);

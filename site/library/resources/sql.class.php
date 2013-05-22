@@ -213,7 +213,10 @@ class Sql {
 		return $this;
 	}
 	public function orderBy($column, $way=null) {
-		$this->orderby = array($column, $way);
+		if(is_array($column))
+			$this->orderby = $column;
+		else
+			$this->orderby = array($column, $way);
 		return $this;
 	}
 	public function limit($start=0, $end=null) {
@@ -375,8 +378,7 @@ class Sql {
 	public function execute() {
 		if($this->type == Sql::$TYPE_INSERT || $this->type == Sql::$TYPE_UPDATE){
 			$requete = $this->getRequete();
-			Sql::$COUNT += 1;
-			Sql::$HISTO[] = $requete;
+			array_push(self::$_historique, $requete);
 			if(Sql::$_PDO->exec($requete)) {
 				if($this->type == Sql::$TYPE_INSERT)
 					return Sql::$_PDO->lastInsertId();

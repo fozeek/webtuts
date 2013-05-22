@@ -3,7 +3,11 @@
 
 class ContentTable extends TableModel {
 
-	protected $_links = array();
+	protected $_rules = array(
+			"node" => array(
+					"required" => true
+				)
+		);
 
 	protected function afterFind($data) {
 		$ids = array();
@@ -23,12 +27,16 @@ class ContentTable extends TableModel {
 						"reference" => $value["reference"],
 						"code" => $value["code"]
 					);
-			$data[$value["id"]][$value["attribut"]] = $value["value"];
-		}	
+			// À améliorer
+			foreach ($data as $key2 => $value2) {
+				if($value2["id"]==$value["id"]) {
+					$data[$key2][$value["attribut"]] = $value["value"];
+					break;
+				}
+			}
+			
+		}
 		return $data;
 	}
 }
-
-
-
 ?>

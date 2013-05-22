@@ -5,10 +5,19 @@ class HomeController extends Controller {
 	public function IndexAction() {
 		echo "<pre>";
 		//print_r($this->Model->User);
-		print_r($this->Model->Content->getById(array(1,2), array(
+		print_r($this->Model->Content->getAll(array(
+			"limit" => 2,
+			"orderBy" => array("id", "ASC"),
+		)));
+		var_dump($this->Model->Content->update(1, array(
+				"node" => 0
+			)));
+		/*, array(
 			"limit" => 1,
-			"orderBy" => "id",
-		)));//->get("author")->get("images"));
+			"orderBy" => array("id", "DESC"),
+		)));
+		*/
+		//[0]->get("node"));//->get("author")->get("images"));
 		//print_r($this->Model->Content->get(1));
 		print_r(Sql::$_historique);
 		echo "</pre>";

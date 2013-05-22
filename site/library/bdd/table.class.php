@@ -1,21 +1,80 @@
 <?php
 
 
-class TableModel implements Iterator, Countable {
+class TableModel{
 
-	private $_key = 0;// For Iterator implement
-	private $_collection;
-	protected $_links = array(); // Defined by childs
+	// Defined by childs
+		// links
+	protected $_links = array();
+		// rules, id and deleted are allredy setted
+	protected $_rules = array(); 
 
 	public function __construct() {
-		$this->setCollection();
 	}
 
 	public function getName() {
 		return strtolower(str_replace("Table", "", get_class($this)));
 	}
 
-	public function __call($name, $params) {
+	public function save(array $attributs) {
+		if(!$this->_validator($attributs))
+			return false;
+		return (Sql::create()
+				->insert($this->getName())
+				->columnsValues($attributs)
+				->execute()
+			) ?
+			true : false;
+	}
+
+	public function update($id, array $attributs) {
+		if(!$this->_validator($attributs))
+			return false;
+		return (Sql::create()
+				->update($this->getName())
+				->columnsValues($attributs)
+				->where("id", "=", $id)
+				->execute()
+			) ?
+			true : false;
+	}
+
+	protected function _validator($data) {
+		foreach ($data as $key => $value) {
+			$res = true;
+			if(array_key_exists($key, $this->_rules)) {
+				$rule = $this->_rules[$key];
+				if(is_array($rule)) {
+					if(array_key_exists("required", $rule) && empty($value))
+						return false;
+					if(array_key_exists("numeric", $rule) && !is_numeric($value))
+						return false;
+					if(array_key_exists("integer", $rule) && !is_integer($value))
+						return false;
+					if(array_key_exists("string", $rule) && !is_string($value))
+						return false;
+					if(array_key_exists("bool", $rule) && !is_bool($value))
+						return false;
+					if(array_key_exists("callable", $rule) && is_callable(array($this, $rule["callable"])))
+						return call_user_method_array($rule["callable"], $this, $value);
+				}
+			}
+			if(!$res) return false;
+		}
+		return true;
+	}
+
+	public function remove($id) {
+		return (Sql::create()
+				->update($this->getName())
+				->columnsValues(array("deleted" => true))
+				->where("id", "=", $id)
+				->execute()
+			) ?
+			true : false;
+	}
+
+	public function __call($name, array $params) {
 		// Traitement du nom de la fonction
 		$function = array();
 		$tmp = "";
@@ -33,29 +92,24 @@ class TableModel implements Iterator, Countable {
 		$options = (isset($params[1])) ? $params[1]: null;
 
 		if($function[0] == "get" && $function[1] == "by") {
+			$clause = (is_array($params[0])) ? $params[0] : array($params[0]) ;
+			$requete = Sql::create()->from($this->getName())->where($function[2], "IN", $clause);
 			$return = array();
-			foreach ($this->_collection as $key => $value) {
-				if(in_array($value->get($function[2]), $param))
-					array_push($return, $value);
-			}
-			if(isset($options["orderBy"])) {
-				$return = $return;
-			}
+			if(isset($options["orderBy"]))
+				$requete->orderBy($options["orderBy"]);
 			if(isset($options["limit"])) {
 				$start = (is_array($options["limit"])) ? $options["limit"][0] : 0 ;
 				$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
-				$return = array_slice($return, $start, $stop, false);
+				$requete->limit($start, $stop);
 			}
+			$data = $this->afterFind($requete->fetch()); // Traitement par la classe fille
+			$objectName = ucfirst($this->getName())."Object";
+			foreach ($data as $key => $value)
+				array_push($return, new $objectName($value, $this->_links, $this->_rules));
 			return $return;
 		}
 		else
 			return false;
-	}
-
-	public function get($rang) {
-		return (is_integer($rang)) ? 
-			$this->_collection[$rang]:
-			false;
 	}
 
 	public static function getLinkTo($referenceTable, $callerTable, $link, $param, $code) {
@@ -85,16 +139,22 @@ class TableModel implements Iterator, Countable {
 		}
 	}
 
-	private function setCollection() {
-		$data = Sql::create()
-					->from($this->getName())
-					->fetch();
-		$data = $this->afterFind($data); // Traitement par la classe fille
+	public function getAll($options) {
+		$return = array();
+		$requete = Sql::create()
+					->from($this->getName());
+		if(isset($options["orderBy"]))
+			$requete->orderBy($options["orderBy"]);
+		if(isset($options["limit"])) {
+			$start = (is_array($options["limit"])) ? $options["limit"][0] : 0 ;
+			$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
+			$requete->limit($start, $stop);
+		}
+		$data = $this->afterFind($requete->fetch()); // Traitement par la classe fille
 		$objectName = ucfirst($this->getName())."Object";
-		$collection = array();
 		foreach ($data as $key => $value)
-			array_push($collection, new $objectName($value, $this->_links));
-		$this->_collection = $collection;
+			array_push($return, new $objectName($value, $this->_links, $this->_rules));
+		return $return;
 	}
 
 	// Functions de la classe fille
@@ -102,28 +162,5 @@ class TableModel implements Iterator, Countable {
 	protected function afterFind($data) { return $data; }
 	protected function beforeSave($data) { return $data; }
 	protected function afterSave() {}
-
-	// For Iterator implement
-	public function rewind() {
-		$this->_key = 0;
-	}
-    public function valid() {
-        return array_key_exists($this->_key, $this->_collection);
-    }
-    public function key() {
-        return $this->_key;
-    }
-    public function current() {
-        return $this->_collection[$this->_key];
-    }
-    public function next() {
-        ++$this->_key;
-    }
-
-    // For Countable implement
-    public function count() {
-         return sizeof($this->_collection);
-    }
-
 
 }
