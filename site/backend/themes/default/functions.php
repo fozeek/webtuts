@@ -10,6 +10,9 @@
 	}
 	$cache->end();
 */
+	function image($image) {
+		return Kernel::path("uploads", true).$image;
+	}
 
 	function text($text) {
 		$lang = file_get_contents(Kernel::path("themes")."lang/".__lang__.".json");

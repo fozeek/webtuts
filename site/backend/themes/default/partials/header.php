@@ -84,6 +84,9 @@
 				<div class="panel" style="display: none;position: absolute;bottom: 0px;right: 0px;">
 					<div style="position: relative;">
 						<div style="position: absolute;top: 5px;right: 5px;background: white;min-width: 200px;border: 1px solid #414a5c;font-size: 0.8em;border-radius: 2px;box-shadow: 0px 1px 5px grey;">
+							<div style="color: #414a5c;padding: 5px;padding-left: 5px;text-align: center;border-bottom: 1px solid #E5E5E5;">
+								Compte
+							</div>
 							<div style="color: #414a5c;padding: 5px;padding-left: 5px;text-align: center;">
 								Se déconnecter
 							</div>

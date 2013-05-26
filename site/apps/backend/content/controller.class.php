@@ -2,8 +2,16 @@
 
 class ContentController extends Controller {
 	public function IndexAction() {
-		$tutorials = $this->Model->Tutorial->getAll(array(
-				"orderBy" => array("date", "ASC")
+		$tutorials = $this->Model->union(array(
+				"tutorial",
+				"news",
+			), array(
+				"id",
+				"titre",
+				"text",
+				"date",
+			), array(
+				"orderBy" => array("date", "ASC"),
 			));
 		$this->render(compact("tutorials"));
 	}
@@ -13,8 +21,20 @@ class ContentController extends Controller {
 		$this->render(compact("tutorial"));
 	}
 
+	public function UpdateAction($id) {
+		if($this->Request->is("Post")) {
+			$data = $this->Request->getData();
+			$this->redirect(Router::getUrl("Content", "show", array("id" => $data["id"])));
+		}
+		else {
+			$tutorial = $this->Model->Tutorial->getById($id);
+			$this->render(compact("tutorial"));
+		}
+	}
+	/*
+
 	public function AddAction($params) {
-		/*$categories = App::getClassArray("category");
+		$categories = App::getClassArray("category");
 		$nodes = App::getClassArray("node");
 	
 		$form = $this->getRequest();
@@ -41,7 +61,7 @@ class ContentController extends Controller {
 		}
 		else {
 			return $this->render(array('categories' => $categories, 'nodes' => $nodes));
-		}*/
+		}
 		return $this->render(null);
 	}
 
@@ -89,6 +109,7 @@ class ContentController extends Controller {
 		$articles = App::getClassArray("article", array("where" => "node != 4 AND deleted = false"));//, array("where" => "have category"));
 		return $this->render(array('articles' => $articles, "lang" => $lang));
 	}
+	*/
 }
 
 ?>

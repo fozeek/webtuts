@@ -20,7 +20,7 @@ Class RequestComponent extends Component {
 		return $this->_data;
 	}
 
-	public function isMethod($type) {
+	public function is($type) {
 		$type = strtolower($type);
 		if(!empty($_POST) && $type=="post")
 			return true;

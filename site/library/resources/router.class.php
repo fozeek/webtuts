@@ -50,7 +50,7 @@ class Router {
 			$url = $route["pattern"];
 			foreach ($params as $key => $value)
 				$url = str_replace("{".$key."}", $value, $url);
-			return Kernel::getCurrentLang().$url;
+			return "/".Kernel::getCurrentLang().$url;
 		}
 		else {
 			$url = "/".$controller."/".$action;

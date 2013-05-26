@@ -41,6 +41,7 @@ class Sql {
 	private $select;
 	private $from;
 	private $where;
+	private $union = array();
 	private $columns = array();
 	private $values = array();
 	private $orderby;
@@ -194,6 +195,11 @@ class Sql {
 		return $this;
 	}
 
+	public function union($table, $fields) {
+		array_push($this->union, array($table, $fields));
+		return $this;
+	}
+
 	public function andWhere($attribut, $condition=null, $param=null, $typeVar=true) {
 		if(is_object($attribut))
 			$this->where[] = $attribut;
@@ -259,6 +265,7 @@ class Sql {
 		else {
 			$requete .= $this->select;
 		}
+
 		// FROM
 		$requete .= " FROM ";
 		$cpt = 0;
@@ -268,6 +275,19 @@ class Sql {
     		$cpt++;
     	}
     	$requete .= " ".chr($cpt+64)."";
+
+    	if(!empty($this->union)) {
+			foreach ($this->union as $union) {
+				$requete .= " UNION SELECT ";
+				$cpt = 0;
+				foreach($union[1] as $value) {
+					if($cpt!=0) $requete .= ", ";
+					$requete .= $value;
+		    		$cpt++;
+		    	}
+				$requete .= " FROM $union[0] ";
+			}
+		}
 
 		// WHERE
 		$requete .= $this->getWhereString();

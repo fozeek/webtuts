@@ -168,7 +168,7 @@ class TableModel{
 			if(!class_exists($objectName))
 				$objectName = "StdObject";
 			foreach ($data as $key => $value)
-				array_push($return, new $objectName($value, $this->_links, $this->_rules));
+				array_push($return, new $objectName($value, $this->getName(), $this->_links, $this->_rules));
 			if(count($return) > 0 )
 				return (count($return) > 1) ? $return : $return[0] ;
 			else
@@ -182,27 +182,34 @@ class TableModel{
 		Permet de récupérer les liens d'un objet
 	*/
 	public static function getLinkTo($referenceTable, $callerTable, $link, $param, $code) {
-		$table = new $referenceTable();
+		if(!class_exists($referenceTable))
+			$nameReferenceTable = "StdTable";
+		else
+			$nameReferenceTable = $referenceTable;
+		$table = new $nameReferenceTable(str_replace("Table", "", $referenceTable));
 		if($link == "OneToOne" || $link == "ManyToOne") {
 			$return = $table->getById($param);
-			return (count($return) == 0) ? false : $return[0];
+			return (count($return) == 0) ? false : $return;
 		}
 		else {
-			$linkTableName = str_replace("table" , "", strtolower($callerTable))."_".str_replace("table" , "", strtolower($referenceTable));
+			//$linkTableName = str_replace("table" , "", strtolower($callerTable))."_".str_replace("table" , "", strtolower($referenceTable));
 			$res = Sql::create()
 					->select()
-					->from($linkTableName)
-					->where("id_caller", "=", $param, false)
+					->from("_links")
+					->where("root", "=", $param, false)
 					->andWhere("code", "=", $code, false)
 					->fetch();
+			if(count($res)==0)
+				return array();
 			$ids = array();
 			foreach ($res as $key => $value)
-				array_push($ids, $value["id_reference"]);
+				array_push($ids, $value["link"]);
 			$return = $table->getById($ids);
 			if(count($return) == 0)
-				return false;
-			elseif(count($return) == 1)
-				return $return[0];
+				return array();
+			elseif(!is_array($return)) {
+				return array($return);
+			}
 			else
 				return $return;
 		}

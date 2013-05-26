@@ -1,16 +1,16 @@
 <?php
 
-class UserTable extends TableModel {
+class TutorialTable extends TableModel {
 	
 	protected $_links = array(
 			"image" => array(
 					"link" => "OneToOne",
 					"reference" => "image",
 				),
-			"images" => array(
+			"comments" => array(
 					"link" => "OneToMany",
-					"reference" => "content",
-					"code" => 1,
+					"reference" => "comment",
+					"code" => 1
 				),
 		);
 
