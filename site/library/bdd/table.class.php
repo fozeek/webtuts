@@ -3,19 +3,46 @@
 
 class TableModel{
 
-	// Defined by childs
-		// links
+	/*
+		Liste des liens Objet des attributs
+	*/
 	protected $_links = array();
-		// rules, id and deleted are allredy setted
+
+	/*
+		Liste des rêgles des attributs
+	*/
 	protected $_rules = array(); 
 
+	/*
+		Nom de la table
+	*/
+	private $name;
+
+	/*
+		Constructeur
+	*/
 	public function __construct() {
+		$this->_getVirtualLinks();
+		$this->_getVirtualRules();
 	}
 
+	/*
+		Récupérer le nom de la table
+	*/
 	public function getName() {
-		return strtolower(str_replace("Table", "", get_class($this)));
+		return (isset($this->name)) ? $this->name : strtolower(str_replace("Table", "", get_class($this)));
 	}
 
+	/*
+		Redefinir le nom de la table
+	*/
+	protected function setName($name) {
+		$this->name = $name;
+	}
+
+	/*
+		Ajouter un élément à la table
+	*/
 	public function save(array $attributs) {
 		if(!$this->_validator($attributs))
 			return false;
@@ -27,6 +54,11 @@ class TableModel{
 			true : false;
 	}
 
+	/*
+		Modifier un élément de la table
+		À faire : 
+			Pourvoir mettre un array d'IDs
+	*/
 	public function update($id, array $attributs) {
 		if(!$this->_validator($attributs))
 			return false;
@@ -39,6 +71,23 @@ class TableModel{
 			true : false;
 	}
 
+	/*
+		Récupération des liens dans la BDD
+	*/
+	protected function _getVirtualLinks() {
+
+	}
+
+	/*
+		Récupération des regles dans la BDD
+	*/
+	protected function _getVirtualRules() {
+		
+	}
+
+	/*
+		Vérifie les données selon les regles définies dans $this->_rules
+	*/
 	protected function _validator($data) {
 		foreach ($data as $key => $value) {
 			$res = true;
@@ -64,16 +113,18 @@ class TableModel{
 		return true;
 	}
 
+	/*
+		Supprime un élément de la table
+		Met l'attribut "deleted" à true
+	*/
 	public function remove($id) {
-		return (Sql::create()
-				->update($this->getName())
-				->columnsValues(array("deleted" => true))
-				->where("id", "=", $id)
-				->execute()
-			) ?
-			true : false;
+		return ($this->update($id, array("deleted" => true))) ?
+			true : false ;
 	}
 
+	/*
+		Fonctions auto-générées
+	*/
 	public function __call($name, array $params) {
 		// Traitement du nom de la fonction
 		$function = array();
@@ -87,13 +138,16 @@ class TableModel{
 		}
 		array_push($function, strtolower($tmp));
 
-		//traitement des parametres
-		$param = $params[0];
-		$options = (isset($params[1])) ? $params[1]: null;
-
-		if($function[0] == "get" && $function[1] == "by") {
-			$clause = (is_array($params[0])) ? $params[0] : array($params[0]) ;
-			$requete = Sql::create()->from($this->getName())->where($function[2], "IN", $clause);
+		if($function[0] == "get" && ($function[1] == "by" || $function[1] == "all")) {
+			$cptWhere = 0;
+			$requete = Sql::create()->from($this->getName());
+			if($function[1] == "by") {
+				$options = (isset($params[1])) ? $params[1]: null;
+				$requete->where($function[2], "IN", (is_array($params[0])) ? $params[0] : array($params[0]));
+				$cptWhere++;
+			}
+			else
+				$options = (isset($params[0])) ? $params[0]: null;
 			$return = array();
 			if(isset($options["orderBy"]))
 				$requete->orderBy($options["orderBy"]);
@@ -102,16 +156,31 @@ class TableModel{
 				$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
 				$requete->limit($start, $stop);
 			}
-			$data = $this->afterFind($requete->fetch()); // Traitement par la classe fille
+			if(isset($options["where"])) {
+				foreach ($options["where"] as $key => $value) {
+					$nameFunctionWhere = ($cptWhere==0) ? "where" : "andWhere";
+					$requete->$nameFunctionWhere($value[0], $value[1], $value[2]);
+					$cptWhere++;
+				}
+			}
+			$data = $this->afterFind($requete->fetch(), $options); // Traitement par la classe fille
 			$objectName = ucfirst($this->getName())."Object";
+			if(!class_exists($objectName))
+				$objectName = "StdObject";
 			foreach ($data as $key => $value)
 				array_push($return, new $objectName($value, $this->_links, $this->_rules));
-			return $return;
+			if(count($return) > 0 )
+				return (count($return) > 1) ? $return : $return[0] ;
+			else
+				return false;
 		}
 		else
 			return false;
 	}
 
+	/*
+		Permet de récupérer les liens d'un objet
+	*/
 	public static function getLinkTo($referenceTable, $callerTable, $link, $param, $code) {
 		$table = new $referenceTable();
 		if($link == "OneToOne" || $link == "ManyToOne") {
@@ -139,27 +208,9 @@ class TableModel{
 		}
 	}
 
-	public function getAll($options) {
-		$return = array();
-		$requete = Sql::create()
-					->from($this->getName());
-		if(isset($options["orderBy"]))
-			$requete->orderBy($options["orderBy"]);
-		if(isset($options["limit"])) {
-			$start = (is_array($options["limit"])) ? $options["limit"][0] : 0 ;
-			$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
-			$requete->limit($start, $stop);
-		}
-		$data = $this->afterFind($requete->fetch()); // Traitement par la classe fille
-		$objectName = ucfirst($this->getName())."Object";
-		foreach ($data as $key => $value)
-			array_push($return, new $objectName($value, $this->_links, $this->_rules));
-		return $return;
-	}
-
-	// Functions de la classe fille
-	protected function beforeFind() {}
-	protected function afterFind($data) { return $data; }
+	// Fonctions à définir dans la classe fille
+	protected function beforeFind($params) { return $params; }
+	protected function afterFind($data, $params) { return $data; }
 	protected function beforeSave($data) { return $data; }
 	protected function afterSave() {}
 

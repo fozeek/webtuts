@@ -68,10 +68,9 @@ class Kernel {
 	static public function loadPaths($paths) {
 		foreach ($paths as $key => $value) {
 			$pathTmp = array_values(array_filter(explode("%", preg_replace("#{([".Router::$_regex."]+)}#i", "%*$1*%", $value))));
-			foreach ($pathTmp as $key2 => $value2) {
+			foreach ($pathTmp as $key2 => $value2)
 				if(preg_match("#\*([".Router::$_regex."]+)\*#i", $value2))
 					$pathTmp[$key2] = $paths[str_replace("*", "", $value2)];
-			}
 			$paths[$key] = implode("", $pathTmp);
 		}
 		self::$_paths = $paths;
@@ -110,6 +109,8 @@ class Kernel {
 	private function dispatcher($route) {
 		self::$_route = array("controller" => $route["controller"], "action" => $route["action"]);
 		$ControllerName = ucfirst($route["controller"])."Controller";
+		if(!import("app", $route["controller"]."/controller"))
+			Error::render(1, $ControllerName);
 		$Controller = new $ControllerName();
 		$function = ucfirst($route["action"]."Action");
 		if(method_exists($ControllerName, $function)) {

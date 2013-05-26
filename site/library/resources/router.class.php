@@ -56,7 +56,7 @@ class Router {
 			$url = "/".$controller."/".$action;
 			foreach ($params as $value)
 				$url .= "/".$value;
-			return Kernel::getCurrentLang().$url;
+			return "/".Kernel::getCurrentLang().$url;
 		}
 	}
 

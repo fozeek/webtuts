@@ -4,6 +4,8 @@ import("bdd", "model");
 import("bdd", "object");
 import("bdd", "table");
 import("bdd", "shema");
+import("bdd", "stdobject");
+import("bdd", "stdtable");
 
 class ModelComponent extends Component {
 
@@ -13,14 +15,16 @@ class ModelComponent extends Component {
 		parent::__construct($controller, $params);
 	}
 
-	private function getTable($table, $options = null) {
+	private function getTable($table) {
 		if(import("model", strtolower($table)."table") && import("model", strtolower($table)."object")) {
 			$name = ucfirst($table)."Table";
-			$this->_tables[$table] = new $name($options);
+			$this->_tables[$table] = new $name();
 			return $this->_tables[$table];
 		}
-		else
-			return false;
+		else {
+			$this->_tables[$table] = new StdTable($table);
+			return $this->_tables[$table];
+		}
 	}
 
 	public function __get($table) {
@@ -32,5 +36,13 @@ class ModelComponent extends Component {
 		}
 		else
 			return $this->$table;
+	}
+
+	private function createTable($table, $attributs) {
+		//
+	}
+
+	private function setTable($table) {
+		//
 	}
 }

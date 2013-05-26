@@ -1,4 +1,4 @@
-<?php partial("header"); ?>
+<?php partial("header", array("title" => "home")); ?>
 salut
 <?= $this->Form->start(); ?>
 <?= $this->Form->input("lol", array(

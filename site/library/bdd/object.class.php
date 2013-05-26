@@ -1,9 +1,8 @@
 <?php
 
-
 class ObjectModel {
 
-	private $_attributs;
+	protected $_attributs;
 	protected $_links;
 	protected $_rules;
 
@@ -23,10 +22,7 @@ class ObjectModel {
 			$code = (isset($this->_links[$attributName]["code"])) ? $this->_links[$attributName]["code"] : null ;
 			$this->_attributs[$attributName] = TableModel::getLinkTo($objectTable, str_replace("Object", "", get_class($this))."Table", $link, $value, $code);
 		}
-		if(isset($this->_attributs[$attributName]))
-			return $this->_attributs[$attributName];
-		else
-			return null;
+		return (isset($this->_attributs[$attributName])) ?
+			$this->_attributs[$attributName] : false ;
 	}
-
 }

@@ -1,11 +1,10 @@
 <?php 
-	partial("header", array("header" => "content", "title" => "Content")); 
+	partial("header", array("header" => "content", "title" => null)); 
 ?>
 
 
 <div style="clear: both;height: 1px;background: #E5E5E5;">
 		</div>
-
 		
 <div id="search-box" style="float: left;padding: 9px;padding-left: 35px;color: #232323;border-bottom: 1px solid #ccc;background: #f8f8f8;">
 	Node
@@ -17,18 +16,20 @@
 		</div>
 <div style="padding: 20px;padding-top: 0px;">
 		
-		<?php for($cpt=0;$cpt<20;$cpt++) : ?>
-	<a class="itemlist" href="#">
+<?php foreach($tutorials as $tutorial) : ?>
+	<a class="itemlist" href="<?= Router::getUrl("content", "show", array("id"=>$tutorial->get("id")), false); ?>">
 		
 		<div style="overflow: hidden;">	
-			Article <?= $cpt ?> <span style="color: #ccc;font-size: 0.8em;"><?php if(rand ( 0, 1 )==0) echo "page"; else echo "tutoriel"; ?></span>
+			<?= $tutorial->get("titre"); ?>
 			<br />
-			<span style="font-size: 0.8em;color: grey;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non modi cum sint placeat ex ipsa unde optio totam aspernatur voluptates cumque explicabo iure ea expedita obcaecati ipsam quaerat maxime doloremque.</span>
+			<span style="font-size: 0.8em;color: grey;">
+				<?= $tutorial->get("text"); ?>
+			</span>
 		</div>
 		<div style="clear: both;">
 		</div>
 	</a>
-<?php endfor; ?>
+<?php endforeach; ?>
 
 </div>
 

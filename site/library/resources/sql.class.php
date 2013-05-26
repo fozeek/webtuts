@@ -403,9 +403,15 @@ class Sql {
 			$requete .= " WHERE ";
 			foreach ($this->where as $key => $value) {
 				if(is_array($value)) {
-					$args = ($value[2] == "IN" || $value[2] == "NOT IN" ) ?
-						"(".implode(",", $value[3]).")" : $value[3];
 					$cote2 = (is_string($value[3]) && $value[4]) ? '\'' : '';
+					if($value[2] == "IN" || $value[2] == "NOT IN" ) {
+						if(is_string($value[3][0]))
+							foreach ($value[3] as $key3 => $value3)
+								$value[3][$key3] = "'".$value3."'";
+						$args = "(".implode(", ", $value[3] ).")";
+					}
+					else 
+						$args = $value[3];
 					$requete .= " ".$this->OPE_LOGIC_TAB[$value[0]]." ".$value[1]." ".$value[2]." ".$cote2.$args.$cote2." ";
 				}
 				elseif(is_string($value)) {
@@ -423,9 +429,15 @@ class Sql {
 		$requete = "(";
 		foreach ($object->where as $key2 => $value2) {
 			if(is_array($value)) {
-				$args = ($value[2] == "IN" || $value[2] == "NOT IN" ) ?
-					"(".implode(",", $value[3]).")" : $value[3];
 				$cote2 = (is_string($value[3]) && $value[4]) ? '\'' : '';
+				if($value[2] == "IN" || $value[2] == "NOT IN" ) {
+					if(is_string($value[3][0]))
+						foreach ($value[3] as $key3 => $value3)
+							$value[3][$key3] = "'".$value3."'";
+					$args = "(".implode(", ", $value[3] ).")";
+				}
+				else 
+					$args = $value[3];
 				$requete .= " ".$this->OPE_LOGIC_TAB[$value[0]]." ".$value[1]." ".$value[2]." ".$cote2.$args.$cote2." ";
 			}
 			elseif(is_string($value2)) {

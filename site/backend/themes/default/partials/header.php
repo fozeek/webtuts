@@ -163,6 +163,7 @@
 				</a>
 				</div>
 		</div>
+		<? if($title !== null) : ?>
 		<div style="z-index: 25;opacity: 0.8;position: fixed;left: 251px;top: 41px;width: 100%;border-top: 1px solid #d1d5dd;border-bottom: 1px solid #c7cbd4;padding: 10px;padding-left: 15px;font-size: 0.8em;font-weight: bold;color: #888793;
 background: #e0e2e7; /* Old browsers */
 background: -moz-linear-gradient(top,  #e0e2e7 0%, #f3f4f7 100%); /* FF3.6+ */
@@ -177,12 +178,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e2e7', end
 					<?= $title ?>
 				</div>
 			</div>
+		<?php endif; ?>
 	<div id="page">
 		<div style="position: relative;">
 		<div style="float: left;width: 251px;background: #d6d8de;position: relative;">
 			test
 		</div>
-		<div style="overflow: hidden;background: #eff1f4;margin-top: 79px;">
+		<div style="overflow: hidden;background: #eff1f4;margin-top: <? if($title !== null) : ?>79<?php else : ?>41<?php endif; ?>px;">
 
 			
 		

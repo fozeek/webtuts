@@ -1,19 +1,16 @@
 <?php
 
-class ContentControler extends Controler {
-	public function IndexAction($params) {
-		return $this->render(null);
+class ContentController extends Controller {
+	public function IndexAction() {
+		$tutorials = $this->Model->Tutorial->getAll(array(
+				"orderBy" => array("date", "ASC")
+			));
+		$this->render(compact("tutorials"));
 	}
 
-	public function ShowAction($params) {
-		/*$article = App::getClass("article", $params[3]);
-		if(!empty($params[4]))
-			$lang = $params[4];
-		else
-			$lang = $params[0];
-		return $this->render(array('article' => $article, "lang" => $lang));
-		*/
-		return $this->render(null);
+	public function ShowAction($id) {
+		$tutorial = $this->Model->Tutorial->getById($id);
+		$this->render(compact("tutorial"));
 	}
 
 	public function AddAction($params) {
