@@ -48,7 +48,8 @@ class ObjectModel {
 	}
 
 	public function __call($function, $params) {
-		
+		// Ajout dans un link (possibilité de cascade)
+		// deleted dans un link (possibilité de cascade)
 	}
 
 }
