@@ -4,33 +4,51 @@ class ObjectModel {
 
 	protected $_name;
 	protected $_attributs;
-	protected $_links;
-	protected $_rules;
 
-	public function __construct(array $attributs, $name, array $links, array $rules) {
+	public function __construct(array $attributs, $name) {
 		$this->_attributs = $attributs;
 		$this->_name = $name;
-		$this->_links = $links;
-		$this->_rules = $rules;
 	}
 
 	public function getName() {
 		return $this->_name;
 	}
 
+	/*
+		Recupérer les links
+	*/
+	private function _getLinks($attribut = null) {
+		$table = ucfirst($this->getName())."Table";
+		return ($attribut) ? $table::$_links[$attribut] : $table::$_links ;
+	}
+
+	/*
+		Recupérer les rules
+	*/
+	private function _getRules($attribut = false) {
+		$table = ucfirst($this->getName())."Table";
+		return ($attribut) ? $table::$_rules[$attribut] : $table::$_rules ;
+	}
+
 	public function get($attributName) {
-		if(array_key_exists($attributName, $this->_links) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
-			import("model", strtolower($this->_links[$attributName]["reference"])."object");
-			import("model", strtolower($this->_links[$attributName]["reference"])."table");
+		$links = $this->_getLinks();
+		if(array_key_exists($attributName, $links) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
+			import("model", strtolower($links[$attributName]["reference"])."object");
+			import("model", strtolower($links[$attributName]["reference"])."table");
 			$this->_attributs[$attributName] = TableModel::getLinkTo(
-				ucfirst($this->_links[$attributName]["reference"])."Table", 
+				ucfirst($links[$attributName]["reference"])."Table", 
 				str_replace("Object", "", get_class($this))."Table", 
-				(isset($this->_links[$attributName]["link"])) ? $this->_links[$attributName]["link"] : null, 
+				(isset($links[$attributName]["link"])) ? $links[$attributName]["link"] : null, 
 				(isset($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->get("id"), 
-				(isset($this->_links[$attributName]["code"])) ? $this->_links[$attributName]["code"] : null 
+				(isset($links[$attributName]["code"])) ? $links[$attributName]["code"] : null 
 			);
 		}
 		return (isset($this->_attributs[$attributName])) ?
 			$this->_attributs[$attributName] : false ;
 	}
+
+	public function __call($function, $params) {
+		
+	}
+
 }

@@ -18,6 +18,7 @@
 	Router::add("home", "index", "/{lol}-tcouhou-{biloute}-test");
  	Router::add("pages", "sponsors", "/sponsors");
  	Router::add("user", "show", "/utilisateur-{id}.html");
+ 	Router::add("content", "show", "/{node}-{id}.html");
 
  	/*
 		Mode de transmission des parametres

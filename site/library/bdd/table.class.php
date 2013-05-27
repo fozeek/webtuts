@@ -6,12 +6,12 @@ class TableModel{
 	/*
 		Liste des liens Objet des attributs
 	*/
-	protected $_links = array();
+	public static $_links = array();
 
 	/*
 		Liste des rêgles des attributs
 	*/
-	protected $_rules = array(); 
+	public static $_rules = array(); 
 
 	/*
 		Nom de la table
@@ -24,6 +24,22 @@ class TableModel{
 	public function __construct() {
 		$this->_getVirtualLinks();
 		$this->_getVirtualRules();
+	}
+
+	/*
+		Recupérer les links
+	*/
+	public function getLinks($attribut = null) {
+		$table = ucfirst($this->getName())."Table";
+		return ($attribut) ? $table::$_links[$attribut] : $table::$_links ;
+	}
+
+	/*
+		Recupérer les rules
+	*/
+	public function getRules($attribut = false) {
+		$table = ucfirst($this->getName())."Table";
+		return ($attribut) ? $table::$_rules[$attribut] : $table::$_rules ;
 	}
 
 	/*
@@ -91,8 +107,8 @@ class TableModel{
 	protected function _validator($data) {
 		foreach ($data as $key => $value) {
 			$res = true;
-			if(array_key_exists($key, $this->_rules)) {
-				$rule = $this->_rules[$key];
+			if(array_key_exists($key, self::getRules())) {
+				$rule = self::getRules($key);
 				if(is_array($rule)) {
 					if(array_key_exists("required", $rule) && empty($value))
 						return false;
@@ -168,9 +184,9 @@ class TableModel{
 			if(!class_exists($objectName))
 				$objectName = "StdObject";
 			foreach ($data as $key => $value)
-				array_push($return, new $objectName($value, $this->getName(), $this->_links, $this->_rules));
-			if(count($return) > 0 )
-				return (count($return) > 1) ? $return : $return[0] ;
+				array_push($return, new $objectName($value, $this->getName()));
+			if(count($return) > 0)
+				return (count($return) > 1 || $function[1] == "all") ? $return : $return[0] ;
 			else
 				return false;
 		}

@@ -16,15 +16,15 @@ Class RequestComponent extends Component {
 		return $this->_data[$attribut];
 	}
 
-	public function getData($method = null) {
-		return $this->_data;
+	public function getData($attribut = null) {
+		return ($attribut === null) ? $this->_data : $this->_data[$attribut] ;
 	}
 
 	public function is($type) {
 		$type = strtolower($type);
 		if(!empty($_POST) && $type=="post")
 			return true;
-		elseif(count($_GET)>1 && $type=="get") // >0 car urlrewriting
+		elseif(count($_GET)>0 && $type=="get")
 			return true;
 		else
 			return false;

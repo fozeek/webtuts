@@ -2,7 +2,7 @@
 
 class UserTable extends TableModel {
 	
-	protected $_links = array(
+	public static $_links = array(
 			"image" => array(
 					"link" => "OneToOne",
 					"reference" => "image",

@@ -2,22 +2,33 @@
 
 class ContentController extends Controller {
 	public function IndexAction() {
-		$tutorials = $this->Model->union(array(
-				"tutorial",
-				"news",
-			), array(
-				"id",
-				"titre",
-				"text",
-				"date",
-			), array(
-				"orderBy" => array("date", "ASC"),
+		if($this->Request->is("get")) {
+			$query = ucfirst($this->Request->getData("q"));
+			$tutorials = $this->model->$query->getAll(array(
+				"orderBy" => array("date", "DESC"),
 			));
-		$this->render(compact("tutorials"));
+		}
+		else {
+			$tutorials = $this->Model->union(array(
+					"tutorial",
+					"news",
+				), array(
+					"id",
+					"titre",
+					"text",
+					"date",
+				), array(
+					"orderBy" => array("date", "DESC"),
+				)
+			);
+			$query = null;
+		}
+		$this->render(compact("tutorials", "query"));
 	}
 
-	public function ShowAction($id) {
-		$tutorial = $this->Model->Tutorial->getById($id);
+	public function ShowAction($node, $id) {
+		$node = ucfirst($node);
+		$tutorial = $this->Model->$node->getById($id);
 		$this->render(compact("tutorial"));
 	}
 

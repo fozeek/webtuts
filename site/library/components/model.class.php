@@ -41,9 +41,14 @@ class ModelComponent extends Component {
 	}
 
 	public function union($tables, $fields, $options) {
+		import("model", strtolower($tables[0])."table");
+		import("model", strtolower($tables[0])."table");
 		$requete = Sql::create()->select(array_merge($fields, array("'".$tables[0]."' AS _object")))->from($tables[0]);
-		foreach (array_slice($tables, 1, null, false) as $table)
+		foreach (array_slice($tables, 1, null, false) as $table) {
 			$requete->union($table, array_merge($fields, array("'".$table."' AS _object")));
+			import("model", strtolower($table)."table");
+			import("model", strtolower($table)."table");
+		}
 		if(isset($options["orderBy"]))
 				$requete->orderBy($options["orderBy"]);
 		if(isset($options["limit"])) {
@@ -65,7 +70,7 @@ class ModelComponent extends Component {
 			unset($object["_object"]);
 			if(!class_exists($objectName))
 				$objectName = "StdObject";
-			array_push($return, new $objectName($object, $name, array(), array()));
+			array_push($return, new $objectName($object, $name));
 		}
 		return $return;
 	}

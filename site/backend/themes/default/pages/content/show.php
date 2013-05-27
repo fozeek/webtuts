@@ -15,7 +15,7 @@
 	<?php foreach ($tutorial->get("comments") as $comment) : ?>
 		<div style="padding: 10px;border-bottom: 1px solid #E5E5E5;font-size: 0.8em;">
 			<a href="<?= Router::getUrl("user", "show", array("id" => $comment->get("author")->get("id"))) ?>">
-				<div style="position: relative;float: left;margin-right: 10px;height: 50px;width: 50px;background: #E5E5E5 url(<?= $comment->get("author")->getGravatar(); ?>) center center no-repeat;">
+				<div style="position: relative;float: left;margin-right: 10px;height: 50px;width: 50px;background: #E5E5E5 url(<?= $comment->get("author")->getGravatar(50); ?>) center center no-repeat;">
 					<div style="position: absolute;bottom: 0px;right: 0px;height: 1px;width: 100%;background: rgba(0,0,0, 0.2);">
 					</div>
 					<div style="position: absolute;top: 0px;right: 0px;height: 1px;width: 100%;background: rgba(0,0,0, 0.2);">

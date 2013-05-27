@@ -144,6 +144,16 @@
 						Taxonomy
 					</div>
 				</a>
+				<a href="<?php echo Router::getUrl("user", "index"); ?>">
+					<div class="menu-onglet<?php if($header=="taxonomy") { ?>-active<?php } ?>">
+						Users
+					</div>
+				</a>
+				<a href="<?php echo Router::getUrl("comments", "index"); ?>">
+					<div class="menu-onglet<?php if($header=="taxonomy") { ?>-active<?php } ?>">
+						Comments
+					</div>
+				</a>
 				<a href="<?php echo Router::getUrl("plugin", "index"); ?>">
 					<div class="menu-onglet<?php if($header=="plugins") { ?>-active<?php } ?>">
 						Plug-ins
