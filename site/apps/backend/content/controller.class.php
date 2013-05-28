@@ -13,8 +13,7 @@ class ContentController extends Controller {
 		$node = $this->Request->getData("node");
 		$query = $this->Request->getData("query");
 		$options["orderBy"] = array("date", "DESC");
-		if($query)
-				$options["where"][0] = array("title", "LIKE", "%".$query."%");
+		if($query) $options["where"][0] = array("title", "LIKE", "%".$query."%");
 		$tutorials = ($node) ?
 			$this->model->$node->getAll($options): 
 			$this->Model->bundle("content", $options);

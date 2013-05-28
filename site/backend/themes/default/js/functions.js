@@ -113,7 +113,10 @@ $("document").ready(function() {
 				if(data.length > 0) {
 					$("#no-match-message").css("display", "none");
 					$.each(data, function(key, val) {
-						$("#list").append('<a class="itemlist" href="' + val.link + '"><div style="overflow: hidden;max-height: 40px;position: relative;">	<div style="position: absolute;top: -10px;right: 0px;font-size: 2.9em;opacity: 0.1;">' + val.name + '</div>' + val.title + '<br /><span style="font-size: 0.8em;color: grey;">' + val.text + '</span></div><div style="clear: both;"></div></a>');
+						var title = val.title;
+						var reg=new RegExp("(" + $("#search-input").attr("value") + ")", "g");
+						title = title.replace(reg, '<span style="background: yellow;border-radius: 3px;">$1</span>');
+						$("#list").append('<a class="itemlist" href="' + val.link + '"><div style="overflow: hidden;max-height: 40px;position: relative;">	<div style="position: absolute;top: -10px;right: 0px;font-size: 2.9em;opacity: 0.1;">' + val.name + '</div>' + title + '<br /><span style="font-size: 0.8em;color: grey;">' + val.text + '</span></div><div style="clear: both;"></div></a>');
 					});
 				}
 				else
