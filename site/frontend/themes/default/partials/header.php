@@ -59,7 +59,6 @@
 			</div>
 			
 			<div id="search-box">
-				<span><?php echo QUICK_SEARCH; ?> :</span>
 				<input type="text" value="" class="input-template" placeholder="<?php echo PL_SEARCH; ?>" />
 				<input type="submit" value="" class="button-search" />
 			</div>

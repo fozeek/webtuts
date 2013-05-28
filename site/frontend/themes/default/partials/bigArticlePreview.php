@@ -3,7 +3,7 @@
 ?>
 
 <div class="one-article">
-    <div class="left" style="width: 339px; height: 216px;text-align: center;">
+    <div class="left" style="width: 339px; height: 216px;">
 	<a href="<?php echo $urlArticle; ?>">
 	    <img src="<?php echo $url_image; ?>" alt="<?php echo ALT_ARTICLE_IMAGE . " " . $article->get("title"); ?>" />
 	</a>
@@ -11,7 +11,7 @@
 
     
     <div class="left article-content">
-	<h2><a href="<?php echo $urlArticle; ?>"><?php echo $article->get("title"); ?></a></h2>
+	<h3><a href="<?php echo $urlArticle; ?>"><?php echo $article->get("title"); ?></a></h3>
 
 	<p class="article-caption">
 	    <span class="date"><?php echo THE . " " . format_date($article->get("date")) . " " . BY; ?></span>
@@ -48,7 +48,7 @@
 		    $temp = implode("<br/>", $temp_array);
 		}
 	?>
-	<a style="<?php echo (isset($temp_array) ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Kernel::getUrl("blog/category/" . Kernel::sanitize($article->get("category")->get("name"))); ?>">
+	<a style="<?php echo (strlen($article->get("category")->get("name")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Kernel::getUrl("blog/category/" . Kernel::sanitize($article->get("category")->get("name"))); ?>">
 	    <?php 
 		echo $temp; ?>
 	</a>

@@ -25,6 +25,23 @@
 	-ms-animation-timing-function: linear;
 
 }
+#oiseau-volant2{
+	animation: birdFall2 10s;
+	animation-iteration-count: 1;
+	-moz-animation: birdFall2 10s;
+	-moz-animation-iteration-count: 1;
+	-webkit-animation: birdFall2 10s;
+	-webkit-animation-iteration-count: 1;
+	-o-animation: birdFall2 10s;
+	-o-animation-iteration-count: 1;
+	
+	animation-timing-function: linear;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-timing-function: linear;
+	-o-animation-timing-function: linear;
+	-ms-animation-timing-function: linear;
+
+}
 .bird-eye{
 	position: absolute;
 	top: 30px;
@@ -206,4 +223,33 @@
 	80%  {top: 35px;right:8px;}
 	90%  {top: 35px;right:8px;}
 	100% {top: 30px;right:13px;}
+}
+
+/** FALL **/
+@-webkit-keyframes birdFall2
+{
+	0%  {
+		top: 8px; left: 25px;
+		-webkit-transform: rotate(50deg);
+	    }
+	20%{
+		top: 490px; left: 472px;
+		-webkit-transform: rotate(450deg);
+	    }
+	40%{
+		top: 490px; left: 472px;
+		-webkit-transform: rotate(450deg);
+	    }
+	60%{
+		top: 490px; left: 472px;
+		-webkit-transform: rotate(450deg);
+	    }
+	80%{
+		top: 490px; left: 472px;
+		-webkit-transform: rotate(450deg);
+	    }
+	100%{
+		top: 490px; left: 472px;
+		-webkit-transform: rotate(450deg);
+	    }
 }

@@ -12,10 +12,10 @@
 			"database"	=> "webtutsv2",
 		));
 
-	Sql::addUser("tests", "2", array(
+	Sql::addUser("titou", "2", array(
 			"host"		=> "localhost",
 			"user"		=> "root",
-			"password"	=> "root",
+			"password"	=> "",
 			"prefix"	=> "",
 			"database"	=> "webtutsv2",
 		));

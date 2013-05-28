@@ -32,18 +32,32 @@ $(document).ready(function(){
 	}
     });
     
-    if($('#oiseau-volant').length > 0){
+    if($('#oiseau-volant2').length > 0){
 	setTimeout(function(){
 
-		if($('#oiseau-volant').position().left > 600){
+		if($('#oiseau-volant2').position().left > 400){
 		    $('#sang').css({'display':'block'});
+		    var logo = $('nav #logo img');
+		    var position = logo.position();
+		    var pLeft = position.left;
+		    var pTop = position.top;
+		    
+		    $('#oiseau-volant2').css({'z-index':'1'});
+		    logo.css({'position': 'absolute', 'left': pLeft, 'top': pTop,'z-index':'99999999999999'});
+		    logo.animate({'top':'335px'},800, 'linear');
 		}
-	}, 1650);
+	}, 2050);
 	setTimeout(function(){
 
-		if($('#oiseau-volant').position().left > 1000){
-		    $('#oiseau-volant').css({'display':'none'});
+		$('#sang-gauche').css({'display':'block'});
+		$('#sang-droite').css({'display':'block'});
+
+	}, 3250);
+	setTimeout(function(){
+
+		if($('#oiseau-volant2').position().left > 400){
+		    $('#oiseau-volant2').css({'display':'none'});
 		}
-	}, 3000);
+	}, 10000);
     }
 });

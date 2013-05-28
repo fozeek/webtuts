@@ -1,6 +1,6 @@
 <?php
 
-class PageControler extends Controler {
+class PageController extends Controller {
 	public function IndexAction($params) {
 		if(!empty($params[3])) {
 			$page = App::getTable("article")->getBySanitizeTitle($params[3]);

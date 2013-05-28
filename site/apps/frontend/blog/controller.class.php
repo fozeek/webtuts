@@ -1,6 +1,6 @@
 <?php
 
-class BlogControler extends Controler {
+class BlogController extends Controller {
 	
 	public static $ID_NODE_ARTICLE = 1;
 	public static $ID_NODE_NEWS = 2;

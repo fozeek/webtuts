@@ -28,7 +28,7 @@
 	<aside>
 	    <!-- News -->
 	    <div class="border-title">
-		<h1 class="right-title"><?php echo NEWS_WORD; ?></h1>
+		<h3 class="right-title"><?php echo NEWS_WORD; ?></h3>
 	    </div>
 	    
 	    <div id="news-box" class="aside-box">

@@ -11,7 +11,7 @@
 
     
     <div class="left article-content">
-	<h2><a href="<?php echo $urlNews; ?>"><?php echo $new->get("title"); ?></a></h2>
+	<h3><a href="<?php echo $urlNews; ?>"><?php echo $new->get("title"); ?></a></h3>
 
 	<p class="article-caption">
 	    <span class="date"><?php echo THE . " " . format_date($new->get("date")) . " " . BY; ?></span>

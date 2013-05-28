@@ -5,6 +5,7 @@
  	 include("functions.php");
 
 ?>
+<!DOCTYPE html>
 <html>
 	<head>
 	    <?php
@@ -21,22 +22,32 @@
 		   
 		}
 	    ?>
-	    <link type="text/css" rel="stylesheet" href="<?php echo _host_absolute_ . _theme_path_ ?>css/<?php echo Kernel::get("controler"); ?>.css" />
 	    
 	    <title><?php echo get_title_from_url(Kernel::get("controler"),Kernel::get("action")) . " " . $end_title; ?></title>
 	   </head>
 	<body>
-		<div id="global">
-			<!-- Header -->
-			<?php include("partials/header.php"); ?>
-			
-			<!-- Content -->
-			<div id="content">
-			    <?php include(_theme_path_."pages/".Kernel::get("controler").'/'.Kernel::get("action").".php"); ?>
-			</div>
-			
-			<!-- Footer -->
-			<?php include("partials/footer.php"); ?>
+	    <div id="fb-root"></div>
+	    <script>
+		(function(d, s, id) {
+		    var js, fjs = d.getElementsByTagName(s)[0];
+		    if (d.getElementById(id)) return;
+		    js = d.createElement(s); js.id = id;
+		    js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+		    fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	    </script>
+	    
+	    <div id="global">
+		<!-- Header -->
+		<?php include("partials/header.php"); ?>
+
+		<!-- Content -->
+		<div id="content">
+		    <?php include(_theme_path_."pages/".Kernel::get("controler").'/'.Kernel::get("action").".php"); ?>
 		</div>
+
+		<!-- Footer -->
+		<?php include("partials/footer.php"); ?>
+	    </div>
 	</body>
 </html>

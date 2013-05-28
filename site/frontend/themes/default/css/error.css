@@ -37,13 +37,42 @@ header nav, #header #nav {
     left: 30px;
     z-index: 99999999999999;
 }
+#oiseau-volant2{
+    background: transparent url(../images/oiseau-modele.png) center center no-repeat;
+    width: 73px;
+    height: 94px;
+    position: absolute;
+    top: 8px;
+    left: 25px;
+    z-index: 99999999999999;
+}
 #sang{
     background: transparent url(../images/sang.png) center center no-repeat;
     width: 80px;
     height: 54px;
     position: absolute;
-    top: 580px;
-    left: 600px;
+    top: 565px;
+    left: 472px;
+    z-index: 99999999999999;
+    display:none;
+}
+#sang-gauche{
+    background: transparent url(../images/sang-gauche.png) center center no-repeat;
+    width: 80px;
+    height: 54px;
+    position: absolute;
+    top: 524px;
+    left: 410px;
+    z-index: 99999999999999;
+    display:none;
+}
+#sang-droite{
+    background: transparent url(../images/sang-droite.png) center center no-repeat;
+    width: 80px;
+    height: 54px;
+    position: absolute;
+    top: 524px;
+    left: 535px;
     z-index: 99999999999999;
     display:none;
 }

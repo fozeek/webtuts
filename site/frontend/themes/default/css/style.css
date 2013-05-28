@@ -11,18 +11,8 @@
 }
 @font-face
 {
-    font-family: "Lucida Grande";
-    src: url("Lucida Grande.ttf");
-}
-@font-face
-{
     font-family: "Ubuntu-C";
     src: url("Ubuntu-C.ttf");
-}
-@font-face
-{
-    font-family: "Wisdom Script";
-    src: url("Wisdom Script.otf");
 }
 @font-face
 {
@@ -251,18 +241,18 @@ header, nav{
 }
 header #top-header{
 	width: 100%;
-	height: 113px;
+	height: 91px;
 	
 	font-size: 13px;
 	position: relative;
 	
-	background: transparent url(../images/header-background.png) left top repeat-x;
+	background: transparent url(../images/bg_header.png) left top repeat-x;
 	
 	border-bottom: 1px solid #666;
 }
 header #top-header #login-box{
 	float: left;
-	margin: 10px 0 0 20px;
+	margin: 36px 0 0 93px;
 }
 header > #top-header 	> #login-box > a {
 	color: rgb(236,235,232);
@@ -271,7 +261,7 @@ header > #top-header 	> #login-box > a {
 
 header #top-header .search-flag-container{
 	text-align: right;
-	margin: 10px 20px 0 0;
+	margin: 15px 20px 0 0;
 }
 header #top-header .search-flag-container #flag-box{
 	margin-bottom: 15px;
@@ -410,13 +400,14 @@ footer{
 }
 footer #top-footer{
 	width: 100%;
-	height: 167px;
 	
 	font-size: 13px;
 	text-align: center;
 	padding-top: 20px;
+	padding-bottom: 20px;
+
 	
-	background: transparent url(../images/header-background.png) left top;
+	background: transparent url(../images/bg_header.png) left top;
 	
 	border-bottom: 1px solid #666;
 	border-top: 1px solid #999;
@@ -494,6 +485,14 @@ footer #bottom-footer{
 	-ms-box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
 
 }
+.one-article > div > a > img{
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+
+}
 .one-article .article-content{
 	width: 252px;
 	height: 216px;
@@ -558,7 +557,7 @@ footer #bottom-footer{
 }
 .article-tags {
 	margin-left: 20px;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 .article-tag{
 	padding: 4px 10px;
@@ -797,6 +796,14 @@ aside #social-box #newsletter-social:hover{
     font-family: 'Segoe UI';
     color: #335681;
     margin-bottom: 20px;
+}
+.article-comments h3{
+    font-size: 19px;
+    font-family: 'Segoe UI';
+    color: #335681;
+    margin: 20px 0 0 0;
+    font-weight: normal;
+    
 }
 .article-comments .one-comment{
     background-color: #fff;

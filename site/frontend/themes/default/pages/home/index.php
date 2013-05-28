@@ -38,7 +38,7 @@
     <!-- Home page content -->
     <div id="middle-column">
 	<div class="border-title" id="main-title-article">
-	    <h1 class="middle-title border-until"><?php echo LAST_ARTICLE; ?></h1>
+	    <h2 class="middle-title border-until"><?php echo LAST_ARTICLE; ?></h2>
 	</div>
 	<?php 
 	    foreach($articles as $article) { 
@@ -53,7 +53,7 @@
     <aside>
 	<!-- News -->
 	<div class="border-title">
-	    <h1 class="right-title"><?php echo NEWS_WORD; ?></h1>
+	    <h2 class="right-title"><?php echo NEWS_WORD; ?></h2>
 	</div>
 
 	<div id="news-box" class="aside-box">
@@ -74,7 +74,7 @@
 
 	<!-- Social -->
 	<div class="border-title">
-	    <h1 class="right-title"><?php echo FOLLOW_WEBTUTS; ?></h1>
+	    <h2 class="right-title"><?php echo FOLLOW_WEBTUTS; ?></h2>
 	</div>
 
 	<div id="social-box" class="aside-box">
@@ -96,7 +96,7 @@
 
 	<!-- Twitter feedback -->
 	<div class="border-title">
-	    <h1 class="right-title"><?php echo HAPPENS_ON_TWITTER; ?></h1>
+	    <h2 class="right-title"><?php echo HAPPENS_ON_TWITTER; ?></h2>
 	</div>
 
 	<div id="twitter-box" class="aside-box">

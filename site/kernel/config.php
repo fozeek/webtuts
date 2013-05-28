@@ -5,6 +5,16 @@
 		Contient toutes les informations necessaires à fournir par l'administrateur et à écrire en dur.
 	*/
 
+	/* 
+		DEBUG MODE 
+		Commentaires :
+			- Permet de passer le kernel en mode débug ou non : affichage de page d'erreurs.
+		Possibilités :
+			true		active le mode débug
+			false		désative le mode débug
+	*/
+	Kernel::setDebugMode(true);
+
 	/*
 		Routes par défaut
 		Regex : Les caractères acceptés pour les parametres passés dans l'url
@@ -15,7 +25,7 @@
 	/*
 		Routes personalisées
 	*/
-	Router::add("home", "index", "/{lol}-tcouhou-{biloute}-test");
+	Router::add("home", "index", "accueil.html");
  	Router::add("pages", "sponsors", "/sponsors");
  	Router::add("user", "show", "/utilisateur-{id}.html");
  	Router::add("content", "show", "/{node}-{id}.html");
@@ -31,7 +41,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("backend");
+	Kernel::setApp("frontend");
 
 	/*
 		Paths files
@@ -54,7 +64,7 @@
 		Connection à la BDD
 			Les differents users de bdd sont dans bdd.config.php
 	*/
-	Sql::connect("default");
+	Sql::connect("titou");
 
 	/* 
 		Autoloads Components for Controllers
@@ -91,13 +101,3 @@
 	*/
 	Kernel::setDefaultLang("fr");
 	Kernel::setLangs(array("fr", "en"));
-
-	/* 
-		DEBUG MODE 
-		Commentaires :
-			- Permet de passer le kernel en mode débug ou non : affichage de page d'erreurs.
-		Possibilités :
-			true		active le mode débug
-			false		désative le mode débug
-	*/
-	Kernel::setDebugMode(true);

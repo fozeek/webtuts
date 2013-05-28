@@ -1,16 +1,7 @@
 <?php
 
-class UserControler extends Controler {
+class UserController extends Controller {
 	public function IndexAction($params) {
-		/*
-			if($user = Kernel->get("session")) {
-				return $this->render(array('user' => $user), array("user", "profil"));
-			}
-			else {
-				return $this->redirect(....);
-			}
-
-		*/
 
 		return $this->render(array('user' => null), array("user", "profil"));
 	}

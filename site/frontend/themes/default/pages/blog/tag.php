@@ -30,7 +30,7 @@
 	<aside>
 	    <!-- Tags -->
 	    <div class="border-title">
-		<h1 class="right-title"><?php echo TAGS_WORD; ?></h1>
+		<h3 class="right-title"><?php echo TAGS_WORD; ?></h3>
 	    </div>
 	    
 	    <div id="news-box" class="aside-box">

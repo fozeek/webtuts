@@ -7,35 +7,35 @@
 	    // HOME TITLES	    
 	    
 	    if($action == "index"){
-		$title = "Page d'accueil Webtuts";
+		$title = "Webtuts - Le site des meilleurs tutoriaux du web, sur le web";
 	    }
 	} else if($controller == "blog") {
 	    
 	    // BLOG TITLES
 	    
 	    if($action == "categories"){
-		$title = "Les catégories de Webtuts";
+		$title = "Les catégories de Webtuts - Les meilleurs tutoriaux du web";
 	    }
 	    else if($action == "articles"){
-		$title = "Les articles de Webtuts";
+		$title = "Les articles de Webtuts - Les meilleurs tutoriaux du web";
 	    }
 	    else if($action == "category"){
-		$title = "Page de la catégorie";
+		$title = "Catégorie";
 	    }
 	    else if($action == "article"){
-		$title = "Page de l'article";
+		$title = "Article";
 	    }
 	    else if($action == "actualites"){
-		$title = "Les actualités de Webtuts";
+		$title = "Les actualités de Webtuts - Les meilleurs tutoriaux du web";
 	    }
 	    else if($action == "actualite"){
-		$title = "Page de l'actualité";
+		$title = "Actualité";
 	    }
 	    else if($action == "tags"){
-		$title = "Les tags de Webtuts";
+		$title = "Les tags de Webtuts - Les meilleurs tutoriaux du web";
 	    }
 	    else if($action == "tag"){
-		$title = "Page du tag";
+		$title = "Tag";
 	    }
 	    else {
 		$title = "Page de Webtuts";
@@ -45,10 +45,10 @@
 	    // USER TITLES
 	    
 	    if($action == "connection"){
-		$title = "Connectez vous à votre compte";
+		$title = "Connectez vous à votre compte Webtuts";
 	    }
 	    else if($action == "subscription"){
-		$title = "Inscrivez-vous sur Webtuts";
+		$title = "Inscrivez-vous sur Webtuts - Accéder à la communauté";
 	    }
 	    else if($action == "profil"){
 		$title = "Le profil de";
@@ -64,13 +64,13 @@
 		$title = "Contactez l'équipe de Webtuts";
 	    }
 	    else if($action == "about"){
-		$title = "Présentation du projet Webtuts";
+		$title = "Présentation du projet Webtuts - Les meilleurs tutoriaux du web";
 	    }
 	    else if($action == "partners"){
 		$title = "Tous les partenaires de Webtuts";
 	    }
 	    else if($action == "sitemap"){
-		$title = "Le plan du site de Webtuts";
+		$title = "Le plan du site de Webtuts - Retrouvez vos tutoriaux";
 	    }
 	}
 	return $title;
@@ -123,8 +123,8 @@
     }
     
     function short_description($description, $size = 280){
-	if(strlen($description) > $size){
-	    $description = substr($description, 0, $size) . "...";
+	if(strlen(strip_tags(strip_style($description))) > $size){
+	    $description = substr(strip_tags(strip_style($description)), 0, $size) . "...";
 	}
 	return $description;
     }
@@ -139,5 +139,14 @@
     function format_for_url($string){
 	return strtolower(str_replace('--', '-', str_replace(' ', '-', str_replace(',', '-', $string))));
     }
-
+    function strip_style($string){
+	if(strpos($string, "<style>") === 0 || strpos($string, "<style>") > 0){
+	    $begin = substr($string, 0,strpos($string, "<style>"));
+	    $end = substr($string, strpos($string, "</style>")+8);
+	    
+	    return $begin . $end;
+	}
+	
+	return $string;
+    }
 ?>

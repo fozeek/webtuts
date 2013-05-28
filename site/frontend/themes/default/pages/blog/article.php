@@ -28,10 +28,16 @@
 	    </div>
 	    <div class="cl"></div>
 	    <p>
-		<?php echo nl2br($article->get("text")); ?>
+		<?php echo $article->get("text"); ?>
 	    </p>
 	</div>
 	
+	<br/>
+	<div class="fb-like" data-href="http://webtuts.fr/<?php echo Kernel::get("url"); ?>" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui"></div>
+	
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="webtuts_fr" data-lang="fr" data-related="webtuts_fr" data-hashtags="piaf">Tweeter</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
 	<div id="ancre-comments" class="article-comments">
 	    <?php
 		$text_comment = (count($article->get("comments", array("orderBy" => "date"))) > 0 ? COMMENTS_LIST : NO_COMMENT);
@@ -99,8 +105,23 @@
 			
 			<div class="cl"></div>
 	    </div>
-	    <?php } ?>
+	    <?php
+		} else {
+		    echo '<h3>' . HAVE_TO_CONNECT . '</h3>';
+		}
+	    ?>
 
 	</div>
     </div>
 </div>
+
+<!-- SyntaxHighlighter -->
+<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shCore.js"></script>
+<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushCss.js"></script>
+<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushJScript.js"></script>
+<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushXml.js"></script>
+<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushPhp.js"></script>
+
+<script type="text/javascript">
+     SyntaxHighlighter.all()
+</script>
