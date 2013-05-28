@@ -61,7 +61,8 @@ class Router {
 	}
 
 	public static function getRoute($pattern) {
-		$pattern = explode("?", $pattern)[0]; // On enleve les parametres en GET de l'url
+		$pattern = explode("?", $pattern);
+		$pattern = $pattern[0];
 		if($route = self::findPattern(preg_replace("#{([".self::$_regex."]+)}#i", "{}", $pattern), true)) {
 			$tab = preg_split("#[{}]#i", $route["pattern"]);
 			if(count($tab) > 1) {

@@ -145,12 +145,12 @@
 					</div>
 				</a>
 				<a href="<?php echo Router::getUrl("user", "index"); ?>">
-					<div class="menu-onglet<?php if($header=="taxonomy") { ?>-active<?php } ?>">
+					<div class="menu-onglet<?php if($header=="user") { ?>-active<?php } ?>">
 						Users
 					</div>
 				</a>
 				<a href="<?php echo Router::getUrl("comments", "index"); ?>">
-					<div class="menu-onglet<?php if($header=="taxonomy") { ?>-active<?php } ?>">
+					<div class="menu-onglet<?php if($header=="comment") { ?>-active<?php } ?>">
 						Comments
 					</div>
 				</a>
