@@ -40,6 +40,7 @@
 	*/
 	Kernel::loadPaths(array(
 			"root" => "site/",
+			"config" => "site/kernel/",
 			"library" => "{root}library/",
 			"resources" => "{library}resources/",
 			"components" => "{library}components/",
@@ -91,13 +92,13 @@
 						)
 				),
 		));
-	
+
 	/*
 		Configurations CMS
 			- table des contents
 			- table des taxonomy
 	*/
-	Config::write("bundle", json_decode(file_get_contents(Kernel::path("app", false)."bundles.config.json")));
+	Config::write("bundle", json_decode(file_get_contents(Kernel::path("config")."bundles.config.json")));
 	Config::write("title", "Webtuts.fr");
 
 	/*

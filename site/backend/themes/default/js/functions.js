@@ -80,23 +80,46 @@ $("document").ready(function() {
 		closeComment(toclose);
 	});	
 
+	// Recherche du content
 	$("#search-node").live("click", function(){
 		$(this).children("div").toggle();
 	});	
-
-	$("#search-input").on("blur", function() {
+	$(".node-button").live("click", function(){
+		$("#node-value").attr("value", $(this).data("node"));
+		var node = $(this).data("node");
+		var node = node[0].toUpperCase() + node.slice(1)
+		$("#node-show").text(node);
+		$("#node-delete").css("display", "inline");
+		$("#search-input").trigger("keyup").focus();
+	});
+	$("#node-delete").live("click", function(){
+		$("#node-value").attr("value", "");
+		$("#node-show").text("Nodes");
+		$(this).toggle();
+		$("#search-input").trigger("keyup").focus();
+		return false;
+	});
+	$("#search-input").keyup(function() {
 		$.ajax({
 			type : 'post',
-			url : 'http://127.0.0.1:8888/fr/content/listeajax/',
+			url : url,
+			dataType: "json",
 			data : {
-				'node' : '',
-				'query' : $("#search-input").value(),
+				'node' : $("#node-value").attr("value"),
+				'query' : $("#search-input").attr("value"),
 			},
 			success : function(data) {
-				$("#list").html(data);
+				$("#list").html('');
+				if(data.length > 0) {
+					$("#no-match-message").css("display", "none");
+					$.each(data, function(key, val) {
+						$("#list").append('<a class="itemlist" href="' + val.link + '"><div style="overflow: hidden;max-height: 40px;position: relative;">	<div style="position: absolute;top: -10px;right: 0px;font-size: 2.9em;opacity: 0.1;">' + val.name + '</div>' + val.title + '<br /><span style="font-size: 0.8em;color: grey;">' + val.text + '</span></div><div style="clear: both;"></div></a>');
+					});
+				}
+				else
+					$("#no-match-message").css("display", "block");
 			}
 		});
-		return false;
 	});
 
 });

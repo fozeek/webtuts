@@ -2,36 +2,26 @@
 
 class ContentController extends Controller {
 	public function IndexAction() {
-		$node = $this->Request->getData("node");
-		$query = $this->Request->getData("q");
-		if($node) {
-			if($query)
-				$options["where"][0] = array("title", "LIKE", "%".$query."%");
-			$options["orderBy"] = array("date", "DESC");
-			$tutorials = $this->model->$node->getAll($options);
-		}
-		elseif(!$node) {
-			if($query)
-				$options["where"][0] = array("title", "LIKE", "%".$query."%");
-			$options["orderBy"] = array("date", "DESC");
-			$tutorials = $this->Model->bundle("content", $options);
-		}
-		$this->render(compact("tutorials", "query", "node"));
+		$tutorials = $this->Model->bundle("content", array(
+			"orderBy" => array("date", "DESC"),
+		));
+		$this->render(compact("tutorials"));
 	}
 
-	public function ListeajaxAction($node = false, $query = false) {
+	public function ListeajaxAction() {
 		$this->load("json");
-		if($node) {
-			if($query)
+		$node = $this->Request->getData("node");
+		$query = $this->Request->getData("query");
+		$options["orderBy"] = array("date", "DESC");
+		if($query)
 				$options["where"][0] = array("title", "LIKE", "%".$query."%");
-			$options["orderBy"] = array("date", "DESC");
-			$tutorials = $this->model->$node->getAll($options);
-		}
-		elseif(!$node) {
-			if($query)
-				$options["where"][0] = array("title", "LIKE", "%".$query."%");
-			$options["orderBy"] = array("date", "DESC");
-			$tutorials = $this->Model->bundle("content", $options);
+		$tutorials = ($node) ?
+			$this->model->$node->getAll($options): 
+			$this->Model->bundle("content", $options);
+		foreach ($tutorials as $key => $value) {
+			$tutorials[$key] = $value->getAttributs();
+			$tutorials[$key]["link"] = Router::getUrl("content", "show", array("node" => $value->getName(), "id" => $value->get("id")), false);
+			$tutorials[$key]["name"] = $value->getName();
 		}
 		$this->renderJson($tutorials);
 	}

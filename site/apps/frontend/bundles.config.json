@@ -1,1 +1,0 @@
-{"content":{"tables":["tutorial","news"],"fields":["id","title","text","date","image"]},"taxonomy":{"tables":["category","news"],"fields":["id","title","text"]}}
