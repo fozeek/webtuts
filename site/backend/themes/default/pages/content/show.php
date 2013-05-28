@@ -2,10 +2,10 @@
 	partial("header", array("header" => "content", "title" => null)); 
 ?>
 	<div style="font-size: 1.2em;margin: 20px;color: #3F6EC2;" contenteditable="true">
-		<?= $tutorial->get("titre"); ?>
+		<?= $tutorial->get("title"); ?>
 	</div>
-	<div style="font-size: 0.9em;margin: 20px;text-indent: 15px;color: rgb(77, 77, 77);">
-		<?= $tutorial->get("text"); ?>
+	<div style="font-size: 0.9em;margin: 20px;text-indent: 15px;color: rgb(77, 77, 77);" contenteditable="true">
+		<?= nl2br($tutorial->get("text")); ?>
 	</div>
 
 	<div style="padding: 20px;">

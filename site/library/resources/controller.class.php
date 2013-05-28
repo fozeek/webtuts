@@ -33,6 +33,13 @@ abstract class Controller {
 			echo "Le composant \"View\" n'est pas disponible.";
 	}
 
+	public function renderJson($vars) {
+		if($this->existComponent("View"))
+			$this->Json->render($vars);
+		else
+			echo "Le composant \"Json\" n'est pas disponible.";
+	}
+
 	/*
 		Pour faire une redirection
 	*/

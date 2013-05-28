@@ -4,7 +4,7 @@
 		Configuration des comptes de base de données
 	*/
 
-	Sql::addUser("default", "1", array(
+	Sql::addUser("default", array(
 			"host"		=> "localhost",
 			"user"		=> "root",
 			"password"	=> "root",
@@ -12,7 +12,7 @@
 			"database"	=> "webtutsv2",
 		));
 
-	Sql::addUser("titou", "2", array(
+	Sql::addUser("wamp", array(
 			"host"		=> "localhost",
 			"user"		=> "root",
 			"password"	=> "",

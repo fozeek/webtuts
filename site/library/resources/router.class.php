@@ -16,30 +16,40 @@ class Router {
 		self::$_regex = $regex;
 	}
 
-	public static function add($controller, $action, $pattern) {
-		self::$_routes[] = array("controller" => $controller, "action" => $action, "pattern" => $pattern);
+	public static function getRoutes($key = null, $lang = null) {
+		if($lang === null)
+			$lang = Kernel::getCurrentLang();
+		return ($key === null) ?
+			((isset(self::$_routes[$lang])) ? self::$_routes[$lang] : array() ) : 
+			((isset(self::$_routes[$lang][$key])) ? self::$_routes[$lang][$key] : false );
+	}
+
+	public static function add($lang, $controller, $action, $pattern) {
+		if(!isset(self::$_routes[$lang]))
+			self::$_routes[$lang] = array();
+		array_push(self::$_routes[$lang], array("controller" => $controller, "action" => $action, "pattern" => $pattern));
 	}
 
 	public static function findRoute($controller, $action) {
-		foreach (self::$_routes as $key => $value) {
+		foreach (self::getRoutes() as $key => $value) {
 			if($value["controller"] == $controller && $value["action"] == $action)
-				return self::$_routes[$key];
+				return self::getRoutes($key);
 		}
 		return false;
 	}
 
 	public static function findPattern($pattern, $method = false) { // method is for anonymous params
 		if(!$method) {
-			foreach (self::$_routes as $key => $value) {
+			foreach (self::getRoutes() as $key => $value) {
 				if($value["pattern"] == $pattern)
-					return self::$_routes[$key];
+					return self::getRoutes($key);
 			}
 		}
 		else {
-			foreach (self::$_routes as $key => $value) {
+			foreach (self::getRoutes() as $key => $value) {
 				$regex = "#".preg_replace("#{([".self::$_regex."]+)}#i", "([".self::$_regex."]+)", $value["pattern"])."#i";
 				if(preg_match($regex, $pattern))
-					return self::$_routes[$key];
+					return self::getRoutes($key);
 			}
 		}
 		return false;

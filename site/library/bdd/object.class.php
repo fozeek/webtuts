@@ -14,6 +14,11 @@ class ObjectModel {
 		return $this->_name;
 	}
 
+	public function getAttributs() {
+		return $this->_attributs;
+	}
+
+
 	/*
 		Recupérer les links
 	*/

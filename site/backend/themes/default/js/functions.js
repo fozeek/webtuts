@@ -79,4 +79,24 @@ $("document").ready(function() {
 		console.log(toclose);
 		closeComment(toclose);
 	});	
+
+	$("#search-node").live("click", function(){
+		$(this).children("div").toggle();
+	});	
+
+	$("#search-input").on("blur", function() {
+		$.ajax({
+			type : 'post',
+			url : 'http://127.0.0.1:8888/fr/content/listeajax/',
+			data : {
+				'node' : '',
+				'query' : $("#search-input").value(),
+			},
+			success : function(data) {
+				$("#list").html(data);
+			}
+		});
+		return false;
+	});
+
 });

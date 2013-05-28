@@ -53,7 +53,7 @@ class Sql {
 	private static $_PDO;
 	private static $_users;
 
-	static public function addUser($name, $rang, $params) {
+	static public function addUser($name, $params) {
 		self::$_users[$name] = $params;
 	}
 
@@ -62,7 +62,20 @@ class Sql {
 			self::$_PDO = new PDO('mysql:host='.self::$_users[$name]["host"].';dbname='.self::$_users[$name]["database"], self::$_users[$name]["user"], self::$_users[$name]["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 			self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
-		    Error::render(5, $e->getMessage());
+		    $users = self::$_users;
+		    unset($name);
+		    foreach ($users as $key => $value) {
+		    	$connected = true;
+		    	try { 
+					self::$_PDO = new PDO('mysql:host='.$value["host"].';dbname='.$value["database"], $value["user"], $value["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+					self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				} catch(PDOException $e) {
+					$connected = false;
+				}
+				if($connected) break;
+		    }
+		    if(!$connected)
+		   		Error::render(5, $e->getMessage());
 		}
 	}
 
@@ -276,6 +289,9 @@ class Sql {
     	}
     	$requete .= " ".chr($cpt+64)."";
 
+    	// WHERE
+		$requete .= $this->getWhereString();
+
     	if(!empty($this->union)) {
 			foreach ($this->union as $union) {
 				$requete .= " UNION SELECT ";
@@ -286,11 +302,12 @@ class Sql {
 		    		$cpt++;
 		    	}
 				$requete .= " FROM $union[0] ";
+				$requete .= " ".chr($cpt+64)."";
+				$requete .= $this->getWhereString();
 			}
 		}
 
-		// WHERE
-		$requete .= $this->getWhereString();
+		
 
 		if(!empty($this->group))
 			$requete .= " GROUP BY ".$this->group;

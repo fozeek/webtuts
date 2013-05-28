@@ -2,28 +2,38 @@
 
 class ContentController extends Controller {
 	public function IndexAction() {
-		if($this->Request->is("get")) {
-			$query = ucfirst($this->Request->getData("q"));
-			$tutorials = $this->model->$query->getAll(array(
-				"orderBy" => array("date", "DESC"),
-			));
+		$node = $this->Request->getData("node");
+		$query = $this->Request->getData("q");
+		if($node) {
+			if($query)
+				$options["where"][0] = array("title", "LIKE", "%".$query."%");
+			$options["orderBy"] = array("date", "DESC");
+			$tutorials = $this->model->$node->getAll($options);
 		}
-		else {
-			$tutorials = $this->Model->union(array(
-					"tutorial",
-					"news",
-				), array(
-					"id",
-					"titre",
-					"text",
-					"date",
-				), array(
-					"orderBy" => array("date", "DESC"),
-				)
-			);
-			$query = null;
+		elseif(!$node) {
+			if($query)
+				$options["where"][0] = array("title", "LIKE", "%".$query."%");
+			$options["orderBy"] = array("date", "DESC");
+			$tutorials = $this->Model->bundle("content", $options);
 		}
-		$this->render(compact("tutorials", "query"));
+		$this->render(compact("tutorials", "query", "node"));
+	}
+
+	public function ListeajaxAction($node = false, $query = false) {
+		$this->load("json");
+		if($node) {
+			if($query)
+				$options["where"][0] = array("title", "LIKE", "%".$query."%");
+			$options["orderBy"] = array("date", "DESC");
+			$tutorials = $this->model->$node->getAll($options);
+		}
+		elseif(!$node) {
+			if($query)
+				$options["where"][0] = array("title", "LIKE", "%".$query."%");
+			$options["orderBy"] = array("date", "DESC");
+			$tutorials = $this->Model->bundle("content", $options);
+		}
+		$this->renderJson($tutorials);
 	}
 
 	public function ShowAction($node, $id) {

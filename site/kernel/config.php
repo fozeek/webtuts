@@ -22,14 +22,6 @@
 	Router::setDefaultsRoutes("home", "index");
 	Router::setRegex("A-Za-z0-9");
 
-	/*
-		Routes personalisées
-	*/
-	Router::add("home", "index", "accueil.html");
- 	Router::add("pages", "sponsors", "/sponsors");
- 	Router::add("user", "show", "/utilisateur-{id}.html");
- 	Router::add("content", "show", "/{node}-{id}.html");
-
  	/*
 		Mode de transmission des parametres
 		[linear|array]
@@ -41,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("frontend");
+	Kernel::setApp("backend");
 
 	/*
 		Paths files
@@ -64,7 +56,12 @@
 		Connection à la BDD
 			Les differents users de bdd sont dans bdd.config.php
 	*/
-	Sql::connect("titou");
+	Sql::connect("default");
+
+	/*
+		Routes personalisées
+	*/
+	import("app", "routes.config");
 
 	/* 
 		Autoloads Components for Controllers
@@ -94,7 +91,14 @@
 						)
 				),
 		));
-
+	
+	/*
+		Configurations CMS
+			- table des contents
+			- table des taxonomy
+	*/
+	Config::write("bundle", json_decode(file_get_contents(Kernel::path("app", false)."bundles.config.json")));
+	Config::write("title", "Webtuts.fr");
 
 	/*
 		Langues

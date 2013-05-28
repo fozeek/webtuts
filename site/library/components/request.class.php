@@ -17,7 +17,7 @@ Class RequestComponent extends Component {
 	}
 
 	public function getData($attribut = null) {
-		return ($attribut === null) ? $this->_data : $this->_data[$attribut] ;
+		return ($attribut === null) ? $this->_data : ((isset($this->_data[$attribut])) ? $this->_data[$attribut] : false ) ;
 	}
 
 	public function is($type) {

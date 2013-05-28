@@ -188,7 +188,7 @@ class TableModel{
 			if(count($return) > 0)
 				return (count($return) > 1 || $function[1] == "all") ? $return : $return[0] ;
 			else
-				return false;
+				return ($function[1] == "all") ? array() : false ;
 		}
 		else
 			return false;

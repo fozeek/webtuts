@@ -6,8 +6,9 @@
 
 	function import($folder, $file) {
 		($path = Kernel::path($folder)) ? null : $path = Kernel::path("library").$folder."/";
-		if(file_exists($path.$file.".class.php")) {
-			require_once($path.$file.".class.php");
+		$ext = (preg_match("/\b.config\b/", $file)) ? "" : ".class" ;
+		if(file_exists($path.$file.$ext.".php")) {
+			require_once($path.$file.$ext.".php");
 			return true;
 		}
 		else 

@@ -31,16 +31,16 @@ class ModelComponent extends Component {
 
 	public function __get($table) {
 		if($table[0]!="_") {
-			if(array_key_exists($table, $this->_tables))
-				return $this->_tables[$table];
-			else
-				return $this->getTable($table);
+			return (array_key_exists($table, $this->_tables)) ? $this->_tables[$table] : $this->getTable($table) ;
 		}
 		else
 			return $this->$table;
 	}
 
-	public function union($tables, $fields, $options) {
+	public function bundle($bundle, $options = null) {
+		$bundles = Config::read("bundle");
+		$tables = $bundles->$bundle->tables;
+		$fields = $bundles->$bundle->fields;
 		import("model", strtolower($tables[0])."table");
 		import("model", strtolower($tables[0])."table");
 		$requete = Sql::create()->select(array_merge($fields, array("'".$tables[0]."' AS _object")))->from($tables[0]);
@@ -49,18 +49,21 @@ class ModelComponent extends Component {
 			import("model", strtolower($table)."table");
 			import("model", strtolower($table)."table");
 		}
-		if(isset($options["orderBy"]))
-				$requete->orderBy($options["orderBy"]);
-		if(isset($options["limit"])) {
-			$start = (is_array($options["limit"])) ? $options["limit"][0] : 0 ;
-			$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
-			$requete->limit($start, $stop);
-		}
-		if(isset($options["where"])) {
-			foreach ($options["where"] as $key => $value) {
-				$nameFunctionWhere = ($cptWhere==0) ? "where" : "andWhere";
-				$requete->$nameFunctionWhere($value[0], $value[1], $value[2]);
-				$cptWhere++;
+		if($options !== null) {
+			if(isset($options["orderBy"]))
+					$requete->orderBy($options["orderBy"]);
+			if(isset($options["limit"])) {
+				$start = (is_array($options["limit"])) ? $options["limit"][0] : 0 ;
+				$stop = (is_array($options["limit"])) ? $options["limit"][1] : $options["limit"] ;
+				$requete->limit($start, $stop);
+			}
+			$cptWhere = 0;
+			if(isset($options["where"])) {
+				foreach ($options["where"] as $key => $value) {
+					$nameFunctionWhere = ($cptWhere==0) ? "where" : "andWhere";
+					$requete->$nameFunctionWhere($value[0], $value[1], $value[2]);
+					$cptWhere++;
+				}
 			}
 		}
 		$return = array();
