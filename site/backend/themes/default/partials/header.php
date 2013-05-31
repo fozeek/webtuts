@@ -10,67 +10,11 @@
 		</div>
 		<div id="panel">
 			<div class="box">
-				<div class="title-box">
-					<div class="title-text">
-						Ajouter un article
-					</div>
+				<div class="html">
 				</div>
-				<div class="corps-border">
-					<div class="corps">
-						<input type="text" style="font-size: 1.2em;"/>
-						<div style="height: 4px;">
-						</div>
-						<span style="margin-left: 6px;display: block;font-size: 0.8em;color: grey;">webtuts.fr/fr/article-<input type="text" style="font-size: 0.8em;"/>.html</span>
-						<div style="height: 4px;">
-						</div>
-						<textarea style="max-width: 768px;height: 300px;font-size: 0.8em;color: #323232;"></textarea>
-						 <div style="float: left;width: 250px;color: #323232;padding: 5px;">
-							<label style="font-size: 0.8em;">Category</label>
-						</div>
-						<div style="overflow: hidden;">
-							<input type="text" />
-						</div>
-						<div style="clear: both;">
-						</div>
-						<div style="float: left;width: 250px;color: #323232;padding: 5px;">
-							<label style="font-size: 0.8em;">Tags</label>
-						</div>
-						<div style="overflow: hidden;">
-							<div id="tags-choose" style="cursor: text;margin-top: 3px;border-radius: 2px;margin-bottom: 3px;border: 1px solid #B9B9B9;">
-								<span id="box-tags"></span> <input id="add-tag" placeholder="tags" type="text" style="background: white;border: none;padding: 5px;box-shadow: none;width: 150px;font-size: 0.8em;"/>
-							</div>
-						</div>
-						<div style="clear: both;">
-						</div>
-						
-						<div style="float: left;width: 250px;color: #323232;padding: 5px;">
-							<label style="font-size: 0.8em;">Date de publication</label>
-						</div>
-						<div style="overflow: hidden;">
-							<input type="text" style="max-width: 30px;font-size: 0.8em;" placeholder="HH" /> h
-							<input type="text" style="max-width: 30px;font-size: 0.8em;" placeholder="MM"/>,
-							 le 
-							<input type="text" style="max-width: 30px;font-size: 0.8em;" placeholder="dd"/> /
-							<input type="text" style="max-width: 30px;font-size: 0.8em;" placeholder="mm"/> /
-							<input type="text" style="max-width: 60px;font-size: 0.8em;" placeholder="yyyy"/>
-						</div>
-						<div style="clear: both;">
-						</div>
-						<div style="float: left;width: 250px;color: #323232;padding: 5px;">
-							<label style="font-size: 0.8em;">Enregistrer en tant que brouillon</label>
-						</div>
-						<div style="overflow: hidden;padding: 5px;">
-							<input type="checkbox" style="margin: 5px;margin-top: -2px;"/>
-						</div>
-						<div style="clear: both;">
-						</div>
-						<div style="float: left;width: 250px;color: #323232;padding: 5px;">
-							<label style="font-size: 0.8em;">Activation des commentaires</label>
-						</div>
-						<div style="overflow: hidden;padding: 5px;">
-							<input type="checkbox" style="margin: 5px;margin-top: -2px;"/>
-						</div>
-						<div style="clear: both;">
+				<div class="loader" style="display: none;padding: 1px;background: rgba(0,0,0,0.1);border-radius: 2px;">
+					<div style="background: white;padding-top: 40px;padding-bottom: 40px;">
+						<div class="loader-img" style="margin: auto;background: url(<?= imageTheme("loader.png") ?>) center center no-repeat;">
 						</div>
 					</div>
 				</div>
@@ -109,9 +53,9 @@
 			</div>
 			<div class="menu-top-2">
 			</div>
-			<div id="add-article" style="height: 40px;float: left;cursor: pointer;">
+			<div id="add-content" style="height: 40px;float: left;cursor: pointer;">
 				<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
-					Ajouter un article
+					Ajouter un contenu
 				</div>
 			</div>
 			<div class="menu-top-1">

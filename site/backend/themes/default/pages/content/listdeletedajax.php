@@ -1,0 +1,1 @@
+<?php partial("listallofday", compact("contents")); ?>

@@ -14,15 +14,8 @@
 		return Kernel::path("uploads", true).$image;
 	}
 
-	function text($text) {
-		$lang = file_get_contents(Kernel::path("themes")."lang/".__lang__.".json");
-		$lang = json_decode($lang);
-		foreach ($lang as $value) {
-			if(!empty($value->$text)) {
-				return $value->$text;
-			}
-		}
-		return "This text doesn't has its traduction !";
+	function imageTheme($image) {
+		return Kernel::path("themes", true)."default/images/".$image;
 	}
 
 	function createLink($link) {
@@ -47,27 +40,38 @@
 		else
 			return "This text doesn't has its traduction !";
 	}
+
+	function tmpDate($date) {
+		$dateExpl = explode(' ', $date);
+		$day = explode('-', $dateExpl[0]);
+		return $day[2].$day[1].$day[0];
+	}
 	
-	function printDate($date){
+	function printDate($date, $bool = 0){
 		$dateExpl = explode(' ', $date);
 		$day = explode('-', $dateExpl[0]);
 		$time = explode(':', $dateExpl[1]);
 		
-		$month = array(	"01"=>text("january"),
-						"02"=>text("february"),
-						"03"=>text("march"),
-						"04"=>text("april"),
-						"05"=>text("may"),
-						"06"=>text("june"),
-						"07"=>text("july"),
-						"08"=>text("august"),
-						"09"=>text("september"),
-						"10"=>text("october"),
-						"11"=>text("november"),
-						"12"=>text("december")					
+		$month = array(	"01"=>"january",
+						"02"=>"february",
+						"03"=>"march",
+						"04"=>"april",
+						"05"=>"may",
+						"06"=>"june",
+						"07"=>"july",
+						"08"=>"august",
+						"09"=>"september",
+						"10"=>"october",
+						"11"=>"november",
+						"12"=>"december"					
 					);
 		
-		return $day[2]." ".$month[$day[1]]." ".$day[0]." à ".$time[0]."H".$time[1];
+		if ($bool == 0)
+			return $day[2]." ".$month[$day[1]]." ".$day[0]." at ".$time[0]."h".$time[1];
+		elseif ($bool == 1)
+			return $day[2]." ".$month[$day[1]]." ".$day[0];
+		elseif ($bool == 2)
+			return $time[0]."h".$time[1];
 	}
 	
 	function minifyText($title, $size_max = 25){	

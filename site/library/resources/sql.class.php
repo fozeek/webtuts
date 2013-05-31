@@ -355,7 +355,7 @@ class Sql {
 			foreach ($this->columns as $key => $value) {
 				if(is_string($this->values[$cpt])) $cote='\''; else $cote='';
 				if($cpt!=0) $requete .= ", ";
-				$requete .= $value." = ".$cote.$this->values[$cpt].$cote;
+				$requete .= $value." = ".$cote.addslashes($this->values[$cpt]).$cote;
 				$requete .= "";
 				$cpt++;
 			}

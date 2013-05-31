@@ -2,29 +2,90 @@
 
 class ContentController extends Controller {
 	public function IndexAction() {
-		$tutorials = $this->Model->bundle("content", array(
+		$contents = $this->Model->bundle("content", array(
 			"orderBy" => array("date", "DESC"),
 		));
-		$this->render(compact("tutorials"));
+		$this->render(compact("contents"));
 	}
 
-	public function ListeajaxAction() {
-		$this->load("json");
+	public function ListajaxAction() {
 		$node = $this->Request->getData("node");
 		$query = $this->Request->getData("query");
 		$options["orderBy"] = array("date", "DESC");
 		if($query) $options["where"][0] = array("title", "LIKE", "%".$query."%");
-		$tutorials = ($node) ?
+		$contents = ($node) ?
 			$this->model->$node->getAll($options): 
 			$this->Model->bundle("content", $options);
-		foreach ($tutorials as $key => $value) {
-			$tutorials[$key] = $value->getAttributs();
-			$tutorials[$key]["link"] = Router::getUrl("content", "show", array("node" => $value->getName(), "id" => $value->get("id")), false);
-			$tutorials[$key]["name"] = $value->getName();
-		}
-		$this->renderJson($tutorials);
+		$this->render(compact("contents", "query"));
 	}
 
+	public function ShowajaxAction() {
+		$id = $this->Request->getData("id");
+		$node = $this->Request->getData("node");
+		$content = $this->Model->$node->getById($id);
+		$this->render(compact("content"));
+	}
+
+	public function UpdateajaxAction() {
+		$id = $this->Request->getData("id");
+		$node = $this->Request->getData("node");
+		$title = $this->Request->getData("title");
+		$text = $this->Request->getData("text");
+		$content = $this->Model->$node->update($id, compact("title", "text"));
+	}
+
+	public function PoplistdeletedajaxAction() {
+		$date = $this->Request->getData("date");
+		$query = $this->Request->getData("query");
+		$node = $this->Request->getData("node");
+		$dateExpl = explode(' ', $date);
+		$options["orderBy"] = array("date", "DESC");
+		$options["where"][0] = array("deleted", "=", true);
+		$options["where"][1] = array("date", ">=", $dateExpl[0]." 00:00:00");
+		$options["where"][2] = array("date", "<=", $dateExpl[0]." 24:59:59");
+		if($query) $options["where"][0] = array("title", "LIKE", "%".$query."%");
+		$contents = ($node) ?
+			$this->Model->$node->getAll($options):
+			$this->Model->bundle("content", $options);
+		$this->render(compact("contents", "date", "query"));
+	}
+
+	public function ListdeletedajaxAction() {
+		$date = $this->Request->getData("date");
+		$query = $this->Request->getData("query");
+		$node = $this->Request->getData("node");
+		$dateExpl = explode(' ', $date);
+		$options["orderBy"] = array("date", "DESC");
+		$options["where"][0] = array("deleted", "=", 1, false);
+		$options["where"][1] = array("date", ">=", $dateExpl[0]." 00:00:00");
+		$options["where"][2] = array("date", "<=", $dateExpl[0]." 24:59:59");
+		if($query) $options["where"][4] = array("title", "LIKE", "%".$query."%");
+		$contents = ($node) ?
+			$this->Model->$node->getAll($options):
+			$this->Model->bundle("content", $options);
+		$this->render(compact("contents", "date"));
+	}
+	
+	public function RemovecontentajaxAction() {
+		$id = $this->Request->getData("id");
+		$node = $this->Request->getData("node");
+		$this->Model->$node->update($id, array("deleted" => true));
+		$content = $this->Model->$node->getById($id);
+		$this->render(compact("content"));
+	}
+
+	public function RestorecontentajaxAction() {
+		$id = $this->Request->getData("id");
+		$node = $this->Request->getData("node");
+		$this->Model->$node->update($id, array("deleted" => 0));
+		$content = $this->Model->$node->getById($id);
+		$this->render(compact("content"));
+	}
+
+	public function AddcontentajaxAction() {
+		$this->render();
+	}
+/*
 	public function ShowAction($node, $id) {
 		$node = ucfirst($node);
 		$tutorial = $this->Model->$node->getById($id);
@@ -41,7 +102,7 @@ class ContentController extends Controller {
 			$this->render(compact("tutorial"));
 		}
 	}
-	/*
+	
 
 	public function AddAction($params) {
 		$categories = App::getClassArray("category");

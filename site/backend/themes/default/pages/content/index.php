@@ -2,7 +2,14 @@
 	partial("header", array("header" => "content", "title" => null)); 
 ?>
 <script type="text/javascript">
-	var url = '<?= Router::getUrl("content", "listeajax") ?>';
+	var urlList = '<?= Router::getUrl("content", "listajax") ?>';
+	var urlShow = '<?= Router::getUrl("content", "showajax") ?>';
+	var urlUpdate = '<?= Router::getUrl("content", "updateajax") ?>';
+	var urlPopShowDeleted = '<?= Router::getUrl("content", "poplistdeletedajax") ?>';
+	var urlShowDeleted = '<?= Router::getUrl("content", "listdeletedajax") ?>';
+	var urlRemoveContent = '<?= Router::getUrl("content", "removecontentajax") ?>';
+	var urlRestoreContent = '<?= Router::getUrl("content", "restorecontentajax") ?>';
+	var urlAddContent = '<?= Router::getUrl("content", "addcontentajax") ?>';
 </script>
 <div style="clear: both;height: 1px;background: #E5E5E5;">
 </div>		
@@ -13,10 +20,15 @@
 		<div style="position: relative;width: 0px;height: 0px;">
 			<div style="position: absolute;top: 0px;right: 0px;min-width: 200px;border-top: 1px solid #E5E5E5;background: white;box-shadow: 0px 3px 5px #ccc;">
 			<?php $bundles = get_object_vars(Config::read("bundle")); foreach ($bundles["content"]->tables as $key => $value) : ?>	
-				<div class="node-button" data-node="<?= $value ?>" style="padding: 5px;font-size: 0.8em;padding-left: 9px;border-bottom: 1px solid #E5E5E5;">
+				<div class="node-button" data-node="<?= $value ?>" style="padding: 5px;padding-left: 9px;border-bottom: 1px solid #E5E5E5;">
 					<?= ucfirst($value) ?>
 				</div>
 			<?php endforeach; ?>
+				<div class="node-add-button" style="padding: 5px;">
+					<div style="text-align: center;background: #93cd71;background: -moz-linear-gradient(top, #93cd71 0%, #74af67 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#93cd71), color-stop(100%,#74af67));background: -webkit-linear-gradient(top, #93cd71 0%,#74af67 100%);background: -o-linear-gradient(top, #93cd71 0%,#74af67 100%);background: -ms-linear-gradient(top, #93cd71 0%,#74af67 100%);background: linear-gradient(to bottom, #93cd71 0%,#74af67 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cd71', endColorstr='#74af67',GradientType=0 );border-bottom: 1px solid #5e8e54;border-top: 1px solid #dbdde4;color: white;padding: 6px;font-weight: bold;border-radius: 2px;font-size: 0.9em;text-shadow: 0px -1px #71a45e;">
+						Manage nodes
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -27,24 +39,10 @@
 <div style="clear: both;height: 1px;background: #E5E5E5;">
 </div>
 <div id="list" style="padding: 20px;padding-top: 0px;">
-<?php foreach($tutorials as $tutorial) : ?>
-		<a class="itemlist" href="<?= Router::getUrl("content", "show", array("node" => $tutorial->getName(), "id" => $tutorial->get("id")), false); ?>">
-			<div style="overflow: hidden;max-height: 40px;position: relative;">	
-				<div style="position: absolute;top: -10px;right: 0px;font-size: 2.9em;opacity: 0.1;">
-					<?= strtoupper($tutorial->getName()) ?>
-				</div>
-				<?= $tutorial->get("title"); ?>
-				<br />
-				<span style="font-size: 0.8em;color: grey;">
-					<?= strip_tags($tutorial->get("text")); ?>
-				</span>
-			</div>
-			<div style="clear: both;">
-			</div>
-		</a>
-<?php endforeach; ?>
+	<?php partial("list", compact("contents", "query")); ?>
 </div>
-<div id="no-match-message" style="<?php if(count($tutorials)>0) : ?>display: none;<?php endif; ?>font-size: 2.9em;opacity: 0.1;text-align: center;margin-top: 40px;">
-	No match found !
+<div id="loader" style="display: none;font-size: 2.9em;text-align: center;margin-top: 40px;margin-bottom: 40px;">
+	<div class="loader-img" style="margin: auto;background: url(<?= imageTheme("loader.png") ?>) center center no-repeat;">
+	</div>
 </div>
 <?php partial("footer"); ?>
