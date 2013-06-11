@@ -42,7 +42,7 @@
 
 		<!-- Content -->
 		<div id="content">
-		    <?php include(_theme_path_."pages/".Kernel::route("controller").'/'.Kernel::route("action").".php"); ?>
+		    <?php include("pages/".Kernel::route("controller").'/'.Kernel::route("action").".php"); ?>
 		</div>
 
 		<!-- Footer -->

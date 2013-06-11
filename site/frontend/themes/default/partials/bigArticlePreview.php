@@ -28,7 +28,7 @@
 		<a href="<?php echo $urlArticle; ?>#ancre-comments">
 		    <img src="<?php echo _theme_path_ . 'images/'; ?>bulle.png" alt="<?php echo ALT_SEE_COMMENTS; ?>" />
 		    <?php 
-			$nb_comment = $article->get("comments")->count();
+			$nb_comment = count($article->get("comments"));
 			$text_comment = ($nb_comment > 1 ? COMMENTS : COMMENT);
 			echo $nb_comment . " " . $text_comment;
 		    ?>
@@ -48,7 +48,7 @@
 		    $temp = implode("<br/>", $temp_array);
 		}
 	?>
-	<a style="<?php echo (strlen($article->get("category")->get("title")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Kernel::getUrl("blog/category/" . Kernel::sanitize($article->get("category")->get("title"))); ?>">
+	<a style="<?php echo (strlen($article->get("category")->get("title")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Router::getUrl("blog", "category", array("category" => $article->get("category")->get("title"))); ?>">
 	    <?php 
 		echo $temp; ?>
 	</a>

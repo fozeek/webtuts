@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 11 Juin 2013 à 14:13
+-- Généré le: Mar 11 Juin 2013 à 16:05
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `title` text NOT NULL,
   `text` text NOT NULL,
   `image` int(11) NOT NULL,
-  `comments` int(11) DEFAULT NULL,
+  `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
   `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -133,8 +133,22 @@ CREATE TABLE IF NOT EXISTS `news` (
 --
 
 INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`, `slug`) VALUES
-(1, 0, 1, '2013-05-08 05:07:15', '\n    \n    Une news fraiche !', '\n      \n      zdizqlhdlzqid qzih dqli dlqdhqlidhlq dlq dhlq dilz ql dqz CONTENNNNNNT !!!<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div>FRAIS !</div>', 1, NULL, ''),
-(2, 0, 1, '2013-05-15 11:28:29', 'zqdqzdqzdqzd l', 'qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz', 1, NULL, '');
+(1, 0, 1, '2013-05-08 05:07:15', '\n    \n    Une news fraiche !', '\n      \n      zdizqlhdlzqid qzih dqli dlqdhqlidhlq dlq dhlq dilz ql dqz CONTENNNNNNT !!!<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div>FRAIS !</div>', 1, 0, ''),
+(2, 0, 1, '2013-05-15 11:28:29', 'zqdqzdqzdqzd l', 'qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz', 1, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `tag`
+--
+
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `text` text,
+  `articles` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"article", "code":3}',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -149,9 +163,11 @@ CREATE TABLE IF NOT EXISTS `tutorial` (
   `title` varchar(200) NOT NULL,
   `text` text NOT NULL,
   `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  `comments` int(11) DEFAULT NULL,
+  `comments` int(10) DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
   `slug` varchar(255) NOT NULL,
-  `category` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"oneToOne", "reference":"category"}',
+  `category` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"category"}',
+  `author` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"user"}',
+  `tags` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany","reference":"tag","code":4}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
@@ -159,13 +175,13 @@ CREATE TABLE IF NOT EXISTS `tutorial` (
 -- Contenu de la table `tutorial`
 --
 
-INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`) VALUES
-(1, 0, '2013-05-08 00:00:00', '\n   \n    \n    \n    \n    \n    Un titre super            ', '\n      \n      \n      <div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div>                   ', 1, NULL, '', 1),
-(2, 1, '2013-05-29 12:17:00', 'Un tuto supprimé, et sur deux lignes !', '\n     \n      \n      \n      YZDQOZDU Dqz odjqzdp zqdip hzpd iqzidqz d qzpdh pzq doziqqd ozdod qizd qzd :D f', 0, NULL, '', 1),
-(3, 0, '2013-05-16 00:00:00', '\n   Faire le buzz MaJ', 'lorem', 1, NULL, '', 1),
-(4, 1, '2013-05-31 04:26:38', 'Apple  for ∞ !', '<font color="#333333" face="Lucida Grande, Lucida Sans Unicode, Helvetica, Arial, Verdana, sans-serif"><span style="font-size: 12px; line-height: 18px;">Text !</span></font><br>', 1, NULL, '', 1),
-(5, 1, '2013-05-15 04:22:40', 'Un titre', 'Un text', 1, NULL, '', 1),
-(6, 0, '2013-05-15 17:20:12', 'UN autre tilte', 'LOLILOL', 1, NULL, '', 1);
+INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
+(1, 0, '2013-05-08 00:00:00', '\n   \n    \n    \n    \n    \n    Un titre super            ', '\n      \n      \n      <div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div>                   ', 1, NULL, '', 1, 1, 0),
+(2, 1, '2013-05-29 12:17:00', 'Un tuto supprimé, et sur deux lignes !', '\n     \n      \n      \n      YZDQOZDU Dqz odjqzdp zqdip hzpd iqzidqz d qzpdh pzq doziqqd ozdod qizd qzd :D f', 0, NULL, '', 1, 1, 0),
+(3, 0, '2013-05-16 00:00:00', '\n   Faire le buzz MaJ', 'lorem', 1, NULL, '', 1, 1, 0),
+(4, 1, '2013-05-31 04:26:38', 'Apple  for ∞ !', '<font color="#333333" face="Lucida Grande, Lucida Sans Unicode, Helvetica, Arial, Verdana, sans-serif"><span style="font-size: 12px; line-height: 18px;">Text !</span></font><br>', 1, NULL, '', 1, 1, 0),
+(5, 1, '2013-05-15 04:22:40', 'Un titre', 'Un text', 1, NULL, '', 1, 1, 0),
+(6, 0, '2013-05-15 17:20:12', 'UN autre tilte', 'LOLILOL', 1, NULL, '', 1, 1, 0);
 
 -- --------------------------------------------------------
 

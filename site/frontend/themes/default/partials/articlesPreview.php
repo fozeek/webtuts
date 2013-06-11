@@ -1,5 +1,5 @@
 <?php
-    $urlArticle = Kernel::getUrl("blog/article/" . Kernel::sanitize($article->get("category")->get("name")) . "/" . Kernel::sanitize($article->get("title")));
+    $urlArticle = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("title"), "article" => $article->get("title")));
 ?>
 
 <div class="one-news">
@@ -19,7 +19,7 @@
 	</p>
 	<p class="comment">
 	    <?php 
-		$nb_comment = $article->get("comments")->count();
+		$nb_comment = count($article->get("comments"));
 		$text_comment = ($nb_comment > 1 ? COMMENTS : COMMENT);
 	    ?>
 	    <a href="<?php echo $urlArticle; ?>#ancre-comments"><?php echo $nb_comment . " " . $text_comment; ?></a>

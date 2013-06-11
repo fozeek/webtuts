@@ -41,7 +41,7 @@
 	    foreach($articles as $article) { 
 		$url_image = get_url_image($article);
 		
-		include(_theme_path_ . "partials/bigArticlePreview.php");
+		include(Kernel::path("themes")."default/partials/bigArticlePreview.php");
 	    }
 	?>
     </div>
@@ -54,7 +54,7 @@
 	<div id="news-box" class="aside-box">
 	    <?php
 		foreach($news as $new) {
-		    include(_theme_path_ . "partials/newsPreview.php");
+		    include(Kernel::path("themes")."default/partials/newsPreview.php");
 		}
 	    ?>
 

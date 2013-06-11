@@ -78,7 +78,7 @@
     
     function get_url_image($object){
 	if($object->get("image")){
-	    $url_image = Kernel::path("upload", true) . $object->get("image")->get("nom") . "." . $object->get("image")->get("type");
+	    $url_image = Kernel::path("uploads", true) . $object->get("image");
 	}
 	else {
 	    $url_image = _theme_path_ . 'images/' . 'article-image.png';
@@ -118,7 +118,7 @@
 	$date = date("j F Y", mktime(0, 0, 0, $date_array[1], $date_array[2], $date_array[0]));
 	
 	$date_array = explode(' ', $date);
-	$date = implode(' ',  array($date_array[0], $months[Kernel::get("lang")][$date_array[1]], $date_array[2]));
+	$date = implode(' ',  array($date_array[0], $months[Kernel::getCurrentLang()][$date_array[1]], $date_array[2]));
 	return $date;
     }
     
