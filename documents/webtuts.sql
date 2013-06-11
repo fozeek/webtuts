@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 27 Mai 2013 à 14:02
+-- Généré le: Mar 11 Juin 2013 à 14:20
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -34,6 +34,48 @@ CREATE TABLE `access` (
 
 INSERT INTO `access` (`id`, `deleted`, `code`, `description`) VALUES
 (1, 0, 'ACCESS_BO', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `carousel`
+--
+
+CREATE TABLE `carousel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rang` int(11) NOT NULL,
+  `bg` text NOT NULL,
+  `titre` text NOT NULL,
+  `description` text NOT NULL,
+  `video` text NOT NULL,
+  `link` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `carousel`
+--
+
+INSERT INTO `carousel` (`id`, `rang`, `bg`, `titre`, `description`, `video`, `link`) VALUES
+(1, 1, 'BGGGG', 'TITRE', 'DESCRIP', 'VIdeo', 'CECI EST UN LIEN'),
+(2, 1, 'Background', 'Titre', 'Description', 'Video', 'Un lien');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `carousel_home`
+--
+
+CREATE TABLE `carousel_home` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rang` int(11) NOT NULL,
+  `bg` text NOT NULL,
+  `titre` text NOT NULL,
+  `descL` text NOT NULL,
+  `video` text NOT NULL,
+  `link` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -128,20 +170,23 @@ INSERT INTO `image` (`id`, `date`, `nom`, `type`) VALUES
 
 CREATE TABLE `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` int(11) NOT NULL,
+  `author` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"user"}',
   `date` datetime NOT NULL,
-  `titre` text NOT NULL,
+  `title` text NOT NULL,
   `text` text NOT NULL,
   `image` int(11) NOT NULL,
   `comments` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `news`
 --
 
-INSERT INTO `news` (`id`, `date`, `titre`, `text`, `image`, `comments`) VALUES
-(1, '2013-05-08 05:07:15', 'Une news', 'zdizqlhdlzqid qzih dqli dlqdhqlidhlq dlq dhlq dilz ql dqz', 1, NULL);
+INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`) VALUES
+(1, 0, 1, '2013-05-08 05:07:15', '\n    \n    Une news fraiche !', '\n      \n      zdizqlhdlzqid qzih dqli dlqdhqlidhlq dlq dhlq dilz ql dqz CONTENNNNNNT !!!<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div>FRAIS !</div>', 1, NULL),
+(2, 0, 1, '2013-05-15 11:28:29', 'zqdqzdqzdqzd l', 'qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -196,23 +241,26 @@ INSERT INTO `taxonomy` (`id`, `deleted`, `name`, `description`) VALUES
 
 CREATE TABLE `tutorial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `titre` text NOT NULL,
+  `title` varchar(200) NOT NULL,
   `text` text NOT NULL,
-  `image` int(11) NOT NULL,
+  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
   `comments` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `tutorial`
 --
 
-INSERT INTO `tutorial` (`id`, `date`, `titre`, `text`, `image`, `comments`) VALUES
-(1, '2013-05-08 00:00:00', 'Un titre super', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.', 1, NULL),
-(2, '2013-05-29 12:17:00', 'Un autre super titre', 'YZDQOZDU Dqz odjqzdp zqdip hzpd iqzidqz d qzpdh pzq doziqqd ozdod qizd qzd ', 0, NULL),
-(3, '2013-05-16 00:00:00', 'Faire le buzz', 'blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla ', 1, NULL),
-(4, '2013-05-31 04:26:38', 'Comment se faire des biatchs !', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultrices aliquam eros ut interdum. Nunc porttitor, tellus at tempor tincidunt, dui ante porttitor lacus, ut adipiscing tortor felis et tellus. Sed sit amet enim ut lectus dignissim lacinia sed at enim. Aliquam venenatis risus non purus placerat in egestas diam fermentum. Aliquam eros augue, porttitor at bibendum vitae, rutrum sed justo. Donec bibendum hendrerit sem quis ultrices. Nullam ac arcu quis sapien lacinia vehicula sit amet et neque. Cras auctor tortor nec augue tempus vitae hendrerit enim ornare. Cras consequat pretium elit et eleifend. In hac habitasse platea dictumst. Duis lobortis metus non turpis facilisis sodales. Integer tincidunt interdum arcu at ornare. Nam convallis, risus vitae congue scelerisque, erat elit tempus nunc, id feugiat nunc mi vel risus. Nulla quis imperdiet sapien.\r\n\r\nAliquam bibendum posuere pharetra. Curabitur laoreet, quam vel tempus mollis, massa arcu fringilla mauris, in luctus neque nunc sit amet urna. Donec odio ligula, vehicula sit amet adipiscing sed, dignissim id neque. Nunc lobortis facilisis adipiscing. Curabitur pharetra turpis vel elit egestas consequat. Nulla facilisi. Etiam condimentum consequat nunc, id dignissim sapien porttitor ac. Phasellus a condimentum mi. Phasellus elementum pretium nunc a tempus. Mauris consectetur molestie elit ac dictum. Ut eget justo leo. Mauris vestibulum erat sodales erat mollis pharetra. Duis hendrerit tempor elit, id luctus elit vulputate vel. Phasellus odio lectus, feugiat vitae pulvinar id, suscipit eget velit. Quisque lectus enim, hendrerit congue hendrerit a, consectetur sed nibh.\r\n\r\nDonec eget urna mauris. Integer mauris tellus, bibendum sagittis posuere eget, dictum et magna. Praesent tincidunt justo augue. Suspendisse convallis lacus eu mi fringilla sed interdum tortor tincidunt. Aenean lectus enim, hendrerit sit amet ultrices at, mollis ac metus. Nunc vitae ullamcorper ipsum. Proin eget magna a erat fermentum vehicula eu sed dolor. Etiam pellentesque dignissim ornare. In hac habitasse platea dictumst. Ut sed arcu et odio varius viverra id in tortor. Quisque hendrerit malesuada ipsum fermentum lobortis.\r\n\r\nCurabitur quam est, varius porta suscipit non, euismod id nisl. Nulla facilisi. Cras facilisis vulputate nunc, id commodo lectus scelerisque nec. Vivamus auctor est quis arcu malesuada auctor. Aliquam tincidunt turpis adipiscing lectus facilisis egestas. Quisque tempor bibendum consectetur. Phasellus viverra purus nisl, sed vulputate felis. Donec fringilla magna et mi tincidunt ac ultrices sapien vulputate. Aenean dignissim blandit mauris, id mollis nisl ornare eu. Morbi cursus, purus euismod bibendum semper, sem purus condimentum magna, non lobortis nibh leo facilisis felis. Suspendisse ligula magna, faucibus eu lacinia vel, iaculis sodales dui. Aliquam eget pharetra augue. Quisque urna ante, scelerisque in semper ut, egestas eget dui.\r\n\r\nEtiam molestie rutrum sem vitae luctus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis nisl risus, a consequat felis. Nullam nisl arcu, vehicula eu tincidunt quis, dictum vitae purus. Cras et libero orci, facilisis ultricies neque. Nulla ipsum mi, pellentesque et consequat ac, commodo eu sapien. Donec pellentesque auctor hendrerit. Fusce aliquam dictum sem, nec fringilla libero tincidunt a. In urna nisi, blandit eget mollis sed, feugiat at lectus. Sed lacus lacus, bibendum eu ultricies vitae, euismod ut mauris. Praesent blandit urna quis felis dapibus a commodo orci vulputate. Proin eu enim non diam venenatis egestas eu ut justo.', 1, NULL);
+INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`) VALUES
+(1, 0, '2013-05-08 00:00:00', '\n   \n    \n    \n    \n    \n    Un titre super            ', '\n      \n      \n      <div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div>                   ', 1, NULL),
+(2, 0, '2013-05-29 12:17:00', 'Un tuto supprimé, et sur deux lignes !', '\n     \n      \n      \n      YZDQOZDU Dqz odjqzdp zqdip hzpd iqzidqz d qzpdh pzq doziqqd ozdod qizd qzd :D f', 0, NULL),
+(3, 1, '2013-05-16 00:00:00', '\n   Faire le buzz MaJ', 'lorem', 1, NULL),
+(4, 1, '2013-05-31 04:26:38', 'Apple  for ∞ !', '<font color="#333333" face="Lucida Grande, Lucida Sans Unicode, Helvetica, Arial, Verdana, sans-serif"><span style="font-size: 12px; line-height: 18px;">Text !</span></font><br>', 1, NULL),
+(5, 1, '2013-05-15 04:22:40', 'Un titre', 'Un text', 1, NULL),
+(6, 0, '2013-05-15 17:20:12', 'UN autre tilte', 'LOLILOL', 1, NULL);
 
 -- --------------------------------------------------------
 
