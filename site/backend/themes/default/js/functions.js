@@ -37,8 +37,8 @@ $("document").ready(function() {
 
 	// Recherche du content
 	$("#search-node").live("click", function(){
-		$(this).children("div").toggle();
-	});	
+		$(this).children("div:last").toggle();
+	});
 	$(".node-button").live("click", function(){
 		$("#node-value").attr("value", $(this).data("node"));
 		var node = $(this).data("node");
@@ -167,7 +167,7 @@ $("document").ready(function() {
 		});
 	});
 	$("#search-node-deleted").live("click", function(){
-		$(this).children("div").toggle();
+		$(this).children("div:last").toggle();
 	});	
 	$(".node-button-deleted").live("click", function(){
 		$("#node-value-deleted").attr("value", $(this).data("node"));
@@ -226,7 +226,25 @@ $("document").ready(function() {
 	$("#add-content").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlAddContent,
+			url : urlAddContentChooseNode,
+			beforeSend: function() {
+				$("#panel").toggle();
+				$("#sub-panel").toggle();
+				$("#page").toggleClass("page-fixed");
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
+			}
+		});
+	});
+
+	$("#manage-nodes").live("click", function() {
+		$.ajax({
+			type : 'post',
+			url : urlManageNodes,
 			beforeSend: function() {
 				$("#panel").toggle();
 				$("#sub-panel").toggle();

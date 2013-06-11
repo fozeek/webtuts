@@ -3,13 +3,15 @@
 </div>
 <div class="corps-border">
 	<div id="search-node-deleted" style="float: right;cursor: pointer;position: relative;padding: 9px;border-left: 1px solid #E5E5E5;color: #232323;border-bottom: 1px solid #ccc;background: #f8f8f8;">
-		<input id="node-value-deleted" type="hidden" value="" />
-		<span id="node-show-deleted">Nodes</span><span id="node-delete-deleted" style="display: none;color: #3F6EC2;margin-left: 5px;">x</span>
-		<div style="display: none;position: absolute;bottom: 0px;right: 0px;height: 0px;width: 0px;z-index: 10;">
+		<input id="node-value-deleted" type="hidden" value="<?php if($node): echo $node; endif; ?>" />
+		<div style="padding-right: 16px;background: url(<?= imageTheme("arrow-node.jpg") ?>) right center no-repeat;">
+			<span id="node-show-deleted"><?php if($node): echo $node; else: ?>Nodes<?php endif; ?></span><span id="node-delete-deleted" style="<?php if(!$node): ?>display: none;<?php endif; ?>color: #3F6EC2;margin-left: 5px;">x</span>
+		</div>
+		<div id="node-list-deleted" style="display: none;position: absolute;bottom: -3px;right: 3px;height: 0px;width: 0px;z-index: 50;">
 			<div style="position: relative;width: 0px;height: 0px;">
-				<div style="position: absolute;top: 0px;right: 0px;min-width: 200px;border-top: 1px solid #E5E5E5;background: white;box-shadow: 0px 3px 5px #ccc;">
-				<?php $bundles = get_object_vars(Config::read("bundle")); foreach ($bundles["content"]->tables as $key => $value) : ?>	
-					<div class="node-button-deleted" data-node="<?= $value ?>" style="padding: 5px;font-size: 0.8em;padding-left: 9px;border-bottom: 1px solid #E5E5E5;">
+				<div style="position: absolute;top: 0px;border-radius: 2px;right: 0px;min-width: 200px;border-top: 1px solid rgba(209,209,209,0.4);border: 1px solid rgba(209,209,209,0.2);border-bottom: none;background: white;box-shadow: 0px 1px 3px #ccc;">
+				<?php $bundles = Bundles::getBundle("content"); foreach ($bundles["tables"] as $key => $value) : ?>	
+					<div class="node-button-deleted" data-node="<?= $value ?>" style="padding: 5px;padding-left: 9px;border-bottom: 1px solid #E5E5E5;">
 						<?= ucfirst($value) ?>
 					</div>
 				<?php endforeach; ?>

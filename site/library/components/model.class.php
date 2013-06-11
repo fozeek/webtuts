@@ -10,9 +10,11 @@ import("bdd", "stdtable");
 class ModelComponent extends Component {
 
 	private $_tables = array();
+	public static $cache;
 	
 	public function __construct($controller, $params = null) {
 		parent::__construct($controller, $params);
+		self::$cache = new Cache("bdd", 60);
 	}
 
 	private function getTable($table) {
@@ -38,9 +40,9 @@ class ModelComponent extends Component {
 	}
 
 	public function bundle($bundle, $options = null) {
-		$bundles = Config::read("bundle");
-		$tables = $bundles->$bundle->tables;
-		$fields = $bundles->$bundle->fields;
+		$bundle = Bundles::getBundle($bundle);
+		$tables = $bundle["tables"];
+		$fields = $bundle["fields"];
 		import("model", strtolower($tables[0])."table");
 		import("model", strtolower($tables[0])."table");
 		$requete = Sql::create()->select(array_merge($fields, array("'".$tables[0]."' AS _object")))->from($tables[0]);

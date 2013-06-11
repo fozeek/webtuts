@@ -7,15 +7,12 @@ class CacheComponent extends Component {
 	public $duration; // Durée de vie du cache en minutes
 	public $buffer;
 
-	public static function getDir() {
-		return __cache_dir__;
-	}
 
 	public function __construct($controller, $params = null) {
 		parent::__construct($controller, $params);
 		if($params == null)
-			$params = array(self::getDir(), 60);
-		$this->dirname = $params[0];
+			$params = array(Kernel::path("cache"), 60);
+		$this->dirname = Kernel::path("cache", true).$params[0];
 		$this->duration = $params[1];
 	}
 

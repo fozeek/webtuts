@@ -412,6 +412,10 @@ class Sql {
 			return new Error(2);
 	}
 
+	public function query($requete) {
+		return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function execute() {
 		if($this->type == Sql::$TYPE_INSERT || $this->type == Sql::$TYPE_UPDATE){
 			$requete = $this->getRequete();

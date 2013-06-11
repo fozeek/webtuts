@@ -4,43 +4,9 @@
 class TableModel{
 
 	/*
-		Liste des liens Objet des attributs
-	*/
-	public static $_links = array();
-
-	/*
-		Liste des rêgles des attributs
-	*/
-	public static $_rules = array(); 
-
-	/*
 		Nom de la table
 	*/
 	private $name;
-
-	/*
-		Constructeur
-	*/
-	public function __construct() {
-		$this->_getVirtualLinks();
-		$this->_getVirtualRules();
-	}
-
-	/*
-		Recupérer les links
-	*/
-	public function getLinks($attribut = null) {
-		$table = ucfirst($this->getName())."Table";
-		return ($attribut) ? $table::$_links[$attribut] : $table::$_links ;
-	}
-
-	/*
-		Recupérer les rules
-	*/
-	public function getRules($attribut = false) {
-		$table = ucfirst($this->getName())."Table";
-		return ($attribut) ? $table::$_rules[$attribut] : $table::$_rules ;
-	}
 
 	/*
 		Récupérer le nom de la table
@@ -85,20 +51,6 @@ class TableModel{
 				->execute()
 			) ?
 			true : false;
-	}
-
-	/*
-		Récupération des liens dans la BDD
-	*/
-	protected function _getVirtualLinks() {
-
-	}
-
-	/*
-		Récupération des regles dans la BDD
-	*/
-	protected function _getVirtualRules() {
-		
 	}
 
 	/*

@@ -18,7 +18,7 @@ class FormHelper extends Helper {
 		// A FINIR
 	}
 
-	public function input($name, $options = array()) {
+	public function input($name, array $options = array()) {
 		$html = '<input name="'.$name.'" ';
 		if(isset($options["type"]))
 			$html .= 'type="'.$options["type"].'" ';
@@ -44,7 +44,7 @@ class FormHelper extends Helper {
 		return $html;
 	}
 
-	public function textarea($name, $options = array()) {
+	public function textarea($name, array $options = array()) {
 		$html = '<textarea ';
 		if(isset($options["name"]))
 			$html .= 'name="'.$options["name"].'" ';
@@ -75,13 +75,13 @@ class FormHelper extends Helper {
 		return $this->input($name, $options);
 	}
 
-	public function radio($name, $value, $options = array()) {
+	public function radio($name, $value, array $options = array()) {
 		$options["type"] = "radio";
 		$options["value"] = $value;
 		return $this->input($name, $options);
 	}
 
-	public function select($name, $collection, $options = array()) {
+	public function select($name, $collection, array $options = array()) {
 		$html = '<select name="'.$name.'" ';
 		if(isset($options["size"]))
 			$html .= 'size="'.$options["size"].'" ';
@@ -102,7 +102,7 @@ class FormHelper extends Helper {
 		return $html;
 	}
 
-	public function submit($value = "Envoyer",  $options = array()) {
+	public function submit($value = "Envoyer", array $options = array()) {
 		$html = '<input type="submit" value="'.$value.'" ';
 		if(isset($options["id"]))
 			$html .= 'id="'.$options["id"].'" ';
@@ -112,5 +112,20 @@ class FormHelper extends Helper {
 			$html .= 'style="'.$options["style"].'" ';
 		$html .= '/>';
 		return $html;
+	}
+
+	public function getForm($object, array $options = array()) {
+		$html = $this->start((array_key_exists("start", $options)) ? $options["start"] : null);
+		foreach ($object->getShema() as $attribut => $params) {
+			if($params["Extra"] != "auto_increment" && empty($params["Link"])) {
+				if($params["Type"]=="text")
+					$html .= $this->textarea((array_key_exists("textarea", $options)) ? $options["textarea"] : null );
+				elseif(preg_match("/varchar/i", $params["Type"])) {
+					$tmp = explode("(", $params["Type"]);
+					$html .= $this->input((array_key_exists("input", $options)) ? array_merge($options["input"], array("maxlength" => $tmp[1])) : null );
+				}
+			}
+		}
+		$html .= $this->submit((array_key_exists("submit", $options)) ? $options["submit"] : null);
 	}
 }

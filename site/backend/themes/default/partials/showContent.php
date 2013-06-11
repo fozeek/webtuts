@@ -6,5 +6,10 @@
 <div class="corps-border">
 	<div class="corps">
 		<div id="content-text" class="content content-editable" contentEditable="true"><?= $content->get("text") ?></div>
+		<?php foreach ($content->getShema() as $key => $value): ?>
+			<div style="padding: 20px;">
+				<?= ucfirst($key) ?> : <?= $content->get($key); ?>
+			</div>
+		<?php endforeach ?>
 	</div>
 </div>

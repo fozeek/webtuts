@@ -1,7 +1,7 @@
 <?php
 
 class TutorialTable extends TableModel {
-	
+	/*
 	public static $_links = array(
 			"image" => array(
 					"link" => "OneToOne",
@@ -13,5 +13,5 @@ class TutorialTable extends TableModel {
 					"code" => 1
 				),
 		);
-
+	*/
 }

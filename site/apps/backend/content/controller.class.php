@@ -47,7 +47,7 @@ class ContentController extends Controller {
 		$contents = ($node) ?
 			$this->Model->$node->getAll($options):
 			$this->Model->bundle("content", $options);
-		$this->render(compact("contents", "date", "query"));
+		$this->render(compact("contents", "date", "query", "node"));
 	}
 
 	public function ListdeletedajaxAction() {
@@ -85,6 +85,15 @@ class ContentController extends Controller {
 	public function AddcontentajaxAction() {
 		$this->render();
 	}
+
+	public function AddcontentchoosenodeajaxAction() {
+		$this->render();
+	}
+
+	public function ManageNodesajaxAction() {
+		$this->render();
+	}
+	
 /*
 	public function ShowAction($node, $id) {
 		$node = ucfirst($node);

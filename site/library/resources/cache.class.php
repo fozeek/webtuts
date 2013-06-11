@@ -12,7 +12,7 @@ class Cache {
 	}
 
 	public function __construct($dirname, $duration) {
-		$this->dirname = $dirname;
+		$this->dirname = Kernel::path("cache").$dirname;
 		$this->duration = $duration;
 	}
 

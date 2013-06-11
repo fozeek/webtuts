@@ -54,6 +54,11 @@
 		));
 
 	/*
+		Bundles
+	*/
+	Bundles::initializeBundles();
+
+	/*
 		Connection à la BDD
 			Les differents users de bdd sont dans bdd.config.php
 	*/
@@ -98,7 +103,6 @@
 			- table des contents
 			- table des taxonomy
 	*/
-	Config::write("bundle", json_decode(file_get_contents(Kernel::path("config")."bundles.config.json")));
 	Config::write("title", "Webtuts.fr");
 
 	/*

@@ -14,42 +14,51 @@ class ObjectModel {
 		return $this->_name;
 	}
 
+	public function __tostring() {
+		return "ObjectModel#".$this->getName().":".$this->get("id");
+	}
+
 	public function getAttributs() {
 		return $this->_attributs;
 	}
 
-
-	/*
-		Recupérer les links
-	*/
-	private function _getLinks($attribut = null) {
-		$table = ucfirst($this->getName())."Table";
-		return ($attribut) ? $table::$_links[$attribut] : $table::$_links ;
-	}
-
-	/*
-		Recupérer les rules
-	*/
-	private function _getRules($attribut = false) {
-		$table = ucfirst($this->getName())."Table";
-		return ($attribut) ? $table::$_rules[$attribut] : $table::$_rules ;
-	}
-
 	public function get($attributName) {
-		$links = $this->_getLinks();
-		if(array_key_exists($attributName, $links) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
-			import("model", strtolower($links[$attributName]["reference"])."object");
-			import("model", strtolower($links[$attributName]["reference"])."table");
+		$shema = $this->getShema();
+		$link = $shema[$attributName]["Link"];
+		if(!empty($link) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
+			import("model", strtolower($link["reference"])."object");
+			import("model", strtolower($link["reference"])."table");
 			$this->_attributs[$attributName] = TableModel::getLinkTo(
-				ucfirst($links[$attributName]["reference"])."Table", 
+				ucfirst($link["reference"])."Table", 
 				str_replace("Object", "", get_class($this))."Table", 
-				(isset($links[$attributName]["link"])) ? $links[$attributName]["link"] : null, 
+				(isset($link["link"])) ? $link["link"] : null, 
 				(isset($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->get("id"), 
-				(isset($links[$attributName]["code"])) ? $links[$attributName]["code"] : null 
+				(isset($link["code"])) ? $link["code"] : null 
 			);
 		}
 		return (isset($this->_attributs[$attributName])) ?
 			$this->_attributs[$attributName] : false ;
+	}
+
+	public function getShema() {
+		if(!$shema = ModelComponent::$cache->read($this->getName()."_shema")) {	
+			$res = Sql::create()->query("show full columns from ".$this->getName());
+			$shema = array();
+			foreach ($res as $key => $value) {
+				$field = $value["Field"];
+				$value["Link"] = json_decode($value["Comment"]);
+				if($value["Link"] !== null)
+					$value["Link"] = get_object_vars($value["Link"]);
+				unset($value["Field"]);
+				unset($value["Comment"]);
+				unset($value["Privileges"]);
+				$shema[$field] = $value;
+			}
+			ModelComponent::$cache->write($this->getName()."_shema", serialize($shema));
+		}
+		else
+			$shema = unserialize($shema);
+		return $shema;
 	}
 
 	public function __call($function, $params) {

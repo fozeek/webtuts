@@ -1,7 +1,7 @@
 <?php
 
 class NewsTable extends TableModel {
-	
+	/*
 	public static $_links = array(
 			"image" => array(
 					"link" => "OneToOne",
@@ -12,6 +12,6 @@ class NewsTable extends TableModel {
 					"reference" => "comment",
 					"code" => 2
 				),
-		);
+		);*/
 
 }
