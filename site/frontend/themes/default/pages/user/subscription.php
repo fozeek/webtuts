@@ -16,10 +16,12 @@
 	    <div class="left-column">
 		<div class="border-title">
 		    <h2 class="left-title">
-			<?php echo MANDATORY_INFORMATIONS; ?>
+			<img src="<?php echo '/'._theme_path_ . 'images/'; ?>mandatory.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
+			<span style="vertical-align: middle;"><?php echo MANDATORY_INFORMATIONS; ?></span>
 		    </h2>
 		</div>
-		
+		<div class="cl"></div>
+
 		<label class="label"><?php echo LBL_CIVILITE; ?> :</label>
 		<input type="radio" checked="checked" name="civilite" id="man-civilite" value="homme" /><label for="man-civilite" class="box-next"><?php echo LBL_MAN; ?></label>
 		<input type="radio" name="civilite" id="woman-civilite" value="femme" /><label for="woman-civilite" class="box-next"><?php echo LBL_WOMAN; ?></label>
@@ -68,9 +70,11 @@
 	    <div class="right-column">
 		<div class="border-title">
 		    <h2 class="left-title">
-			<?php echo OPTIONAL_INFORMATIONS; ?>
+			<img src="<?php echo '/'._theme_path_ . 'images/'; ?>optionnal.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
+			<span style="vertical-align: middle;"><?php echo OPTIONAL_INFORMATIONS; ?></span>
 		    </h2>
 		</div>
+		<div class="cl"></div>
 
 		<label class="label"><?php echo LBL_PAYS; ?> :</label>
 		<select name="pays">

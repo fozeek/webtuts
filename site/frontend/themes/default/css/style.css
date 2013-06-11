@@ -29,6 +29,12 @@
     font-family: "Oregon";
     src: url("Oregon LDO Light.ttf");
 }
+@font-face
+{
+    font-family: "helv";
+    src: url("Lucida Grande.ttf");
+}
+
 /* Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -91,8 +97,8 @@ input:-moz-placeholder {
 
 /* Our Css */
 body {
-    font-size: 100%;
-    font-family: 'Ubuntu-C', arial, sans-serif; 
+    font-size: 12px;
+    font-family: helv, arial, sans-serif;
     
     background: #edefed;
 }
@@ -120,27 +126,22 @@ a:hover { text-decoration: none; }
     vertical-align: middle;
 }
 .middle-title{
-	text-align: center;
-	height: 24px;
-	width: 450px;
-	margin: auto;
-	
-	font-size: 18px;
-	color: black;
-	background: transparent url(../images/bg.png) left top;
-
+    font-family: 'Segoe UI';
+    font-size: 24px;
+    color: rgb(51,86,129);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-align: center;
 }
 .right-title{
-	float: right;
 	height: 24px;
 	width: auto;
-	font-size: 18px;
-	padding-left: 20px;
-	color: black;
-	background-color: rgb(237,235,235);
-
-	background: transparent url(../images/bg.png) left top;
-
+	font-size: 22px;
+	color: #222;
+	font-family: 'Segoe UI';
+	letter-spacing: 2px;
+	margin-bottom: 20px;
+	
 }
 h4.left-title{
     background: #fff;
@@ -159,20 +160,13 @@ h4.left-title span{
 	height: 20px;
 	width: auto;
 	font-size: 14px;
-	padding-right: 10px;
-	color: black;
-	
-	background: transparent url(../images/bg.png) left top;
-
 }
 .border-title{
 	height: 30px;
-	background: transparent url(../images/border.png) left 9px repeat-x;
 	z-index: -1;
 }
 .middle-column > .border-big-title{
     height: auto;
-    background: transparent url(../images/border.png) left 18px repeat-x;
     width: 100%;
 }
 .middle-column > .border-big-title > h1.big-title{
@@ -204,7 +198,7 @@ h4.left-title span{
     height:27px;
     width: 148px;
     margin-right: 12px;
-    padding-top: 7px;
+    padding-top: 10px;
     color: #fff;
     text-align: center;
     border:none;
@@ -221,12 +215,12 @@ p.comment a{
 	color: #335681;
 }
 p.show-more{
-	font-size: 14px;
+	font-size: 13px;
 	float: left;
 }
 .date{
 	font-style: italic;
-	font-size: 14px;
+	font-size: 12px;
 }
 .marginAuto{
     margin: auto;
@@ -252,11 +246,11 @@ header #top-header{
 }
 header #top-header #login-box{
 	float: left;
-	margin: 36px 0 0 93px;
+	margin: 27px 0 0 93px;
 }
 header > #top-header 	> #login-box > a {
 	color: rgb(236,235,232);
-	font-size: 13px;
+	font-size: 14px;
 }
 
 header #top-header .search-flag-container{
@@ -291,6 +285,7 @@ header #top-header #search-box .input-template{
 	background-color: #ddd;
 	
 	border: none;
+	outline: none;
 	
 	border-radius: 20px;
 	-webkit-border-radius: 20px;
@@ -324,10 +319,11 @@ header #top-header #search-box .button-search{
 nav{
 	height: 51px;
 	position: relative;
-	background: transparent url(../images/nav-background.png) left top repeat-x;
+	background: transparent url(../images/category-background.png) center center repeat-x;
 	
 	border-bottom: 1px solid #666;
 }
+
 nav ul{
 	position: absolute;
 	top: 0;
@@ -439,13 +435,14 @@ footer #bottom-footer{
 	height: 30px;
 	background: transparent url(../images/nav-background.png) left top;
 	text-align: center;
-	padding-top: 13px;
+	padding-top: 16px;
+	position: relative;
 }
 /** CONTENT **/
 #global{
 	width: 1024px;
 	
-	background: transparent url(../images/bg.png) left top;
+	background: transparent url(../images/furley_bg.png) left top;
 	
 	margin: auto;
 	
@@ -459,7 +456,6 @@ footer #bottom-footer{
 	-ms-box-shadow: 0 0 5px rgba(0,0,0,0.6);
 	
 	position: relative;
-	overflow: hidden;
 }
 .one-article{
 	width: 606px;
@@ -526,7 +522,7 @@ footer #bottom-footer{
 .one-article .article-content p.content-introduction{
 	text-indent: 10px;
 	line-height: 16px;
-	font-size: 14px;
+	font-size: 13px;
 }
 .one-article .article-content p a img{
 	margin-right: 5px;
@@ -673,7 +669,7 @@ aside{
 }
 aside .aside-box{
 	background-color: #fff;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 	position: relative;
 	
 	border-radius: 3px;
@@ -681,6 +677,9 @@ aside .aside-box{
 	-moz-border-radius: 3px;
 	-o-border-radius: 3px;
 	-ms-border-radius: 3px;
+}
+aside #twitter-box{
+    background: transparent;
 }
 aside #social-box {
 	padding: 10px 0;
@@ -727,7 +726,7 @@ aside #social-box #newsletter-social:hover{
 }
 .one-news{
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 16px;
 }
 .one-big-news{
@@ -746,12 +745,11 @@ aside #social-box #newsletter-social:hover{
 #explanation-text-page{
     margin-bottom: 40px;
     color: rgb(106,104,104);
-    font-size: 16px;
-    margin: 10px 0;
+    font-size: 14px;
+    margin: 10px 0 20px 0;
     line-height: 20px;
     text-align: center;
 }
-
 
 
 /** BLOG **/
@@ -765,12 +763,13 @@ aside #social-box #newsletter-social:hover{
 }
 .article-category a{
     color: #fff;
+    font-size: 13px;
 }
 
 .article-content{
     line-height: 20px;
-    font-family: 'Ubuntu-C';
-    font-size: 14px;
+    font-family: helv;
+    font-size: 13px;
 }
 .article-content .article-information{
     margin-top: 30px;
@@ -787,7 +786,9 @@ aside #social-box #newsletter-social:hover{
     color: rgb(51,86,129);
     font-weight: bold;
 }
-
+.one-article h3 a{
+    color: rgb(51,86,129) !important;
+}
 .article-comments{
     margin-top: 20px;
 }
@@ -857,16 +858,16 @@ form label.label{
     padding-top: 10px;	
 }
 form label{
-    font-family: Oregon;
-    font-size: 14px;
+    font-family: helv;
+    font-size: 12px;
     color: #444;
     vertical-align: middle;
+    font-weight: bold;
 }
 form input[type="text"], form input[type="password"], form select, form textarea, .one-comment textarea{
     display: block;
     float: left;
-    width: 200px;
-    height: 30px;
+    width: 150px;
     vertical-align: middle;
     padding: 5px;
     font-family: Oregon;
@@ -904,13 +905,58 @@ form label.box-next{
     margin-right: 10px;
 }
 .marginAuto{
-    margin-top: 40px;
+    margin-top: 30px;
+}
+.design-button{
+    display: block;
+    float: left;
+    width: 98px;
+    height: 25px;
+    background: #56728E;
+    text-align: center;
+    padding-top: 9px;
+    border: 1px solid #34506C;
+    margin-right: 5px;
+    
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    -o-box-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    
+    transition-property: all;
+    transition-duration: 0.3s;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-property: all;
+    -moz-transition-duration: 0.3s;
+    -o-transition-property: all;
+    -o-transition-duration: 0.3s;
+}
+.design-button:hover{
+    opacity: 0.6;   
+}
+.design-button:active{
+    margin-top: 2px;
+    box-shadow: 0 0 0 rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 0 0 rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 0 rgba(0,0,0,0.6);
+    -o-box-shadow: 0 0 0 rgba(0,0,0,0.6);   
+}
+a.color{
+    background: transparent url(../images/category-background.png) center center repeat-x;
+    border: 1px solid #222;
 }
 .button span input[type="submit"]{
     padding-top: 0px;
     height: 33px;
     cursor: pointer;
-    font-family: Ubuntu-c;
+    font-family: helv;
     font-size: 16px;
 }
 

@@ -1,7 +1,7 @@
 <?php
 
-	 define("_theme_path_", __themes_dir__ . "default/");
-	 include(__library_dir__ . "lang/" . Kernel::get("lang") . ".php");
+	 define("_theme_path_", Kernel::path("themes", true) . "default/");
+	 include("lang/" . Kernel::getCurrentLang() . ".php");
  	 include("functions.php");
 
 ?>
@@ -10,20 +10,19 @@
 	<head>
 	    <?php
 		include("partials/meta.php");
-	    //Kernel::get("cache")->inc(_theme_path_."partials/meta.php");
 		$end_title = "";
-		if(Kernel::get("action") == "category" ||
-		   Kernel::get("action") == "article" ||
-		   Kernel::get("action") == "actualite" ||
-		   Kernel::get("action") == "tag" ||
-		   Kernel::get("action") == "profil"){
+		if(Kernel::route("action") == "category" ||
+		   Kernel::route("action") == "article" ||
+		   Kernel::route("action") == "actualite" ||
+		   Kernel::route("action") == "tag" ||
+		   Kernel::route("action") == "profil"){
 		   $newUrl = explode("/", Kernel::$URL);
 		   $end_title = str_replace("-"," ",end($newUrl));
 		   
 		}
 	    ?>
 	    
-	    <title><?php echo get_title_from_url(Kernel::get("controler"),Kernel::get("action")) . " " . $end_title; ?></title>
+	    <title><?php echo get_title_from_url(Kernel::route("controller"),Kernel::route("action")) . " " . $end_title; ?></title>
 	   </head>
 	<body>
 	    <div id="fb-root"></div>
@@ -43,7 +42,7 @@
 
 		<!-- Content -->
 		<div id="content">
-		    <?php include(_theme_path_."pages/".Kernel::get("controler").'/'.Kernel::get("action").".php"); ?>
+		    <?php include(_theme_path_."pages/".Kernel::route("controller").'/'.Kernel::route("action").".php"); ?>
 		</div>
 
 		<!-- Footer -->

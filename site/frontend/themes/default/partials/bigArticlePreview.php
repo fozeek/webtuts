@@ -1,5 +1,5 @@
 <?php
-    $urlArticle = Kernel::getUrl("blog/article/" . Kernel::sanitize($article->get("category")->get("name")) . "/" . Kernel::sanitize($article->get("title")));
+    $urlArticle = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("slug"), "article" => $article->get("slug")));
 ?>
 
 <div class="one-article">
@@ -15,7 +15,7 @@
 
 	<p class="article-caption">
 	    <span class="date"><?php echo THE . " " . format_date($article->get("date")) . " " . BY; ?></span>
-	    <a href="<?php echo Kernel::getUrl("user/profil/" . $article->get("author")->get("pseudo")); ?>"><?php echo $article->get("author")->get("pseudo"); ?></a>
+	    <a href="<?php echo Router::getUrl("user", "profil", array("user" => $article->get("author")->get("pseudo"))); ?>"><?php echo $article->get("author")->get("pseudo"); ?></a>
 	</p>
 	<p class="content-introduction">
 	    <?php echo nl2br(short_description($article->get("text"), 144)); ?>
@@ -26,7 +26,7 @@
 	    </p>
 	    <p class="comment">
 		<a href="<?php echo $urlArticle; ?>#ancre-comments">
-		    <img src="<?php echo '/'._theme_path_ . 'images/'; ?>bulle.png" alt="<?php echo ALT_SEE_COMMENTS; ?>" />
+		    <img src="<?php echo _theme_path_ . 'images/'; ?>bulle.png" alt="<?php echo ALT_SEE_COMMENTS; ?>" />
 		    <?php 
 			$nb_comment = $article->get("comments")->count();
 			$text_comment = ($nb_comment > 1 ? COMMENTS : COMMENT);
@@ -40,15 +40,15 @@
 
     
     <div class="article-category left">
-	<img src="<?php echo '/'._theme_path_ . 'images/'; ?>angle.png" alt="<?php echo ALT_HEADBAND; ?>" />
+	<img src="<?php echo _theme_path_ . 'images/'; ?>angle.png" alt="<?php echo ALT_HEADBAND; ?>" />
 	<?php 
-		$temp = $article->get("category")->get("name");
-		if(strlen($article->get("category")->get("name")) > 15){
-		    $temp_array = explode(" ", $article->get("category")->get("name"));
+		$temp = $article->get("category")->get("title");
+		if(strlen($article->get("category")->get("title")) > 15){
+		    $temp_array = explode(" ", $article->get("category")->get("title"));
 		    $temp = implode("<br/>", $temp_array);
 		}
 	?>
-	<a style="<?php echo (strlen($article->get("category")->get("name")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Kernel::getUrl("blog/category/" . Kernel::sanitize($article->get("category")->get("name"))); ?>">
+	<a style="<?php echo (strlen($article->get("category")->get("title")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Kernel::getUrl("blog/category/" . Kernel::sanitize($article->get("category")->get("title"))); ?>">
 	    <?php 
 		echo $temp; ?>
 	</a>
@@ -59,8 +59,8 @@
 	<?php 
 	    foreach($article->get("tags") as $tag) {
 	?>
-		<a href="<?php echo Kernel::getUrl("blog/tag/" . $tag->get("name")); ?>" class="article-tag">
-		    <?php echo $tag->get("name"); ?>
+		<a href="<?php echo Router::getUrl("blog", "tag", array("tag", $tag->get("title"))); ?>" class="article-tag">
+		    <?php echo $tag->get("title"); ?>
 		</a>
 	<?php
 	    }

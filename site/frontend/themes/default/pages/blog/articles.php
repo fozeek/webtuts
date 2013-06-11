@@ -14,7 +14,7 @@
 	    <p><?php echo ARTICLES_TEXT; ?></p>
 	</div>
 	
-	<div class="content-container" style="padding-top: 20px;">
+	<div class="content-container" >
 	    <?php
 		foreach($articles as $article){
 		    $url_image = get_url_image($article);
@@ -28,7 +28,7 @@
 	<aside>
 	    <!-- News -->
 	    <div class="border-title">
-		<h3 class="right-title"><?php echo NEWS_WORD; ?></h3>
+		<h2 class="right-title"><?php echo NEWS_WORD; ?></h2>
 	    </div>
 	    
 	    <div id="news-box" class="aside-box">

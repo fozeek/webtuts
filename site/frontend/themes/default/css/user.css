@@ -1,6 +1,6 @@
 #connection-page #explanation-text-page{
 
-    margin: 20px 0 30px 0;
+    margin: 30px 0 30px 0;
 }
 #connection-page #login-form{
     margin: auto;
@@ -73,12 +73,12 @@
     margin-left: 33px;
 }
 #profil-page .informations-major-container .pContainer label.label-presentation, #profil-page .informations-minor-container .pContainer label.label-presentation{
-    font-size: 18px;
+    font-size: 16px;
     color: #3F6EC2;
     
 }
 #profil-page .informations-major-container .pContainer p, #profil-page .informations-minor-container .pContainer p{
-    font-size: 18px;
+    font-size: 14px;
     line-height:22px;
     margin-bottom: 10px;
 }
@@ -134,10 +134,18 @@
 
 /** form **/
 #subscription-page #register-form h2, #compte-page #register-form h2{
-    font-family: 'Segoe UI light';
-    font-size: 18px;
+    font-family: 'Segoe UI';
+    font-size: 22px;
     color: #333;
+    margin-bottom: 30px;
 }
 #subscription-page h4, #compte-page h4{
     font-size: 12px;
+}
+form input[type="text"], form input[type="password"]{
+    width: 170px;
+    height: 20px;
+}
+form select{
+    width: 182px;
 }

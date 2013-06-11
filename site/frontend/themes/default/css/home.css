@@ -3,16 +3,17 @@
 	width: 100%;
 }
 #home-page #explanation-text{
-	padding: 20px;
+	padding-bottom: 20px;
+	position: relative;
 }
 #home-page #explanation-text p{
-	color: rgb(106,104,104);
-	font-size: 16px;
+	color: #222;
+	font-size: 13px;
 	margin: 10px 0;
-	line-height: 20px;
+	line-height: 24px;
 	text-align: center;
+	font-family: helv;
 }
-
 
 #home-page #categories-box{
 	background: transparent url(../images/category-background.png) center center no-repeat;
@@ -85,6 +86,18 @@
 	padding: 20px;
 }
 
-#home-page #middle-column h1.border-until{
-	width: 200px;
+#home-page #middle-column h2{
+    font-family: 'Segoe UI';
+    font-size: 22px;
+    letter-spacing: 2px;
+    height: 28px;
+    margin-bottom: 15px;
+    color: #222;
+}
+#home-page #explanation-text h1{
+    font-family: 'Segoe UI';
+    font-size: 22px;
+    color: rgb(51,86,129);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
 }

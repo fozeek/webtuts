@@ -11,7 +11,7 @@
 	<div class="soon-container">
 	    <h1><?php echo IN_COMING; ?></h1>
 	    
-	    <p><?php echo MSG_PARTNERS; ?><a href="mailto:contact@webtuts.fr">contact@webtuts.fr</a></p>
+	    <p style="margin-left:6px;"><?php echo MSG_PARTNERS; ?><a href="mailto:contact@webtuts.fr">contact@webtuts.fr</a></p>
 	</div>
     </div>
 </div>

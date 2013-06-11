@@ -4,13 +4,11 @@
 ?>
 <div id="tag-page">
     <div class="middle-column">
-	<div class="border-title">
-	    <h1 class="left-title">
-		<span class="black"><?php echo TAG . " :</span> " . $tag_target->get("name"); ?>
-	    </h1>
-	    <div class="cl"></div>
-	</div>
+	<h1 class="left-title">
+	    <span class="black"><?php echo TAG . " :</span> " . $tag_target->get("name"); ?>
+	</h1>
 	<div class="cl"></div>
+	
 	<div class="content-container" style="padding-top: 20px;">
 	    <?php
 		$articles_tag = $tag_target->get("articles");

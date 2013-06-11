@@ -30,7 +30,7 @@
 	</div>
 	
 	<div id="bottom-footer">
-	    <div style="float: left; margin-left: 10px;" class="fb-like" data-href="https://www.facebook.com/webtuts.fr" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui"></div>
+	    <div style="position: absolute;left:5px;top:13px;" class="fb-like" data-href="https://www.facebook.com/webtuts.fr" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="segoe ui"></div>
 	
 	    <p><?php echo COPYRIGHTS; ?> - Webtuts 2012</p>
 		

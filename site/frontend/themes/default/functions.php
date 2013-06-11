@@ -78,10 +78,10 @@
     
     function get_url_image($object){
 	if($object->get("image")){
-	    $url_image = '/' . __upload_dir__ . $object->get("image")->get("name") . "." . $object->get("image")->get("type");
+	    $url_image = Kernel::path("upload", true) . $object->get("image")->get("nom") . "." . $object->get("image")->get("type");
 	}
 	else {
-	    $url_image = '/'. _theme_path_ . 'images/' . 'article-image.png';
+	    $url_image = _theme_path_ . 'images/' . 'article-image.png';
 	}
 	return $url_image;
     }

@@ -38,7 +38,7 @@
 	    ?>
 	    <!-- infos -->
 	    <div class="border-title">
-		<h3 class="right-title"><?php echo $cat->get("name"); ?></h3>
+		<h2 class="right-title"><?php echo $cat->get("name"); ?></h2>
 	    </div>
 	    
 	    <div id="info-box" class="aside-box">

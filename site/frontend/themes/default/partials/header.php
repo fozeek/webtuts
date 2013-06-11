@@ -1,59 +1,56 @@
 <header>
 	<div id="top-header">
 		<?php
-		    if(Kernel::get("action") != "404" && 
-		      (Kernel::get("action") != "compte" || 
-		      (Kernel::get("action") == "compte" && !Kernel::get("session")->containsKey("first_connection")) ||
-		      (Kernel::get("action") == "compte" && Kernel::get("session")->containsKey("first_connection") && !Kernel::get("session")->get("first_connection")))){
+		    if(Kernel::route("action") != "404" && 
+		      (Kernel::route("action") != "compte" || 
+		      (Kernel::route("action") == "compte" && !$this->Session->containsKey("first_connection")) ||
+		      (Kernel::route("action") == "compte" && $this->Session->containsKey("first_connection") && !$this->Session->get("first_connection")))){
 		?>
 			<div id="oiseau-anime">
-				<img src="<?php echo '/'._theme_path_ . 'images/'; ?>oeuil-oiseau.png" alt="<?php echo ALT_BIRD_EYE; ?>" class="bird-eye" id="left-eye"/>
-				<img src="<?php echo '/'._theme_path_ . 'images/'; ?>oeuil-oiseau.png" alt="<?php echo ALT_BIRD_EYE; ?>" class="bird-eye" id="right-eye"/>
+				<img src="<?php echo _theme_path_ . 'images/'; ?>oeuil-oiseau.png" alt="<?php echo ALT_BIRD_EYE; ?>" class="bird-eye" id="left-eye"/>
+				<img src="<?php echo _theme_path_ . 'images/'; ?>oeuil-oiseau.png" alt="<?php echo ALT_BIRD_EYE; ?>" class="bird-eye" id="right-eye"/>
 			</div>
 		<?php
 		    }
 		?>
 		<div id="login-box">
-		    <?php
-			if(Kernel::get("user") == false) {
+		    <?php /*
+			if($this->Auth->getUser() == false) {
 		    ?>
-			<a href="<?php echo Kernel::getUrl("user/connection"); ?>"><?php echo CONNECTION; ?></a>
-			<span>&nbsp;/&nbsp;</span>
-			<a href="<?php echo Kernel::getUrl("user/subscription"); ?>"><?php echo INSCRIPTION; ?></a>
+			<a href="<?php echo Router::getUrl("user", "connection"); ?>" class="design-button"><?php echo CONNECTION; ?></a>
+
+			<a href="<?php echo Router::getUrl("user", "subscription"); ?>" class="design-button color"><?php echo INSCRIPTION; ?></a>
 		    <?php
 			}
 			else {
 		    ?>
-			<a href="<?php echo Kernel::getUrl("user/profil/" . Kernel::get("user")->get("pseudo")); ?>">
-				<img src="<?php echo '/'._theme_path_ . 'images/'; ?>membership.png" alt="<?php echo ALT_MY_PROFILE; ?>" />
+			<a href="<?php echo Router::getUrl("user", "profil", array("user" => Router::get("user")->get("pseudo"))); ?>" class="design-button">
 				<?php echo MY_PROFILE; ?>
 			</a>
-			<span>&nbsp;-&nbsp;</span>
-			<a href="<?php echo Kernel::getUrl("user/compte"); ?>">
+			<a href="<?php echo Router::getUrl("user", "compte"); ?>" class="design-button">
 				<?php echo MY_ACCOUNT; ?>
 			</a>
-			<span>&nbsp;-&nbsp;</span>
-			<a href="<?php echo Kernel::getUrl("user/disconnect"); ?>">
+			<a href="<?php echo Router::getUrl("user", "disconnect"); ?>" class="design-button color">
 				<?php echo DECONNECTION; ?>
 			</a>
 		    <?php
-			}
+			}*/
 		    ?>
 		</div>
 		<div class="right search-flag-container">
 			<div id="flag-box">
 				<?php 
-					if(empty($link)) {
-						$link["fr"] = Kernel::getUrl("fr/".Kernel::get("url"));
-						$link["en"] = Kernel::getUrl("en/".Kernel::get("url"));
-					}
+				    if(empty($link)) {
+					$link["fr"] = "/fr/".Kernel::getUrl();
+					$link["en"] = "/en/".Kernel::getUrl();
+				    }
 				?>
 			    <a href="<?php echo $link["fr"];?>">
-					<img src="<?php echo '/'._theme_path_ . 'images/'; ?>flag_fr.png" alt="<?php echo ALT_TRANSLATE_FR; ?>" />
+					<img src="<?php echo _theme_path_ . 'images/'; ?>flag_fr.png" alt="<?php echo ALT_TRANSLATE_FR; ?>" />
 					<span class="flag-caption">FR</span>
 				</a>
 			    <a href="<?php echo $link["en"];?>">
-					<img src="<?php echo '/'._theme_path_ . 'images/'; ?>/flag_en.png" alt="<?php echo ALT_TRANSLATE_EN; ?>" />
+					<img src="<?php echo _theme_path_ . 'images/'; ?>/flag_en.png" alt="<?php echo ALT_TRANSLATE_EN; ?>" />
 					<span class="flag-caption">EN</span>
 				</a>
 			</div>
@@ -69,21 +66,21 @@
 	
 	<nav>
 		<ul id="left-nav">
-			<li><a href="<?php echo Kernel::getUrl(""); ?>"><?php echo HOME; ?></a></li>
-			<li><a href="<?php echo Kernel::getUrl("blog/categories"); ?>"><?php echo CATEGORY; ?></a></li>
-			<li><a href="<?php echo Kernel::getUrl("blog/articles"); ?>"><?php echo ARTICLE; ?></a></li>			
+			<li><a href="/"><?php echo HOME; ?></a></li>
+			<li><a href="<?php echo Router::getUrl("blog", "categories"); ?>"><?php echo CATEGORY; ?></a></li>
+			<li><a href="<?php echo Router::getUrl("blog", "articles"); ?>"><?php echo ARTICLE; ?></a></li>			
 		</ul>
 		
 		<div id="logo">
-			<a href="<?php echo Kernel::getUrl(""); ?>">
-				<img src="<?php echo '/'._theme_path_ . 'images/'; ?>logo.png" alt="<?php echo ALT_LOGO; ?>" />
+			<a href="/">
+				<img src="<?php echo _theme_path_ . 'images/'; ?>logo.png" alt="<?php echo ALT_LOGO; ?>" />
 			</a>
 		</div>
 		
 		<ul id="right-nav">
-			<li><a href="<?php echo Kernel::getUrl("blog/actualites"); ?>"><?php echo NEWS; ?></a></li>
+			<li><a href="<?php echo Router::getUrl("blog", "actualites"); ?>"><?php echo NEWS; ?></a></li>
 			<li><a href="#"><?php echo SEARCH; ?></a></li>
-			<li><a href="<?php echo Kernel::getUrl("page/contact"); ?>"><?php echo CONTACT; ?></a></li>			
+			<li><a href="<?php echo Router::getUrl("page", "contact"); ?>"><?php echo CONTACT; ?></a></li>			
 		</ul>
 	</nav>
 </header>

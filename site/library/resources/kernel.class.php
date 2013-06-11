@@ -11,58 +11,63 @@ class Kernel {
 	private static $_debugMode;
 	private static $_currentLang;
 	private static $_autoloadsController;
+	private static $_url;
 
 	static public function run($url) {
-		$kernel = new Kernel();
-		return $kernel->dispatcher($kernel->parse($url));
+	    $kernel = new Kernel();
+	    return $kernel->dispatcher($kernel->parse($url));
 	}
 
 	static public function setAutoloadsController($autoloads) {
-		self::$_autoloadsController = $autoloads;
+	    self::$_autoloadsController = $autoloads;
 	}
 
 	static public function getAutoloadsController() {
-		return self::$_autoloadsController;
+	    return self::$_autoloadsController;
 	}
 
 	static public function setApp($app) {
-		self::$_app = $app;
+	    self::$_app = $app;
 	}
 
 	static public function getApp() {
-		return self::$_app;
+	    return self::$_app;
 	}
 
 	static public function setDebugMode($debugMode) {
-		self::$_debugMode = $debugMode;
+	    self::$_debugMode = $debugMode;
 	}
 
 	static public function getDebugMode() {
-		return self::$_debugMode;
+	    return self::$_debugMode;
 	}
 
 	static public function setDefaultLang($lang) {
-		self::$_defaultLang = $lang;
+	    self::$_defaultLang = $lang;
 	}
 
 	static public function getDefaultLang() {
-		return self::$_defaultLang;
+	    return self::$_defaultLang;
 	}
 
 	static public function setLangs($langs) {
-		self::$_langs = $langs;
+	    self::$_langs = $langs;
 	}
 
 	static public function getLangs() {
-		return self::$_langs;
+	    return self::$_langs;
 	}
 
 	static public function setCurrentLang($lang) {
-		self::$_currentLang = $lang;
+	    self::$_currentLang = $lang;
 	}
 
 	static public function getCurrentLang() {
-		return self::$_currentLang;
+	    return self::$_currentLang;
+	}
+	
+	static public function getUrl(){
+	    return self::$_url;
 	}
 
 	static public function loadPaths($paths) {
@@ -102,8 +107,8 @@ class Kernel {
 		}
 		self::setCurrentLang($parseUrl[0]);
 		$parseUrl = array_slice($parseUrl, 1, null, false); // On supprime la langue de l'url
-
-		return Router::getRoute("/".implode("/", $parseUrl));
+		self::$_url = "/".implode('/', $parseUrl);
+		return Router::getRoute(self::$_url);
 	}
 
 	private function dispatcher($route) {

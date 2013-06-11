@@ -14,7 +14,7 @@
 	</div>
 	
 	<form action="" method="post" id="login-form" >
-	    <label class="label"><?php echo LBL_PSEUDO;?></label>
+	    <label class="label"><?php echo LBL_PSEUDO;?> :</label>
 	    <input type="text" name="pseudo" id="pseudo" value="<?php echo ((isset($error) && count($error) > 0) ? $attr["pseudo"] : ''); ?>" placeholder="<?php echo PL_PSEUDO; ?>"  />
 
 	    <div class="cl"></div>
