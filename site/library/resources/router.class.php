@@ -30,10 +30,10 @@ class Router {
 		array_push(self::$_routes[$lang], array("controller" => $controller, "action" => $action, "pattern" => $pattern));
 	}
 
-	public static function findRoute($controller, $action) {
-		foreach (self::getRoutes() as $key => $value) {
+	public static function findRoute($controller, $action, $lang) {
+		foreach (self::getRoutes(null, $lang) as $key => $value) {
 			if($value["controller"] == $controller && $value["action"] == $action)
-				return self::getRoutes($key);
+				return self::getRoutes($key, $lang);
 		}
 		return false;
 	}
@@ -55,18 +55,22 @@ class Router {
 		return false;
 	}
 
-	public static function getUrl($controller, $action, $params = array()) {
-		if($route = self::findRoute($controller, $action)) {
+	public static function getUrl($controller, $action, $params = null, $lang = null) {
+		if($lang===null)
+			$lang = Kernel::getCurrentLang();
+		if($route = self::findRoute($controller, $action, $lang)) {
 			$url = $route["pattern"];
-			foreach ($params as $key => $value)
-				$url = str_replace("{".$key."}", $value, $url);
-			return "/".Kernel::getCurrentLang().$url;
+			if($params!==null)	
+				foreach ($params as $key => $value)
+					$url = str_replace("{".$key."}", $value, $url);
+			return "/".$lang.$url;
 		}
 		else {
 			$url = "/".$controller."/".$action;
-			foreach ($params as $value)
-				$url .= "/".$value;
-			return "/".Kernel::getCurrentLang().$url;
+			if($params!==null)
+				foreach ($params as $value)
+					$url .= "/".$value;
+			return "/".$lang.$url;
 		}
 	}
 

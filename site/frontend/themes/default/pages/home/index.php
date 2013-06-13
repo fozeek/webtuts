@@ -1,6 +1,7 @@
 <!-- Home page -->
 
 <div id="home-page">
+	
     <!-- Introduction -->
     <div id="explanation-text">
 
