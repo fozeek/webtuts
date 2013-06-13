@@ -1,126 +1,137 @@
 <?php
 
 class BlogController extends Controller {
-	
-	public static $ID_NODE_ARTICLE = 1;
-	public static $ID_NODE_NEWS = 2;
-	public static $ID_NODE_NOTIFBO = 3;
 
-	public function IndexAction($params) {
-	    return $this->redirect(Kernel::getUrl(""));
-	}
-	public function ArticleAction($params) {
-	    if($article = App::getTable("article")->getBySanitizeTitle($params[4])) {
-		    $link = array(
-		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "en"))."/".Kernel::sanitize($article->get("title", "en"))),
-		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "fr"))."/".Kernel::sanitize($article->get("title", "fr")))
-		    );
-		    
-		    $form = $this->getRequest();
-		    if($form->isMethod("post")) {
-			$data = $form->getData();
-			
-			$pseudo = htmlspecialchars($data["user"]);
-			$message = htmlspecialchars($data["message-text"]);
-			$article_id = intval($data["article"]);
-			
-			if(isset($message) && !empty($message)) {
-			    if($user = App::getTable("user")->getBySanitizePseudo($pseudo)){
+    public function IndexAction() {
+	return $this->redirect(Kernel::getUrl(""));
+    }
 
-				
-				
-				$attr = array();
-				$attr["article"] = $article_id;
-				$attr["author"] = $user->get("id");
-				$attr["text"] = $message;
-				$attr["deleted"] = 0;
-				$attr["date"] = date("Y-m-d H:i:s");
-				
-				if($comment = App::getClass("comment")->hydrate($attr)->save()){
+    public function ArticleAction($category, $article) {
+	$this->load("String");
+	if ($article = $this->Model->Tutorial->getBy("slug", $article)) {
 
-				    return $this->render(array('article' => $article, 'link' => $link));
-				}
-			    }
+	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
+//		    $link = array(
+//		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "en"))."/".Kernel::sanitize($article->get("title", "en"))),
+//		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "fr"))."/".Kernel::sanitize($article->get("title", "fr")))
+//		    );
+
+	    if ($this->Request->is("post")) {
+		$data = $this->Request->getData();
+
+		$pseudo = htmlspecialchars($data["user"]);
+		$message = htmlspecialchars($data["message-text"]);
+		$article_id = intval($data["article"]);
+
+		if (isset($message) && !empty($message)) {
+		    if ($user = $this->Model->User->getBy("pseudo", $this->String->sanityze($pseudo))) {
+
+			$attr = array();
+			$attr["article"] = $article_id;
+			$attr["author"] = $user->get("id");
+			$attr["text"] = $message;
+			$attr["deleted"] = 0;
+			$attr["date"] = date("Y-m-d H:i:s");
+
+			if ($comment = $this->Model->Comment->save($attr)) {
+			    $this->render(compact('article', 'link'));
 			}
 		    }
-		    return $this->render(array('article' => $article, 'link' => $link));
 		}
-		else
-			return $this->redirect(Kernel::getUrl("error/404"));
-	}
-	public function CategoryAction($params) {
-	    if($category = App::getTable("category")->getBySanitizeName($params[3])) {
-		    $link = array(
-		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "en"))),
-		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "fr")))
-		    );
-		    return $this->render(array('cat' => $category, 'link' => $link));
 	    }
-		else
-			return $this->redirect(Kernel::getUrl("error/404"));
+	    $this->render(compact('article', 'link'));
 	}
-	public function ArticlesAction($params) {
-	    $news = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_NEWS));
-		$articles = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_ARTICLE));
-		return $this->render(array('articles' => $articles, "news" => $news));
+	else
+	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
+    }
+
+    public function CategoryAction($category) {
+	if ($category = $this->Model->Category->getBy('slug', $category)) {
+	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
+//		    $link = array(
+//		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "en"))),
+//		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "fr")))
+//		    );
+	    $this->render(compact('category', 'link'));
 	}
-	public function CategoriesAction($params) {
-	    $cats = App::getClassArray("category");
-		$news = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_NEWS));
-		return $this->render(array('cats' => $cats, "news" => $news));
+	else
+	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
+    }
+
+    public function ArticlesAction() {
+	$news = $this->Model->News->getAll(array('limit' => 5, 'orderBy' => array('date', 'desc')));
+	$articles = $this->Model->Tutorial->getAll(array('orderBy' => array('date', 'desc')));
+	$this->render(compact("articles", "news"));
+    }
+
+    public function CategoriesAction() {
+	$cats = $this->Model->Category->getAll();
+	$news = $this->Model->News->getAll(array('orderBy' => array('date', 'desc')));
+	$this->render(compact("cats", "news"));
+    }
+
+    public function ActualitesAction() {
+	$news = $this->Model->News->getAll(array('orderBy' => array('date', 'desc')));
+	$articles = $this->Model->Tutorial->getAll(array('limit' => 5, 'orderBy' => array('date', 'desc')));
+	$this->render(compact("news", "articles"));
+    }
+
+    /*
+      Action : Actualite
+      Description : Retourne un article selon le titre passé en paramêtre
+     */
+    public function ActualiteAction($actualite) {
+	// Récupère l'article
+	if ($news = $this->Model->News->getBy("slug", $actualite)) {
+	    // Création des liens pour le changement de langue
+	    // 
+	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
+//	    $link = array(
+//		"en" => Kernel::getUrl("en/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "en"))),
+//		"fr" => Kernel::getUrl("fr/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "fr")))
+//	    );
+
+	    // Retourne à la vue l'article et les liens
+	    $this->render(array("news" => $news, 'link' => $link));
 	}
-	public function ActualitesAction($params){
-	    $news = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_NEWS));
-	    $articles = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_ARTICLE, "limit" => 5));
-	    return $this->render(array("news" => $news, "articles" => $articles));
+	else // Si aucun article n'est trouvé : page 404
+	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
+    }
+
+    public function TagsAction() {
+	$tags = $this->Model->Tag->getAll();
+	$this->render(compact("tags"));
+    }
+
+    public function TagAction($tagParam) {
+	if ($tag_target = $this->Model->Tag->getBy('slug', $tagParam)) {
+	    $tags = $this->Model->Tag->getAll();
+	    
+	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
+//	    $link = array(
+//		"en" => Kernel::getUrl("en/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($tag_target->get("name", "en"))),
+//		"fr" => Kernel::getUrl("fr/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($tag_target->get("name", "fr")))
+//	    );
+	    $this->render(compact("tag_target", "tags"));
 	}
+	else
+	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
+    }
+
+    public function RssAction() {
+	$articles = $this->Model->Tutorial->getAll(array('orderBy' => array('date', 'desc')));
+	$return = array();
 	
-
-	/*
-		Action : Actualite
-		Description : 	Retourne un article selon le titre passé en paramêtre
-	*/
-	public function ActualiteAction($params){
-	    // Récupère l'article
-	    if($news = App::getTable("article")->getBySanitizeTitle($params[3])) { 
-		    // Création des liens pour le changement de langue
-		    $link = array(
-		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($news->get("title", "en"))),
-		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($news->get("title", "fr")))
-		    );
-		    // Retourne à la vue l'article et les liens
-		    return $this->render(array("news" => $news, 'link' => $link));
-		}
-		else // Si aucun article n'est trouvé : page 404
-			return $this->redirect(Kernel::getUrl("error/404"));
+	$this->Rss->setTitle("Webtuts");
+	$this->Rss->setLink("http://www.webtuts.fr");
+	$this->Rss->setDescription("Les tutoriaux de webtuts");
+	
+	foreach ($articles as $article) {
+	    $link = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("title"), "article" => $article->get("title")));
+	    $return[] = array("title" => $article->get("title"), "link" => $link, "guid" => $link, "description" => $article->get("text"), "date" => $article->get("date"));
 	}
-
-
-	public function TagsAction($params){
-	    $tags = App::getClassArray("tag");
-	    return $this->render(array("tags" => $tags));
-	}
-	public function TagAction($params){
-	    if($tag_target = App::getTable("tag")->getBySanitizeName($params[3])) {
-		    $tags = App::getClassArray("tag");
-		    $link = array(
-		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($tag_target->get("name", "en"))),
-		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($tag_target->get("name", "fr")))
-		    );
-		    return $this->render(array("tag_target" => $tag_target, "tags" => $tags));
-		}
-		else
-			return $this->redirect(Kernel::getUrl("error/404"));
-	}
-	public function RssAction($params){
-	    $articles = App::getClassArray("article", array("where" => "node = " . self::$ID_NODE_ARTICLE));
-	    $return = array();
-	    foreach ($articles as $article) {
-	    	$link = Kernel::getUrl("blog/article/".$article->get("category")->get("name")."/".$article->get("title"));
-	    	$return[] = array("title" => "".$article->get("title"), "link" => $link, "guid" => $link, "description" => "".$article->get("text"), "date" => "".$article->get("date"));
-	    }
-	    return $this->renderRSS("articles-".Kernel::get("lang"), $return);
-	}
+	$this->Rss->setItems($return);
+    }
 }
 
 ?>

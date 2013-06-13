@@ -1,33 +1,35 @@
 <?php
 
 class PageController extends Controller {
-	public function IndexAction($params) {
-		if(!empty($params[3])) {
-			$page = App::getTable("article")->getBySanitizeTitle($params[3]);
-			if(!empty($page))
-				return $this->render(array("page" => $page));
-			else
-				return $this->redirect(Kernel::getUrl(""));
-		}
-		else
-			return $this->redirect(Kernel::getUrl(""));
-	}
 
-	public function ContactAction($params) {
-		return $this->render(null);
+    public function IndexAction($pageParam) {
+	if (!empty($params[3])) {
+	    $page = $this->Model->Page->getBy("slug", $pageParam);
+	    if (!empty($page))
+		$this->render(compact("page"));
+	    else
+		$this->redirect(Kernel::getUrl(""));
 	}
+	else
+	    $this->redirect(Kernel::getUrl(""));
+    }
 
-	public function SitemapAction($params) {
-		return $this->render(null);
-	}
+    public function ContactAction($params) {
+	$this->render(null);
+    }
 
-	public function AboutAction($params) {
-		return $this->render(null);
-	}
+    public function SitemapAction($params) {
+	$this->render(null);
+    }
 
-	public function PartnersAction($params) {
-		return $this->render(null);
-	}
+    public function AboutAction($params) {
+	$this->render(null);
+    }
+
+    public function PartnersAction($params) {
+	$this->render(null);
+    }
+
 }
 
 ?>
