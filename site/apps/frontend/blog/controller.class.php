@@ -80,6 +80,7 @@ class BlogController extends Controller {
       Action : Actualite
       Description : Retourne un article selon le titre passé en paramêtre
      */
+
     public function ActualiteAction($actualite) {
 	// Récupère l'article
 	if ($news = $this->Model->News->getBy("slug", $actualite)) {
@@ -90,7 +91,6 @@ class BlogController extends Controller {
 //		"en" => Kernel::getUrl("en/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "en"))),
 //		"fr" => Kernel::getUrl("fr/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "fr")))
 //	    );
-
 	    // Retourne à la vue l'article et les liens
 	    $this->render(array("news" => $news, 'link' => $link));
 	}
@@ -106,7 +106,7 @@ class BlogController extends Controller {
     public function TagAction($tagParam) {
 	if ($tag_target = $this->Model->Tag->getBy('slug', $tagParam)) {
 	    $tags = $this->Model->Tag->getAll();
-	    
+
 	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
 //	    $link = array(
 //		"en" => Kernel::getUrl("en/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($tag_target->get("name", "en"))),
@@ -121,17 +121,18 @@ class BlogController extends Controller {
     public function RssAction() {
 	$articles = $this->Model->Tutorial->getAll(array('orderBy' => array('date', 'desc')));
 	$return = array();
-	
+
 	$this->Rss->setTitle("Webtuts");
 	$this->Rss->setLink("http://www.webtuts.fr");
 	$this->Rss->setDescription("Les tutoriaux de webtuts");
-	
+
 	foreach ($articles as $article) {
 	    $link = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("title"), "article" => $article->get("title")));
 	    $return[] = array("title" => $article->get("title"), "link" => $link, "guid" => $link, "description" => $article->get("text"), "date" => $article->get("date"));
 	}
 	$this->Rss->setItems($return);
     }
+
 }
 
 ?>
