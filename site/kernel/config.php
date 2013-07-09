@@ -77,16 +77,6 @@
 			"Session",
 			"Request",
 			"Model",
-			"Auth" => array(
-					"object" => "user",
-					"fields" => array(
-							"pseudo",
-							"pwd"
-						),
-					"provided" => array(
-							"active" => true
-						)
-				),
 			"View" => array(
 					"helpers" => array(
 							"Auth",
@@ -96,6 +86,16 @@
 							"Session",
 						),
 					"themeName" => "default",
+				),
+			"Auth" => array(
+					"object" => "user",
+					"fields" => array(
+							"pseudo",
+							"pwd"
+						),
+					"provided" => array(
+							"active" => true
+						)
 				),
 		));
 

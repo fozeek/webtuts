@@ -5,22 +5,24 @@ class ViewComponent extends Component {
 
 	private $_helpers = array();
 	private $_defaultTheme = "default";
+	private $_params;
 
 	public function __construct($controller, $params = null) {
 		parent::__construct($controller, $params);
-
+		$this->_params = $params;
 		$this->_defaultTheme = $params["themeName"];
+	}
 
+	public function render($vars = null) {
 		// Autoloads
-		foreach ($params["helpers"] as $key => $value) {
+		// juste avant l'affichage pour que les components soit tous déjà chargés pour les transmitions aux helpers
+		foreach ($this->_params["helpers"] as $key => $value) {
 			if(is_numeric($key))
 				$this->load($value);
 			else
 				$this->load($key, $value);
 		}
-	}
 
-	public function render($vars = null) {
 		if($vars != null)
 			extract($vars);
 		if(file_exists(Kernel::path("themes").$this->_defaultTheme.'/index.php'))
