@@ -9,7 +9,7 @@ class LangObject extends ObjectModel {
 		return $this->get(($this->_currentLang==null) ? Kernel::getCurrentLang() : $this->_currentLang);
 	}
 
-	public function __afterSelect($params) {
+	public function __getParams($params) {
 		parent::__afterSelect($params);
 		$this->_currentLang = $params;
 	}

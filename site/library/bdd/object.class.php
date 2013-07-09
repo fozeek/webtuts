@@ -14,7 +14,7 @@ class ObjectModel {
 		return $this->_name;
 	}
 
-	public function __afterSelect($params) {
+	public function __getParams($params) {
 		return null;
 	}
 
@@ -41,7 +41,7 @@ class ObjectModel {
 			);
 		}
 		if($params != null)
-			$this->_attributs[$attributName]->__afterSelect($params);
+			$this->_attributs[$attributName]->__getParams($params);
 		return (isset($this->_attributs[$attributName])) ?
 			$this->_attributs[$attributName] : false ;
 	}
