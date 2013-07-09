@@ -14,7 +14,6 @@ class AuthComponent extends Component {
 	}
 
 	public function connect($pseudo, $pwd) {
-		
 		$user = $this->_controller->Model->User->getByPseudo($pseudo);
 		if($user->get("password") == md5($pwd)) {
 			$this->_controller->Session->write("Auth", $user->get("id"));
