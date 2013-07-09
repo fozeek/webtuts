@@ -10,7 +10,7 @@ class AuthComponent extends Component {
 	}
 
 	public function __transmit($params) {
-		return array("user" => $this->_controller->Model->User->getById($this->_controller->Session->read("Auth")));
+		return array("user" => $this->getUser());
 	}
 
 	public function connect($pseudo, $pwd) {
@@ -29,9 +29,9 @@ class AuthComponent extends Component {
 	}
 
 	public function getUser() {
-		if($_user == null)
-			$_user = $this->_controller->Model->User->getById($this->_controller->Session->read("Auth"));
-		return $_user;
+		if($this->_user == null)
+			$this->_user = $this->_controller->Model->User->getById($this->_controller->Session->read("Auth"));
+		return $this->_user ;
 	}
 
 	public function persist() {
