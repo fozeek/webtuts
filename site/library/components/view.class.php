@@ -48,7 +48,7 @@ class ViewComponent extends Component {
 			$component = ucfirst($helper);
 			$transmit = array();
 			if($this->_controller->existComponent($component) == true)
-				$transmit = $this->_controller->$component->_transmit($params);
+				$transmit = $this->_controller->$component->__transmit($params);
 
 			($params!==null) ?
 				$helper = new $helperName($this, array_merge($params, $transmit)) :

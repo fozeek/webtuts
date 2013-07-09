@@ -16,7 +16,7 @@ class Component {
 		return $this->_controller;
 	}
 
-	public function _transmit($params) {
+	public function __transmit($params) {
 		return array();
 	}
 

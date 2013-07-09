@@ -23,7 +23,7 @@
 	    ?>
 		    <li>
 			<a href="<?php echo Router::getUrl("blog", "category", array("category" => $cat->get("slug")));?>">
-			    <span><?php echo $cat->get("title"); ?></span>
+			    <span><?php echo $cat->get("title", "fr"); ?></span>
 			    <img src="<?php echo $url_image; ?>" alt="<?php echo ALT_CATEGORY_IMAGE . " " . $cat->get("title"); ?>" width="54px" />
 			</a>
 		    </li>

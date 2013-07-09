@@ -14,6 +14,10 @@ class ObjectModel {
 		return $this->_name;
 	}
 
+	public function __afterSelect($params) {
+		return null;
+	}
+
 	public function __tostring() {
 		return "ObjectModel#".$this->getName().":".$this->get("id");
 	}
@@ -22,7 +26,7 @@ class ObjectModel {
 		return $this->_attributs;
 	}
 
-	public function get($attributName) {
+	public function get($attributName, $params = null) {
 		$shema = $this->getShema();
 		$link = $shema[$attributName]["Link"];
 		if(!empty($link) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
@@ -33,9 +37,11 @@ class ObjectModel {
 				str_replace("Object", "", get_class($this))."Table", 
 				(isset($link["link"])) ? $link["link"] : null, 
 				(isset($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->get("id"), 
-				(isset($link["code"])) ? $link["code"] : null 
+				(isset($link["code"])) ? $link["code"] : null
 			);
 		}
+		if($params != null)
+			$this->_attributs[$attributName]->__afterSelect($params);
 		return (isset($this->_attributs[$attributName])) ?
 			$this->_attributs[$attributName] : false ;
 	}

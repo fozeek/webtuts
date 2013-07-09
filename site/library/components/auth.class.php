@@ -9,7 +9,7 @@ class AuthComponent extends Component {
 		parent::__construct($controller, $params);
 	}
 
-	public function _transmit($params) {
+	public function __transmit($params) {
 		return array("user" => $this->_controller->Model->User->getById($this->_controller->Session->read("Auth")));
 	}
 

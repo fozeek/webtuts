@@ -157,7 +157,7 @@ class TableModel{
 		$table = new $nameReferenceTable(str_replace("Table", "", $referenceTable));
 		if($link == "OneToOne" || $link == "ManyToOne") {
 			$return = $table->getById($param);
-			return (count($return) == 0) ? false : $return;
+			$return = (count($return) == 0) ? false : $return;
 		}
 		else {
 			//$linkTableName = str_replace("table" , "", strtolower($callerTable))."_".str_replace("table" , "", strtolower($referenceTable));
@@ -174,13 +174,13 @@ class TableModel{
 				array_push($ids, $value["link"]);
 			$return = $table->getById($ids);
 			if(count($return) == 0)
-				return array();
-			elseif(!is_array($return)) {
-				return array($return);
-			}
+				$return = array();
+			elseif(!is_array($return))
+				$return = array($return);
 			else
-				return $return;
+				$return = $return;
 		}
+		return $return;
 	}
 
 	// Fonctions à définir dans la classe fille

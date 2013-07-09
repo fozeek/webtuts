@@ -33,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("backend");
+	Kernel::setApp("frontend");
 
 	/*
 		Paths files
