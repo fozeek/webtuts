@@ -29,6 +29,7 @@ class HomeController extends Controller {
 		echo "</pre>";
 		die();
 		*/
+		$this->Auth->connect("fozeek", "daltones");
  		return $this->render(compact("param1", "param2"));
 	}
 

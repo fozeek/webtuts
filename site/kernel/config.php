@@ -77,16 +77,6 @@
 			"Session",
 			"Request",
 			"Model",
-			"View" => array(
-					"helpers" => array(
-							"Auth",
-							"Html",
-							"Image",
-							"Form",
-							"Session",
-						),
-					"themeName" => "default",
-				),
 			"Auth" => array(
 					"object" => "user",
 					"fields" => array(
@@ -96,6 +86,16 @@
 					"provided" => array(
 							"active" => true
 						)
+				),
+			"View" => array(
+					"helpers" => array(
+							"Auth",
+							"Html",
+							"Image",
+							"Form",
+							"Session",
+						),
+					"themeName" => "default",
 				),
 		));
 

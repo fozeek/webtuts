@@ -34,7 +34,7 @@ abstract class Controller {
 	}
 
 	public function renderJson($vars) {
-		if($this->existComponent("View"))
+		if($this->existComponent("Json"))
 			$this->Json->render($vars);
 		else
 			echo "Le composant \"Json\" n'est pas disponible.";
@@ -48,7 +48,7 @@ abstract class Controller {
 	}
 
 	public function existComponent($component) {
-		return (!isset($this->_components[ucfirst(strtolower($component))])) ? true : false;
+		return (array_key_exists(strtolower($component), $this->_components)) ? true : false;
 	}
 
 	/*
@@ -56,7 +56,7 @@ abstract class Controller {
 	*/
 	public function load($component, $params = null) {
 		$short_name = $component;
-		if($this->existComponent($short_name)) {
+		if(!$this->existComponent($short_name)) {
 			if(!import("components", strtolower($component)))
 				return false;
 			$componentName = $component."Component";

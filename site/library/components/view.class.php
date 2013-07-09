@@ -42,10 +42,15 @@ class ViewComponent extends Component {
 			if(!import("helpers", strtolower($helper)))
 				return false;
 			$helperName = $helper."Helper";
-			if($params!==null)
-				$helper = new $helperName($this, $params);
-			else
-				$helper = new $helperName($this);
+
+			$component = ucfirst($helper);
+			$transmit = array();
+			if($this->_controller->existComponent($component) == true)
+				$transmit = $this->_controller->$component->_transmit($params);
+
+			($params!==null) ?
+				$helper = new $helperName($this, array_merge($params, $transmit)) :
+				$helper = new $helperName($this, $transmit);
 			$this->_helpers[strtolower($short_name)] = $helper;
 			return $helper;
 		}

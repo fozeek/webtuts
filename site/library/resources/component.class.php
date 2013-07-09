@@ -16,6 +16,10 @@ class Component {
 		return $this->_controller;
 	}
 
+	public function _transmit($params) {
+		return array();
+	}
+
 }
 
 ?>
