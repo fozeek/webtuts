@@ -5,8 +5,8 @@ class AuthHelper extends Helper {
 
 	private $_user;
 
-	public function __construct($controller, $params = null) {
-		parent::__construct($controller, $params);
+	public function __construct($view, $params = null) {
+		parent::__construct($view, $params);
 		$this->_user = $params["user"];
 	}
 

@@ -23,6 +23,7 @@ class ContentController extends Controller {
 		$id = $this->Request->getData("id");
 		$node = $this->Request->getData("node");
 		$content = $this->Model->$node->getById($id);
+		$this->Form->setForm($content);
 		$this->render(compact("content"));
 	}
 

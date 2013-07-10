@@ -4,10 +4,15 @@ class ObjectModel {
 
 	protected $_name;
 	protected $_attributs;
+	protected $_isType = false;
 
 	public function __construct(array $attributs, $name) {
 		$this->_attributs = $attributs;
 		$this->_name = $name;
+	}
+
+	public function isType() {
+		return $this->_isType;
 	}
 
 	public function getName() {
@@ -55,7 +60,6 @@ class ObjectModel {
 				$value["Link"] = json_decode($value["Comment"]);
 				if($value["Link"] !== null)
 					$value["Link"] = get_object_vars($value["Link"]);
-				unset($value["Field"]);
 				unset($value["Comment"]);
 				unset($value["Privileges"]);
 				$shema[$field] = $value;

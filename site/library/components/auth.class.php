@@ -28,9 +28,9 @@ class AuthComponent extends Component {
 	}
 
 	public function getUser() {
-		if($this->_user == null)
-			$this->_user = $this->_controller->Model->User->getById($this->_controller->Session->read("Auth"));
-		return $this->_user ;
+		return ($this->_user == null && $this->_controller->Session->read("Auth")) ?
+			$this->_user = $this->_controller->Model->User->getById($this->_controller->Session->read("Auth")):
+			false;
 	}
 
 	public function persist() {

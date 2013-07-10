@@ -77,6 +77,7 @@
 			"Session",
 			"Request",
 			"Model",
+			"Form",
 			"View" => array(
 					"helpers" => array(
 							"Auth",

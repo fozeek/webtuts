@@ -1,15 +1,5 @@
 <?php
 	
-
-
-	/*
-	if(!$cache->start("test")) {
-
-		echo "prout";
-		sleep(2);
-	}
-	$cache->end();
-*/
 	function image($image) {
 		return Kernel::path("uploads", true).$image;
 	}
@@ -25,7 +15,6 @@
 			return $link;
 	}
 
-	//include(__library_dir__ . "lang/" . Kernel::get("lang") . ".php");
 	function partial($page, $params = null) {
 		if($params!=null)
 			extract($params);
