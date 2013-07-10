@@ -8,7 +8,7 @@ class UserController extends Controller {
     }
 
     public function ProfilAction($pseudo) {
-	$user = $this->Model->User->getBy("pseudo", strtolower($pseudo));
+	$user = $this->Model->User->getByPseudo(strtolower($pseudo));
 
 	if ($user) {
 
@@ -64,7 +64,7 @@ class UserController extends Controller {
 		if (strlen($attr["pseudo"]) < 6) {
 		    $bool_error = true;
 		    $error["pseudo"] = "error";
-		} else if ($this->Model->User->getBy("pseudo", strtolower($attr["pseudo"]))) {
+		} else if ($this->Model->User->getByPseudo(strtolower($attr["pseudo"]))) {
 		    $bool_error = true;
 		    $error["pseudo_exist"] = "error";
 		}
@@ -145,7 +145,7 @@ class UserController extends Controller {
 		if ($bool_error) {
 		    $this->render(compact("error", "attr"));
 		} else {
-		    if ($user = $this->Model->User->getBy("pseudo", strtolower($attr["pseudo"]))) {
+		    if ($user = $this->Model->User->getByPseudo(strtolower($attr["pseudo"]))) {
 			if ($user->get("password") == md5($attr["password"])) {
 			    $this->Auth->connect($user->get("pseudo"), $user->get("password"));
 			    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
@@ -208,7 +208,7 @@ class UserController extends Controller {
 		if (strlen($attr["pseudo"]) < 6) {
 		    $bool_error = true;
 		    $error["pseudo"] = "error";
-		} else if ($user_bis = $this->Model->User->getBy("pseudo", strtolower($attr["pseudo"]))) {
+		} else if ($user_bis = $this->Model->User->getByPseudo(strtolower($attr["pseudo"]))) {
 
 		    if ($user->get("id") != $user_bis->get("id")) {
 			$bool_error = true;
