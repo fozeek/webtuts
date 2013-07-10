@@ -54,9 +54,9 @@ class UserController extends Controller {
 		$attr["banned"] = 0;
 		$attr["image"] = 0;
 		$attr["access"] = 0;
-		$attr["languages"] = htmlspecialchars($data["langage"]);
+		$attr["language"] = htmlspecialchars($data["langage"]);
 
-		$languages_array = explode(',', $attr["languages"]);
+		$languages_array = explode(',', $attr["language"]);
 
 		if (count($error) > 0)
 		    $bool_error = true;
@@ -201,9 +201,9 @@ class UserController extends Controller {
 		//$attr["banned"] = 0;
 		//$attr["image"] = 0;
 		//$attr["access"] = 0;
-		$attr["languages"] = htmlspecialchars($data["langage"]);
+		$attr["language"] = htmlspecialchars($data["langage"]);
 
-		$languages_array = explode(',', $attr["languages"]);
+		$languages_array = explode(',', $attr["language"]);
 
 		if (strlen($attr["pseudo"]) < 6) {
 		    $bool_error = true;
