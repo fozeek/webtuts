@@ -102,7 +102,7 @@ class UserController extends Controller {
 		    $this->render(compact("error", "attr"));
 		} else {
 		    $attr["password"] = md5($attr["password"]);
-var_dump($attr);die();
+
 		    if ($user = $this->Model->User->save($attr)) {
 			$this->Auth->connect($user->get("pseudo"), $user->get("password"));
 			$this->Auth->setFirstConnection();
