@@ -64,7 +64,7 @@ class UserController extends Controller {
 		if (strlen($attr["pseudo"]) < 6) {
 		    $bool_error = true;
 		    $error["pseudo"] = "error";
-		} else if ($this->Model->User->getBy("login", strtolower($attr["pseudo"]))) {
+		} else if ($this->Model->User->getBy("pseudo", strtolower($attr["pseudo"]))) {
 		    $bool_error = true;
 		    $error["pseudo_exist"] = "error";
 		}
@@ -102,7 +102,7 @@ class UserController extends Controller {
 		    $this->render(compact("error", "attr"));
 		} else {
 		    $attr["password"] = md5($attr["password"]);
-
+var_dump($attr);die();
 		    if ($user = $this->Model->User->save($attr)) {
 			$this->Auth->connect($user->get("pseudo"), $user->get("password"));
 			$this->Auth->setFirstConnection();
@@ -121,7 +121,7 @@ class UserController extends Controller {
     }
 
     public function ConnectionAction() {
-	if ($this->Auth->getUser()) {
+	if (!$this->Auth->getUser()) {
 	    if ($this->Request->is("post")) {
 		$data = $this->Request->getData();
 

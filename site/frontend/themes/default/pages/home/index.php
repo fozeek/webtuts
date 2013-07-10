@@ -1,7 +1,7 @@
 <!-- Home page -->
 
 <div id="home-page">
-	
+
     <!-- Introduction -->
     <div id="explanation-text">
 
@@ -17,32 +17,32 @@
     <!-- Categories sum up nav -->
     <div id="categories-box">
 	<ul id="categories-nav">
-	    <?php 
-		foreach($cats as $cat) { 
+	    <?php
+		foreach ($cats as $cat) {
 		    $url_image = get_url_image($cat);
 	    ?>
-		    <li>
-			<a href="<?php echo Router::getUrl("blog", "category", array("category" => $cat->get("slug")));?>">
-			    <span><?php echo $cat->get("title"); ?></span>
-			    <img src="<?php echo $url_image; ?>" alt="<?php echo ALT_CATEGORY_IMAGE . " " . $cat->get("title"); ?>" width="54px" />
-			</a>
-		    </li>
+    	    <li>
+    		<a href="<?php echo Router::getUrl("blog", "category", array("category" => $cat->get("slug"))); ?>">
+    		    <span><?php echo $cat->get("title"); ?></span>
+    		    <img src="<?php echo $url_image; ?>" alt="<?php echo ALT_CATEGORY_IMAGE . " " . $cat->get("title"); ?>" width="54px" />
+    		</a>
+    	    </li>
 	    <?php
 		}
 	    ?>
 	</ul>
 	<div class="cl"></div>
-	
+
     </div>
 
     <!-- Home page content -->
     <div id="middle-column">
 	<h2 class="middle-title border-until"><?php echo LAST_ARTICLE; ?></h2>
-	<?php 
-	    foreach($articles as $article) { 
+	<?php
+	    foreach ($articles as $article) {
 		$url_image = get_url_image($article);
-		
-		include(Kernel::path("themes")."default/partials/bigArticlePreview.php");
+
+		include(Kernel::path("themes") . "default/partials/bigArticlePreview.php");
 	    }
 	?>
     </div>
@@ -54,15 +54,15 @@
 
 	<div id="news-box" class="aside-box">
 	    <?php
-		foreach($news as $new) {
-		    include(Kernel::path("themes")."default/partials/newsPreview.php");
+		foreach ($news as $new) {
+		    include(Kernel::path("themes") . "default/partials/newsPreview.php");
 		}
 	    ?>
 
 	    <div class="marginAuto">
 		<div class="button big-button">
 		    <span>
-			<a href="<?php echo Router::getUrl("blog", "actualites");?>"><?php echo SEE_NEWS; ?></a>
+			<a href="<?php echo Router::getUrl("blog", "actualites"); ?>"><?php echo SEE_NEWS; ?></a>
 		    </span>
 		</div>
 	    </div>
@@ -85,7 +85,7 @@
 		<?php echo NEWSLETTERS; ?>
 	    </a>
 	    <div class="cl"></div>
-	    
+
 	</div>
 
 	<!-- Twitter feedback -->
@@ -97,5 +97,5 @@
 	</div>
     </aside>
     <div class="cl"></div>
-    
+
 </div>
