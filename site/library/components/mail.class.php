@@ -69,7 +69,7 @@ class MailComponent extends Component {
 	}
     }
 
-    public function send($params) {
+    public function send() {
 	mail($this->_to, $this->_subject, $this->_text, $this->_header);
     }
 
