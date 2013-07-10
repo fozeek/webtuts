@@ -57,7 +57,7 @@ class TableModel{
 		Vérifie les données selon les regles définies dans $this->_rules
 	*/
 	protected function _validator($data) {
-		foreach ($data as $key => $value) {
+		/*foreach ($data as $key => $value) {
 			$res = true;
 			if(array_key_exists($key, self::getRules())) {
 				$rule = self::getRules($key);
@@ -77,7 +77,7 @@ class TableModel{
 				}
 			}
 			if(!$res) return false;
-		}
+		}*/
 		return true;
 	}
 
