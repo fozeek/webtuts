@@ -20,14 +20,14 @@ class UserController extends Controller {
 		$image = md5(strtolower(trim($user->get("mail"))));
 	    }
 
-	     $this->render(compact('user', 'image'));
+	    $this->render(compact('user', 'image'));
 	}
 	else
 	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
     }
 
     public function SubscriptionAction() {
-	if (Kernel::get("user") == false) {
+	if (!$this->Auth->getUser()) {
 	    if ($this->Request->is("post")) {
 		$data = $this->Request->getData();
 
@@ -99,13 +99,13 @@ class UserController extends Controller {
 		    }
 		}
 		if ($bool_error) {
-		    return $this->render(compact("error", "attr"));
+		    $this->render(compact("error", "attr"));
 		} else {
 		    $attr["password"] = md5($attr["password"]);
 
 		    if ($user = $this->Model->User->save($attr)) {
-			Kernel::get("session")->connect($user);
-			Kernel::get("session")->set("first_connection", true);
+			$this->Auth->connect($user->get("pseudo"), $user->get("password"));
+			$this->Auth->setFirstConnection();
 			$this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
 		    }
 		    else
@@ -116,12 +116,12 @@ class UserController extends Controller {
 		$this->render(array('user' => null));
 	    }
 	} else {
-	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => Kernel::get("user")->get("pseudo"))));
+	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $this->Auth->getUser()->get("pseudo"))));
 	}
     }
 
     public function ConnectionAction() {
-	if (Kernel::get("user") == false) {
+	if ($this->Auth->getUser()) {
 	    if ($this->Request->is("post")) {
 		$data = $this->Request->getData();
 
@@ -147,7 +147,7 @@ class UserController extends Controller {
 		} else {
 		    if ($user = $this->Model->User->getBy("login", strtolower($attr["pseudo"]))) {
 			if ($user->get("password") == md5($attr["password"])) {
-			    Kernel::get("session")->connect($user);
+			    $this->Auth->connect($user->get("pseudo"), $user->get("password"));
 			    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
 			} else {
 			    $error["bad_login"] = "error";
@@ -162,22 +162,22 @@ class UserController extends Controller {
 
 	    $this->render(array('user' => null));
 	} else {
-	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => Kernel::get("user")->get("pseudo"))));
+	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $this->Auth->getUser()->get("pseudo"))));
 	}
     }
 
     public function DisconnectAction() {
-	Kernel::get("session")->disconnect();
+	$this->Auth->disconnect();
 	$this->redirect("/");
     }
 
     public function CompteAction() {
-	if (Kernel::get("user") == false) {
+	if ($this->Auth->getUser() == false) {
 	    $this->redirect(Router::getUrl("home", "index"));
 	} else {
-	    $user = Kernel::get("user");
+	    $user = $this->Auth->getUser();
 
-	     if ($this->Request->is("post")) {
+	    if ($this->Request->is("post")) {
 		$data = $this->Request->getData();
 
 		$languages = array("", "html", "css", "php", "csharp", "asp", "javascript", "jquery");
@@ -245,7 +245,7 @@ class UserController extends Controller {
 		    $this->render(compact("user", "error", "attr"));
 		} else {
 		    $id = intval($data["id"]);
-
+// TODO: update ?
 		    if (App::getClass("user", $id)->set($attr)) {
 
 			$this->redirect(Router::getUrl("user", "compte"));
