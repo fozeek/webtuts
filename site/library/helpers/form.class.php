@@ -163,7 +163,7 @@ class FormHelper extends Helper {
 				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
 					foreach ($this->_form[$key] as $value)
 							array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));
-					$html .= FormHelper::getInstance()->select($key, $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true, "selected" => $object->get($key)));		
+					$html .= FormHelper::getInstance()->select($key, $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true));		
 				}
 				$html .= '</div>';
 				$html .= '<div style="clear: left;">';
@@ -171,7 +171,7 @@ class FormHelper extends Helper {
 				$html .= '</div>';
 			}
 		}
-		$html .= $this->submit((array_key_exists("submit", $options)) ? $options["submit"] : null);
+		$html .= $this->submit((array_key_exists("submit", $options)) ? $options["submit"] : "Enregistrer");
 		return $html;
 	}
 }
