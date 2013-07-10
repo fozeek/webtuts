@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 10 Juillet 2013 à 11:46
+-- Généré le: Mer 10 Juillet 2013 à 22:39
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -94,14 +94,15 @@ CREATE TABLE `image` (
   `type` text NOT NULL,
   `width` int(4) NOT NULL DEFAULT '80',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `image`
 --
 
 INSERT INTO `image` (`id`, `date`, `nom`, `type`, `width`) VALUES
-(1, '2013-05-26 00:00:00', 'fitz-lucassen', 'png', 80);
+(1, '2013-05-26 00:00:00', 'fitz-lucassen', 'png', 80),
+(2, '2013-07-02 00:00:00', 'lolilol', 'png', 80);
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,15 @@ CREATE TABLE `tag` (
   `text` text,
   `articles` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"article", "code":3}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `tag`
+--
+
+INSERT INTO `tag` (`id`, `title`, `text`, `articles`) VALUES
+(1, 'Un tag', 'qzdqzdqzd', 0),
+(2, 'Un autre tag', 'qzdqzdqzd', 0);
 
 -- --------------------------------------------------------
 
@@ -191,10 +200,10 @@ CREATE TABLE `tutorial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `title` int(200) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
-  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
+  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"big"}',
   `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  `comments` int(10) DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
+  `comments` int(10) DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2,"editable":false}',
   `slug` varchar(255) NOT NULL,
   `category` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"category"}',
   `author` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"user"}',
@@ -209,7 +218,7 @@ CREATE TABLE `tutorial` (
 INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
 (1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '', 1, 1, 0),
 (2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '', 1, 1, 0),
-(3, 0, '2013-05-16 00:00:00', 7, 8, 1, NULL, '', 1, 1, 0),
+(3, 0, '2013-05-16 00:00:00', 7, 8, 2, NULL, 'SLUG', 1, 1, 0),
 (4, 1, '2013-05-31 04:26:38', 9, 10, 1, NULL, '', 1, 1, 0),
 (5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '', 1, 1, 0),
 (6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '', 1, 1, 0);
