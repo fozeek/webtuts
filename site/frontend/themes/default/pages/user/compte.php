@@ -2,7 +2,7 @@
 <!-- compte content -->
     <div class="middle-column">
 	<?php
-	    if(Kernel::get("session")->containsKey("first_connection") && Kernel::get("session")->get("first_connection")){
+	    if($this->Auth->getFirstConnection()){
 	?>
 	    <div id="oiseau-congrats"></div>
 	    <div id="bulle-paf"><p><?php echo CONGRATS; ?></p></div>

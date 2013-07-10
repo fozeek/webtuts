@@ -28,7 +28,7 @@ class SessionComponent extends Component {
 			Lire une donnée en session
 	*/
 	public function read($key){
-	    return $_SESSION[$key];
+	    return isset($_SESSION[$key]) ? false : $_SESSION[$key];
 	}
 
 	/*
