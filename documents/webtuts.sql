@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 09 Juillet 2013 à 14:51
+-- Généré le: Mer 10 Juillet 2013 à 11:46
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -43,8 +43,8 @@ INSERT INTO `access` (`id`, `deleted`, `code`, `description`) VALUES
 
 CREATE TABLE `category` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
-  `text` text COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `title` int(255) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(10) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"image"}',
   `deleted` int(1) NOT NULL DEFAULT '0',
   `articles` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial"}',
@@ -57,7 +57,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `articles`, `slug`) VALUES
-(1, '1', '2', 0, 0, 0, '');
+(1, 1, 2, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,7 @@ CREATE TABLE `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `lang`
@@ -122,7 +122,23 @@ CREATE TABLE `lang` (
 
 INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (1, 'Titre français', 'English title '),
-(2, 'Contenu français', 'English Content');
+(2, 'Contenu français', 'English Content'),
+(3, 'Titre Article Français', 'English Article Title'),
+(4, 'Contenu Article Français', 'English Article Content'),
+(5, 'Titre Article Français', 'English Article Title'),
+(6, 'Contenu Article Français', 'English Article Content'),
+(7, 'Titre Article Français', 'English Article Title'),
+(8, 'Contenu Article Français', 'English Article Content'),
+(9, 'Titre Article Français', 'English Article Title'),
+(10, 'Contenu Article Français', 'English Article Content'),
+(11, 'Titre Article Français', 'English Article Title'),
+(12, 'Contenu Article Français', 'English Article Content'),
+(13, 'Titre Article Français', 'English Article Title'),
+(14, 'Contenu Article Français', 'English Article Content'),
+(15, 'Titre Article Français', 'English Article Title'),
+(16, 'Contenu Article Français', 'English Article Content'),
+(17, 'Titre Article Français', 'English Article Title'),
+(18, 'Contenu Article Français', 'English Article Content');
 
 -- --------------------------------------------------------
 
@@ -135,8 +151,8 @@ CREATE TABLE `news` (
   `deleted` int(11) NOT NULL,
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"user"}',
   `date` datetime NOT NULL,
-  `title` text NOT NULL,
-  `text` text NOT NULL,
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(11) NOT NULL,
   `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
   `slug` varchar(255) NOT NULL,
@@ -148,8 +164,8 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`, `slug`) VALUES
-(1, 0, 1, '2013-05-08 05:07:15', '\n    \n    Une news fraiche !', '\n      \n      zdizqlhdlzqid qzih dqli dlqdhqlidhlq dlq dhlq dilz ql dqz CONTENNNNNNT !!!<div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div>FRAIS !</div>', 1, 0, ''),
-(2, 0, 1, '2013-05-15 11:28:29', 'zqdqzdqzdqzd l', 'qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz qzdqzdqzdqzqzdqzdqzdqzqzdqzdqzdqz', 1, 0, '');
+(1, 0, 1, '2013-05-08 05:07:15', 15, 16, 1, 0, ''),
+(2, 0, 1, '2013-05-15 11:28:29', 17, 18, 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -175,8 +191,8 @@ CREATE TABLE `tutorial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `title` varchar(200) NOT NULL,
-  `text` text NOT NULL,
+  `title` int(200) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
   `comments` int(10) DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
   `slug` varchar(255) NOT NULL,
@@ -191,12 +207,12 @@ CREATE TABLE `tutorial` (
 --
 
 INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
-(1, 0, '2013-05-08 00:00:00', '\n   \n    \n    \n    \n    \n    Un titre super            ', '\n      \n      \n      <div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div><div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.<br></div><div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati porro ducimus ab neque dolorem iure illum molestias deserunt consectetur cupiditate alias doloribus ipsam ea placeat dignissimos corporis perferendis quo! Rerum.</div></div>                   ', 1, NULL, '', 1, 1, 0),
-(2, 1, '2013-05-29 12:17:00', 'Un tuto supprimé, et sur deux lignes !', '\n     \n      \n      \n      YZDQOZDU Dqz odjqzdp zqdip hzpd iqzidqz d qzpdh pzq doziqqd ozdod qizd qzd :D f', 0, NULL, '', 1, 1, 0),
-(3, 0, '2013-05-16 00:00:00', '\n   Faire le buzz MaJ', 'lorem', 1, NULL, '', 1, 1, 0),
-(4, 1, '2013-05-31 04:26:38', 'Apple  for ∞ !', '<font color="#333333" face="Lucida Grande, Lucida Sans Unicode, Helvetica, Arial, Verdana, sans-serif"><span style="font-size: 12px; line-height: 18px;">Text !</span></font><br>', 1, NULL, '', 1, 1, 0),
-(5, 1, '2013-05-15 04:22:40', 'Un titre', 'Un text', 1, NULL, '', 1, 1, 0),
-(6, 0, '2013-05-15 17:20:12', 'UN autre tilte', 'LOLILOL', 1, NULL, '', 1, 1, 0);
+(1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '', 1, 1, 0),
+(2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '', 1, 1, 0),
+(3, 0, '2013-05-16 00:00:00', 7, 8, 1, NULL, '', 1, 1, 0),
+(4, 1, '2013-05-31 04:26:38', 9, 10, 1, NULL, '', 1, 1, 0),
+(5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '', 1, 1, 0),
+(6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '', 1, 1, 0);
 
 -- --------------------------------------------------------
 

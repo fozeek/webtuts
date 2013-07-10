@@ -1,8 +1,6 @@
 <?php 
 	partial("header", array("header" => null, "title" => null)); 
 ?>
-
-	<pre><?php	print_r($this->Auth->getUser()); ?></pre>
 <?php /* ?>
 <?= $this->Form->start(); ?>
 <?= $this->Form->input("lol", array(
