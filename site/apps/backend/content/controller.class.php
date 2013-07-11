@@ -28,11 +28,13 @@ class ContentController extends Controller {
 	}
 
 	public function UpdateajaxAction() {
-		$id = $this->Request->getData("id");
+		/*$id = $this->Request->getData("id");
 		$node = $this->Request->getData("node");
 		$title = $this->Request->getData("title");
 		$text = $this->Request->getData("text");
-		$content = $this->Model->$node->update($id, compact("title", "text"));
+		$content = $this->Model->$node->update($id, compact("title", "text"));*/
+		print_r($this->Request->getData());
+		die();
 	}
 
 	public function PoplistdeletedajaxAction() {

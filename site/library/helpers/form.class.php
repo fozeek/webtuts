@@ -5,8 +5,18 @@ class FormHelper extends Helper {
 
 	private $_form;
 
-	public function start($action = "#", $method = "POST", $enctype = "multipart/form-data") {
-		return '<form action="'.$action.'" method="'.$method.'" enctype="'.$enctype.'">';
+	public function start(array $options = null, $action = "#", $method = "POST", $enctype = "multipart/form-data") {
+		$html =  '<form action="'.$action.'" method="'.$method.'" enctype="'.$enctype.'"';
+		if(isset($options["id"]))
+			$html .= 'id="'.$options["id"].'" ';
+		if(isset($options["class"]))
+			$html .= 'class="'.$options["class"].'" ';
+		if(isset($options["style"]))
+			$html .= 'style="'.$options["style"].'" ';
+		if(isset($options["name"]))
+			$html .= 'name="'.$options["name"].'" ';
+		$html .= '>';
+		return $html;
 	}
 
 	public function end() {
@@ -136,42 +146,34 @@ class FormHelper extends Helper {
 	}
 
 	public function getForm($object, array $options = array()) {
-		$html = $this->start((array_key_exists("start", $options)) ? $options["start"] : null);
+		$form = array();
 		foreach ($object->getShema() as $key => $shema) {
 			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
-				$html .= '<div style="padding: 20px;">';
-					$html .= '<div style="width: 200px;float: left;">';
-						$html .= ucfirst($key);
-					$html .= '</div>';
-					$html .= '<div style="overflow: hidden;">';
 				if($shema["Link"]=="")
-					FormHelper::getInstance()->input($key, array("value" => $object->get($key)));
+					$form[$key] = FormHelper::getInstance()->input($key, array("value" => $object->get($key)));
 				elseif($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
 					if($object->get($key)->isType()) {
-						if(is_array($inputs = $object->get($key)->__printForm($shema)))
+						if(is_array($inputs = $object->get($key)->__printForm($shema))) {
+							$form[$key] = "";
 							foreach ($inputs as $input)
-								$html .= $input;
+								$form[$key] .= $input;
+						}
 						else
-							$html .= $inputs;
+							$form[$key] = $inputs;
 					} else {
 						$collection = array();
 						foreach ($this->_form[$key] as $value)
 							array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));	
-						$html .= FormHelper::getInstance()->select($key, $collection, array("selected" => $object->get($key)->get("id")));
+						$form[$key] = FormHelper::getInstance()->select($key, $collection, array("selected" => $object->get($key)->get("id")));
 					}
 				}
 				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
 					foreach ($this->_form[$key] as $value)
 							array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));
-					$html .= FormHelper::getInstance()->select($key, $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true));		
+					$form[$key] = FormHelper::getInstance()->select($key, $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true));		
 				}
-				$html .= '</div>';
-				$html .= '<div style="clear: left;">';
-				$html .= '</div>';
-				$html .= '</div>';
 			}
 		}
-		$html .= $this->submit((array_key_exists("submit", $options)) ? $options["submit"] : "Enregistrer");
-		return $html;
+		return $form;
 	}
 }
