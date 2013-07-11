@@ -20,7 +20,7 @@ class LangObject extends ObjectModel {
 		foreach (Kernel::getLangs() as $lang) {
 			$this->__setWithParams($lang);
 			$typeInput = (array_key_exists("size", $shema["Link"]) && $shema["Link"]["size"]=="small") ? "input":"textarea";
-			array_push($string, FormHelper::getInstance()->$typeInput($shema["Field"]."_".$lang, array("value" => $this)));
+			array_push($string, FormHelper::getInstance()->$typeInput($shema["Field"]."[".$lang."]", array("value" => $this)));
 		}
 		return $string;
 	}

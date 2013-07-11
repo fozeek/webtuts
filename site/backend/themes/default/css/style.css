@@ -341,6 +341,30 @@ input[type=text] {
 	box-shadow: 0px 1px 1px white;
 }
 
+select {
+	margin: 0px;
+	padding: 4px;
+	border-radius: 2px;
+	border: 1px solid #B9B9B9;
+	outline: none;
+	font-size: 1em;
+	width: 100%;
+	max-width: 400px;
+	box-shadow: 0px 1px 1px white;
+}
+
+select.select-multiple {
+	margin: 0px;
+	padding: 4px;
+	border-radius: 2px;
+	border: 1px solid #B9B9B9;
+	outline: none;
+	font-size: 1em;
+	width: 100%;
+	max-width: 400px;
+	box-shadow: 0px 1px 1px white;
+}
+
 input[type=submit] {
 	margin: 0px;
 	padding: 4px;

@@ -19,6 +19,8 @@
 		    </div>
 		</div>
 	    </div>
+	    <div style="clear: both;height: 1px;width: 1px;">
+	    </div>
 	</div>
 	<div id="header">
 	    <div id="compte-button" style="float: right;height: 40px;cursor: pointer;position: relative;cursor: pointer;text-shadow: 0px 1px #8f97a6;color: #414a5c;">

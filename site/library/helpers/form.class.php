@@ -145,7 +145,13 @@ class FormHelper extends Helper {
 		return $html;
 	}
 
-	public function getForm($object, array $options = array()) {
+	public function getFormHiddenElements($object) {
+		$html = FormHelper::getInstance()->input("_object_id", array("value" => $object->get("id"), "type" => "hidden"));
+		$html .= FormHelper::getInstance()->input("_object_name", array("value" => $object->getName(), "type" => "hidden"));
+		return $html;
+	}
+
+	public function getFormElements($object, array $options = array()) {
 		$form = array();
 		foreach ($object->getShema() as $key => $shema) {
 			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
@@ -168,9 +174,10 @@ class FormHelper extends Helper {
 					}
 				}
 				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
+					$collection = array();
 					foreach ($this->_form[$key] as $value)
 							array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));
-					$form[$key] = FormHelper::getInstance()->select($key, $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true));		
+					$form[$key] = FormHelper::getInstance()->select($key."[]", $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true, "class" => "select-multiple"));		
 				}
 			}
 		}
