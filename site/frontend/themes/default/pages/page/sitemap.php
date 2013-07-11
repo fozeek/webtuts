@@ -13,28 +13,28 @@
 		    <h2 >Webtuts</h2>
 		    <br />
 		    <p>
-			<a href="<?php echo Kernel::getUrl("page/about"); ?>"><?php echo ABOUT; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("page/contact"); ?>"><?php echo CONTACT_US; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("page/partners"); ?>"><?php echo PARTNERS; ?></a><br />
+			<a href="<?php echo Router::getUrl("page", "about"); ?>"><?php echo ABOUT; ?></a><br />
+			<a href="<?php echo Router::getUrl("page", "contact"); ?>"><?php echo CONTACT_US; ?></a><br />
+			<a href="<?php echo Router::getUrl("page", "partners"); ?>"><?php echo PARTNERS; ?></a><br />
 		    </p>
 	    </div>
 	    <div class="category-sitemap">
 		    <h2 ><?php echo BLOG; ?></h2>
 		    <br />
 		    <p>
-			<a href="<?php echo Kernel::getUrl("blog/categories"); ?>"><?php echo SEE_CATEGORIES; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("blog/tags"); ?>"><?php echo SEE_TAGS; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("blog/articles"); ?>"><?php echo SEE_ARTICLES; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("blog/actualites"); ?>"><?php echo SEE_NEWS; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("blog/rss"); ?>"><?php echo RSS; ?></a><br />
+			<a href="<?php echo Router::getUrl("blog", "categories"); ?>"><?php echo SEE_CATEGORIES; ?></a><br />
+			<a href="<?php echo Router::getUrl("blog", "tags"); ?>"><?php echo SEE_TAGS; ?></a><br />
+			<a href="<?php echo Router::getUrl("blog", "articles"); ?>"><?php echo SEE_ARTICLES; ?></a><br />
+			<a href="<?php echo Router::getUrl("blog", "actualites"); ?>"><?php echo SEE_NEWS; ?></a><br />
+			<a href="<?php echo Router::getUrl("blog", "rss"); ?>"><?php echo RSS; ?></a><br />
 		    </p>
 	    </div>
 	    <div class="category-sitemap">
 		    <h2><?php echo COMMUNITY; ?></h2>
 		    <br />
 		    <p>
-			<a href="<?php echo Kernel::getUrl("user/connection"); ?>"><?php echo CONNECTION; ?></a><br />
-			<a href="<?php echo Kernel::getUrl("user/subscription"); ?>"><?php echo INSCRIPTION; ?></a><br />
+			<a href="<?php echo Router::getUrl("user", "connection"); ?>"><?php echo CONNECTION; ?></a><br />
+			<a href="<?php echo Router::getUrl("user", "subscription"); ?>"><?php echo INSCRIPTION; ?></a><br />
 		    </p>
 
 	    </div>

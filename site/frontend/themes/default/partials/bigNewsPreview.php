@@ -38,17 +38,4 @@
     </div>
     <div class="cl"></div>
 
-    
-    <div class="article-tags left">
-	<?php 
-	    foreach($new->get("tags") as $tag) {
-	?>
-		<a href="#" class="article-tag">
-		    <?php echo $tag->get("title"); ?>
-		</a>
-	<?php
-	    }
-	?>
-    </div>
-    <div class="cl"></div>
 </div>

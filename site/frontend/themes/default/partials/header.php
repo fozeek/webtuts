@@ -23,7 +23,7 @@
 		<?php
 	    } else {
 		?>
-    	    <a href="<?php echo Router::getUrl("user", "profil", array("user" => Router::get("user")->get("pseudo"))); ?>" class="design-button">
+    	    <a href="<?php echo Router::getUrl("user", "profil", array("user" => $this->Auth->getUser()->get("pseudo"))); ?>" class="design-button">
 		    <?php echo MY_PROFILE; ?>
     	    </a>
     	    <a href="<?php echo Router::getUrl("user", "compte"); ?>" class="design-button">
