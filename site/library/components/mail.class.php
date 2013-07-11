@@ -3,6 +3,7 @@
 class MailComponent extends Component {
 
     private $_from;
+    private $_fromName;
     private $_subject;
     private $_to;
     private $_header;
@@ -39,12 +40,27 @@ class MailComponent extends Component {
 	$this->_subject = $subject;
 	return $this;
     }
+    
+    public function fromName($pseudo) {
+	$this->_fromName = $pseudo;
+	return $this;
+    }
 
     public function header($header, $value) {
 	$this->setCarriageReturn();
 	if ($header == "from")
 	    $this->_headers = "From: \"" . $value["name"] . "\"" . $value["mail"] . $this->_carriage_return;
 	return $this;
+    }
+
+    public function buildHeaders() {
+        $this->headers = 'MIME-Version: 1.0' . $this->_carriage_return;
+        $this->headers .= 'Content-type: text/html; charset=UTF-8' . $this->_carriage_return;
+
+        $this->headers .= 'To: ' . $this->_to . $this->_carriage_return;
+        $this->headers .= 'From: WEBTUTS, Personne : ' . $this->_fromName . ' <contact@webtuts.fr>' . $this->_carriage_return;
+		
+        return $this;
     }
 
     /*

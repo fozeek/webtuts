@@ -4,7 +4,7 @@ class UserController extends Controller {
 
     public function IndexAction($params) {
 
-	$this->redirect(Kernel::getUrl(""));
+	$this->redirect("/");
     }
 
     public function ProfilAction($pseudo) {
@@ -245,8 +245,9 @@ class UserController extends Controller {
 		    $this->render(compact("user", "error", "attr"));
 		} else {
 		    $id = intval($data["id"]);
-// TODO: update ?
-		    if (App::getClass("user", $id)->set($attr)) {
+		    
+		    $user = $this->Model->User->getById($id);
+		    if ($user->update($attr)) {
 
 			$this->redirect(Router::getUrl("user", "compte"));
 		    } else {

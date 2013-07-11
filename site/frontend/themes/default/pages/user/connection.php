@@ -10,7 +10,7 @@
 	
 	<div id="explanation-text-page">
 	    <p><?php echo CONNECTION_TEXT; ?></p>
-	    <p style="text-decoration: underline;"><a href="<?php echo Kernel::getUrl("user/subscription"); ?>"><?php echo NOT_SUBSCRIBER; ?></a></p>
+	    <p style="text-decoration: underline;"><a href="<?php echo Router::getUrl("user", "subscription"); ?>"><?php echo NOT_SUBSCRIBER; ?></a></p>
 	</div>
 	
 	<form action="" method="post" id="login-form" >

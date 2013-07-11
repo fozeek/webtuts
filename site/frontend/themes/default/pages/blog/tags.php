@@ -17,7 +17,7 @@
 	    foreach($tags as $tag_temp) {
 		$nb_articles = count($tag_temp->get("articles"));
 	?>
-		<a href="<?php echo Kernel::getUrl("blog/tag/" . $tag_temp->get("name")); ?>" class="article-tag">
+		<a href="<?php echo Router::getUrl("blog", "tag", array("tag" => $tag_temp->get("name"))); ?>" class="article-tag">
 		    <?php echo $tag_temp->get("name"); ?>
 		    <span class="right"><?php echo $nb_articles; ?></span>
 		</a>

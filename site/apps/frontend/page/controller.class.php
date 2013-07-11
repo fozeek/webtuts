@@ -15,13 +15,15 @@ class PageController extends Controller {
     }
 
     public function ContactAction($params) {
+	$this->load("Mail");
+		
 	if ($this->Request->is("post")) {
 	    $data = $this->Request->getData();
 	    
 	    $pseudo = htmlspecialchars($data["nickname"]);
 	    $email = htmlspecialchars($data["mail"]);
 	    $object = htmlspecialchars($data["object"]);
-	    $message = htmlspecialchars($data["message"]);
+	    $message = htmlspecialchars($data["message"]);	    
 	    
 	    $mail_regex = "/[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]+/";
 	    $bool_error = false;
@@ -35,9 +37,14 @@ class PageController extends Controller {
 		$this->render(compact("error", "attr"));
 	    }
 	    else {
-		
+		$this->Mail->from($email);
+		$this->Mail->to("contact@webtuts.fr");
+		$this->Mail->subject($object);
+		$this->Mail->buildHeaders();
+		$this->Mail->fromName($pseudo);
+		$this->Mail->text($message);
+		$this->Mail->sens();
 	    }
-	    
 	}
 	$this->render(null);
     }

@@ -14,13 +14,13 @@
 	    <h4>
 		<span class="date"><?php echo PUBLISHED . " " . format_date($news->get("date")); ?></span>
 		<span class="date"><?php echo BY; ?></span>
-		<span class="author"><a href="<?php echo Kernel::getUrl("user/profil/" . $news->get("author")->get("pseudo")); ?>"><?php echo $news->get("author")->get("pseudo"); ?></a></span>
+		<span class="author"><a href="<?php echo Router::getUrl("user", "profil", array("user" => $news->get("author")->get("pseudo"))); ?>"><?php echo $news->get("author")->get("pseudo"); ?></a></span>
 	    </h4>
 	    <div class="article-tags right">
 		<?php 
 		    foreach($news->get("tags") as $tag) {
 		?>
-			<a href="<?php echo Kernel::getUrl("blog/tag/" . $tag->get("name")); ?>" class="article-tag">
+			<a href="<?php echo Router::getUrl("blog", "tag", array("tag" => $tag->get("name"))); ?>" class="article-tag">
 			    <?php echo $tag->get("name"); ?>
 			</a>
 		<?php

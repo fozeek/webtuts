@@ -41,7 +41,7 @@
 		<div class="marginAuto">
 		    <div class="button big-button">
 			<span>
-			    <a href="<?php echo Kernel::getUrl("blog/actualites");?>"><?php echo SEE_NEWS; ?></a>
+			    <a href="<?php echo Router::getUrl("blog", "actualites");?>"><?php echo SEE_NEWS; ?></a>
 			</span>
 		    </div>
 		</div>

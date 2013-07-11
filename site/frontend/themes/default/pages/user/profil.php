@@ -33,7 +33,7 @@
 	    <div class="pContainer">
 		<label class="label-presentation"><?php echo FIND_HIM . " :";?></label><p> <?php echo ucfirst($user->get("city")) . " " . IN . " " . ucfirst($user->get("country")); ?></p>
 		<label class="label-presentation"><?php echo SEE_WORK . " :";?></label><p><a target="_BLANK" href="<?php echo $user->get("site"); ?>"><?php echo $user->get("site"); ?></a></p>
-		<label class="label-presentation"><?php echo WHAT_HE_DO . " :";?></label><p> <?php echo str_replace(",", ", ",$user->get("languages")); ?></p>
+		<label class="label-presentation"><?php echo WHAT_HE_DO . " :";?></label><p> <?php echo str_replace(",", ", ",$user->get("language")); ?></p>
 	    </div>
 	    
 	    <div class="cl"></div>

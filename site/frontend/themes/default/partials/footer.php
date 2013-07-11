@@ -12,17 +12,17 @@
 			
 			<div id="middle-top-footer" class="footer-box">
 				<h2><?php echo USEFUL_LINKS; ?> :</h2>
-				<a href="<?php echo Kernel::getUrl("page/about"); ?>"><?php echo ABOUT; ?></a>
-				<a href="<?php echo Kernel::getUrl("page/contact"); ?>"><?php echo CONTACT_US; ?></a>
-				<a href="<?php echo Kernel::getUrl("page/sitemap"); ?>"><?php echo SITEMAP; ?></a>
-				<a href="<?php echo Kernel::getUrl("page/partners"); ?>"><?php echo PARTNERS; ?></a>
+				<a href="<?php echo Router::getUrl("page", "about"); ?>"><?php echo ABOUT; ?></a>
+				<a href="<?php echo Router::getUrl("page", "contact"); ?>"><?php echo CONTACT_US; ?></a>
+				<a href="<?php echo Router::getUrl("page", "sitemap"); ?>"><?php echo SITEMAP; ?></a>
+				<a href="<?php echo Router::getUrl("page", "partners"); ?>"><?php echo PARTNERS; ?></a>
 			</div>
 			
 			<div id="right-top-footer" class="footer-box">
 				<h2><?php echo FOLLOW_NEWS; ?> :</h2>
 				<a href="https://twitter.com/webtuts_fr">Twitter</a>
 				<a href="https://www.facebook.com/webtuts.fr">Facebook</a>
-				<a href="<?php echo Kernel::getUrl("blog/rss"); ?>"><?php echo RSS; ?></a>
+				<a href="<?php echo Router::getUrl("blog", "rss"); ?>"><?php echo RSS; ?></a>
 				<a href="#"><?php echo NEWSLETTERS; ?></a>
 			</div>
 		</div>
