@@ -29,7 +29,9 @@ class HomeController extends Controller {
 		echo "</pre>";
 		die();
 		*/
-		//$this->Auth->connect("fozeek", "testou");
+		//$this->Auth->connect("fozeek", "trstou");
+		print_r($this->Auth->getUser());
+		die();
  		return $this->render(compact("param1", "param2"));
 	}
 

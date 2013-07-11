@@ -104,10 +104,9 @@ $("document").ready(function() {
 		$(this).removeClass("content-editable-setted");
 	});
 	$("#update-content").live("click", function() {
-		console.log("TST");
 		var formData = new FormData(document.forms.namedItem("updateContentForm"));
 
-		console.log(formData);
+		//console.log(formData);
 		$.ajax({
 			type : 'post',
 			url : urlUpdate,
@@ -115,14 +114,13 @@ $("document").ready(function() {
     		contentType: false,
 			data : formData,
 			beforeSend: function() {
-				//$("#panel").find(".html").html('');
-				//$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
 			},
 			success : function(data) {
 				console.log(data);
-				//$("#panel").find(".loader").toggle();
-				//$("#sub-panel").trigger("click");
-				//$("#search-input").trigger("keyup").focus();
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
 			}
 		});
 	});

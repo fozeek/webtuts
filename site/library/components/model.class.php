@@ -39,6 +39,38 @@ class ModelComponent extends Component {
 			return $this->$table;
 	}
 
+	public function save() {
+		$data = $this->_controller->Request->getData();
+		$objectName = $data["_object_name"];
+		echo "<br />";
+		$object = $this->_controller->Model->$objectName->getById($data["_object_id"]);
+		foreach ($object->getShema() as $key => $shema) {
+			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
+				echo $key." : ";
+				if($shema["Link"]=="")
+					echo "a normal type";
+				elseif($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
+					if($object->get($key)->isType()) {
+						
+						echo "is a spécial type";
+					} else {
+						echo "is a liaison toOne";
+					}
+				}
+				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
+					echo "is a laison toMany";
+				}
+				echo "[";
+				if(array_key_exists($key, $data))
+					print_r($data[$key]);
+				else
+					echo "NULL";
+				echo "]<br />";
+			}
+			
+		}
+	}
+
 	public function bundle($bundle, $options = null) {
 		$bundle = Bundles::getBundle($bundle);
 		$tables = $bundle["tables"];
@@ -78,13 +110,5 @@ class ModelComponent extends Component {
 			array_push($return, new $objectName($object, $name));
 		}
 		return $return;
-	}
-
-	private function createTable($table, $attributs) {
-		//
-	}
-
-	private function setTable($table) {
-		//
 	}
 }

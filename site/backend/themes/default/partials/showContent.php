@@ -6,7 +6,8 @@
 <div class="corps-border">
 	<div class="corps">
 		<?= $view->Form->start(array("name" => "updateContentForm")); ?>
-		<?php foreach ($view->Form->getForm($content) as $key => $input) : ?>
+		<?= $view->Form->getFormHiddenElements($content); ?>
+		<?php foreach ($view->Form->getFormElements($content) as $key => $input) : ?>
 			<div style="padding: 20px;">
 				<div style="width: 200px;float: left;">
 					<?= ucfirst($key) ?>
@@ -18,16 +19,6 @@
 				</div>
 			</div>
 		<?php endforeach; ?>
-			<div style="padding: 20px;">
-				<div style="width: 200px;float: left;">
-					<br />
-				</div>
-				<div style="overflow: hidden;">
-					<?= $view->Form->submit("Enregistrer", array("id" => "updateContentSubmit")); ?>
-				</div>
-				<div style="clear: left;">
-				</div>
-			</div>
-		
+		<?= $view->Form->end() ?>
 	</div>
 </div>
