@@ -96,30 +96,30 @@
 		<span class="tooltip" <?php echo (isset($error["site"]) ? 'style="display: block;"' : ''); ?>><?php echo WRONG_PATTERN_URL; ?></span>
 		
 		<label class="label"><?php echo LBL_LANGAGE; ?> :</label>
-		<input type="checkbox" <?php echo (in_array("php", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-php" value="php" id="langage-php" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("php", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-php" value="php" id="langage-php" class="check-langage"/>
 		<label for="langage-php" class="box-next">&nbsp; PHP</label>
 		
-		<input type="checkbox" <?php echo (in_array("html", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-html" value="html" id="langage-html" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("html", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-html" value="html" id="langage-html" class="check-langage"/>
 		<label for="langage-html" class="box-next">&nbsp; HTML</label>
 		
-		<input type="checkbox" <?php echo (in_array("css", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-css" value="css" id="langage-css" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("css", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-css" value="css" id="langage-css" class="check-langage"/>
 		<label for="langage-css" class="box-next">&nbsp; CSS</label>
 		
-		<input type="checkbox" <?php echo (in_array("csharp", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-csharp" value="csharp" id="langage-csharp" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("csharp", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-csharp" value="csharp" id="langage-csharp" class="check-langage"/>
 		<label for="langage-csharp" class="box-next">&nbsp; C#</label>
 		
 		<div class="cl"></div>
 		<label class="label"></label>
-		<input type="checkbox" <?php echo (in_array("asp", explode(",", $user->get("languages"))) ? "checked" : "false"); ?> name="langage-asp" value="asp" id="langage-asp" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("asp", explode(",", $user->get("language"))) ? "checked" : "false"); ?> name="langage-asp" value="asp" id="langage-asp" class="check-langage"/>
 		<label for="langage-asp" class="box-next">&nbsp; ASP.NET</label>
 		
-		<input type="checkbox" <?php echo (in_array("javascript", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-javascript" value="javascript" id="langage-javascript" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("javascript", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-javascript" value="javascript" id="langage-javascript" class="check-langage"/>
 		<label for="langage-javascript" class="box-next">&nbsp; Javascript</label>
 		
-		<input type="checkbox" <?php echo (in_array("jquery", explode(",", $user->get("languages"))) ? "checked" : ""); ?> name="langage-jquery" value="jquery" id="langage-jquery" class="check-langage"/>
+		<input type="checkbox" <?php echo (in_array("jquery", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-jquery" value="jquery" id="langage-jquery" class="check-langage"/>
 		<label for="langage-jquery" class="box-next">&nbsp; JQuery</label>
 
-		<input type="hidden" name="langage" value="<?php echo $user->get("languages"); ?>" id="hidden-langage"/>
+		<input type="hidden" name="langage" value="<?php echo $user->get("language"); ?>" id="hidden-langage"/>
 		<div class="cl"></div>
 	    </div>
 	    
