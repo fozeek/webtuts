@@ -130,7 +130,7 @@ $("document").ready(function() {
 		//console.log(formData);
 		$.ajax({
 			type : 'post',
-			url : urlAddContentSave,
+			url : urlAddSave,
 			processData: false,
     		contentType: false,
 			data : formData,
@@ -148,13 +148,14 @@ $("document").ready(function() {
 	$(".add-selected-node").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlAddContent,
+			url : urlAddForm,
 			data : {
 				'node' : $(this).data("node")
 			},
 			beforeSend: function() {
 				$("#panel").find(".html").html('');
 				$("#panel").find(".loader").toggle();
+				$("#panel").find(".box").css("max-width", "1000px");
 			},
 			success : function(data) {
 				console.log(data);
@@ -166,7 +167,7 @@ $("document").ready(function() {
 	$(".show-deleted-content").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlPopShowDeleted,
+			url : urlPanelDeleted,
 			beforeSend: function() {
 				$("#panel").toggle();
 				$("#sub-panel").toggle();
@@ -189,7 +190,7 @@ $("document").ready(function() {
 	$("#search-input-deleted").live("keyup", function() {
 		$.ajax({
 			type : 'post',
-			url : urlShowDeleted,
+			url : urlListDeleted,
 			beforeSend: function() {
 				$(".list-deleted").html('');
 				$("#loader-deleted").show();
@@ -227,7 +228,7 @@ $("document").ready(function() {
 	$("#remove-content").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlRemoveContent,
+			url : urlRemove,
 			beforeSend: function() {
 				$("#panel").find(".html").html('');
 				$("#panel").find(".loader").toggle();
@@ -246,7 +247,7 @@ $("document").ready(function() {
 	$("#restore-content").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlRestoreContent,
+			url : urlRestore,
 			beforeSend: function() {
 				$("#panel").find(".html").html('');
 				$("#panel").find(".loader").toggle();
@@ -265,13 +266,14 @@ $("document").ready(function() {
 	$("#add-content").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlAddContentChooseNode,
+			url : urlAddChooseNode,
 			beforeSend: function() {
 				$("#panel").toggle();
 				$("#sub-panel").toggle();
 				$("#page").toggleClass("page-fixed");
 				$("#panel").find(".html").html('');
 				$("#panel").find(".loader").toggle();
+				$("#panel").find(".box").css("max-width", "400px");
 			},
 			success : function(data) {
 				$("#panel").find(".loader").toggle();
@@ -283,7 +285,7 @@ $("document").ready(function() {
 	$("#manage-nodes").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlManageNodes,
+			url : urlManagerNodes,
 			beforeSend: function() {
 				$("#panel").toggle();
 				$("#sub-panel").toggle();

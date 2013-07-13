@@ -27,7 +27,7 @@ class ContentController extends Controller {
 		$this->render(compact("content"));
 	}
 
-	public function AddcontentajaxAction() {
+	public function AddformajaxAction() {
 		$node = $this->Request->getData("node");
 		$table = $this->Model->$node;
 		$this->Form->setForm($table);
@@ -39,13 +39,13 @@ class ContentController extends Controller {
 		$this->render(array("content" => $content));
 	}
 
-	public function AddcontentsaveajaxAction() {
+	public function AddsaveajaxAction() {
 		$this->Form->setForm($content = $this->Model->save());
 		$this->render(array("content" => $content));
 	}
 
 
-	public function PoplistdeletedajaxAction() {
+	public function PaneldeletedajaxAction() {
 		$date = $this->Request->getData("date");
 		$query = $this->Request->getData("query");
 		$node = $this->Request->getData("node");
@@ -77,27 +77,29 @@ class ContentController extends Controller {
 		$this->render(compact("contents", "date"));
 	}
 	
-	public function RemovecontentajaxAction() {
+	public function RemoveajaxAction() {
 		$id = $this->Request->getData("id");
 		$node = $this->Request->getData("node");
 		$this->Model->$node->update($id, array("deleted" => true));
 		$content = $this->Model->$node->getById($id);
+		$this->Form->setForm($content);
 		$this->render(compact("content"));
 	}
 
-	public function RestorecontentajaxAction() {
+	public function RestoreajaxAction() {
 		$id = $this->Request->getData("id");
 		$node = $this->Request->getData("node");
 		$this->Model->$node->update($id, array("deleted" => 0));
 		$content = $this->Model->$node->getById($id);
+		$this->Form->setForm($content);
 		$this->render(compact("content"));
 	}
 
-	public function AddcontentchoosenodeajaxAction() {
+	public function AddchoosenodeajaxAction() {
 		$this->render();
 	}
 
-	public function ManageNodesajaxAction() {
+	public function ManagerNodesajaxAction() {
 		$this->render();
 	}
 	

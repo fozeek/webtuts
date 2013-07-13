@@ -100,21 +100,6 @@
 			Comments
 		    </div>
 		</a>
-		<a href="<?php echo Router::getUrl("plugin", "index"); ?>">
-		    <div class="menu-onglet<?php if ($header == "plugins") { ?>-active<?php } ?>">
-			Plug-ins
-		    </div>
-		</a>
-		<a href="<?php echo Router::getUrl("theme", "index"); ?>" style="color: none;">
-		    <div class="menu-onglet<?php if ($header == "theme") { ?>-active<?php } ?>">
-			Thèmes
-		    </div>
-		</a>
-		<a href="<?php echo Router::getUrl("mail", "index"); ?>">
-		    <div class="menu-onglet<?php if ($header == "emailling") { ?>-active<?php } ?>">
-			E-mailling
-		    </div>
-		</a>
 		<a href="<?php echo Router::getUrl("param", "index"); ?>">
 		    <div class="menu-onglet<?php if ($header == "param") { ?>-active<?php } ?>">
 			Paramêtres

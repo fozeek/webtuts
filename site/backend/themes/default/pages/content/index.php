@@ -4,16 +4,18 @@
 <script type="text/javascript">
 	var urlList = '<?= Router::getUrl("content", "listajax") ?>';
 	var urlShow = '<?= Router::getUrl("content", "showajax") ?>';
+	var urlPanelDeleted = '<?= Router::getUrl("content", "paneldeletedajax") ?>';
+	var urlListDeleted = '<?= Router::getUrl("content", "listdeletedajax") ?>';
+
+	var urlManagerNodes = '<?= Router::getUrl("content", "managernodesajax") ?>';
+
 	var urlUpdate = '<?= Router::getUrl("content", "updateajax") ?>';
-	var urlPopShowDeleted = '<?= Router::getUrl("content", "poplistdeletedajax") ?>';
-	var urlShowDeleted = '<?= Router::getUrl("content", "listdeletedajax") ?>';
-	var urlRemoveContent = '<?= Router::getUrl("content", "removecontentajax") ?>';
-	var urlRestoreContent = '<?= Router::getUrl("content", "restorecontentajax") ?>';
-	var urlAddContentChooseNode = '<?= Router::getUrl("content", "addcontentchoosenodeajax") ?>';
-	var urlAddContent = '<?= Router::getUrl("content", "addcontentajax") ?>';
-	var urlManageNodes = '<?= Router::getUrl("content", "managenodesajax") ?>';
-	var urlAddContent = '<?= Router::getUrl("content", "addcontentajax") ?>';
-	var urlAddContentSave = '<?= Router::getUrl("content", "addcontentsaveajax") ?>';
+	var urlRemove = '<?= Router::getUrl("content", "removeajax") ?>';
+	var urlRestore = '<?= Router::getUrl("content", "restoreajax") ?>';
+
+	var urlAddChooseNode = '<?= Router::getUrl("content", "addchoosenodeajax") ?>';
+	var urlAddForm = '<?= Router::getUrl("content", "addformajax") ?>';
+	var urlAddSave = '<?= Router::getUrl("content", "addsaveajax") ?>';
 </script>
 <div style="clear: both;height: 1px;background: #E5E5E5;">
 </div>		
