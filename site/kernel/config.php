@@ -33,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("frontend");
+	Kernel::setApp("backend");
 
 	/*
 		Paths files
@@ -78,6 +78,7 @@
 			"Request",
 			"Model",
 			"Form",
+			"String",
 			"View" => array(
 					"helpers" => array(
 							"Auth",

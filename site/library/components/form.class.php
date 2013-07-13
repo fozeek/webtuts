@@ -17,14 +17,15 @@ class FormComponent extends Component {
 		$form = array();
 		foreach ($object->getShema() as $key => $shema) {
 			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
-				if(($shema["Link"]!="" && ($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne")) && !$object->get($key)->isType()) {
-					$ref = $shema["Link"]["reference"];
-					$form[$key] = $this->_controller->Model->$ref->getAll();
+				$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
+				$ref = $shema["Link"]["reference"];
+				$this->_controller->Model->$ref; // pour l'import des classes de la table et de l'objet 
+				if($shema["Link"]!="" && ($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne")) {
+					if((class_exists($classOfKey) && !property_exists($classOfKey, "isType")) || !class_exists($classOfKey))
+						$form[$key] = $this->_controller->Model->$ref->getAll();
 				}
-				elseif($shema["Link"]!="" && ($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany")) {
-					$ref = $shema["Link"]["reference"];
+				elseif($shema["Link"]!="" && ($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany"))
 					$form[$key] = $this->_controller->Model->$ref->getAll();
-				}
 			}
 		}
 		$this->_form = $form;

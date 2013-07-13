@@ -124,6 +124,45 @@ $("document").ready(function() {
 			}
 		});
 	});
+	$("#save-content").live("click", function() {
+		var formData = new FormData(document.forms.namedItem("addContentForm"));
+
+		//console.log(formData);
+		$.ajax({
+			type : 'post',
+			url : urlAddContentSave,
+			processData: false,
+    		contentType: false,
+			data : formData,
+			beforeSend: function() {
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				console.log(data);
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
+			}
+		});
+	});
+	$(".add-selected-node").live("click", function() {
+		$.ajax({
+			type : 'post',
+			url : urlAddContent,
+			data : {
+				'node' : $(this).data("node")
+			},
+			beforeSend: function() {
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				console.log(data);
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
+			}
+		});
+	});
 	$(".show-deleted-content").live("click", function() {
 		$.ajax({
 			type : 'post',

@@ -57,7 +57,7 @@
 	    </div>
 	    <div id="add-content" style="height: 40px;float: left;cursor: pointer;">
 		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
-		    Ajouter un contenu
+		    Add a content
 		</div>
 	    </div>
 	    <div class="menu-top-1">
@@ -66,7 +66,7 @@
 	    </div>
 	    <div style="height: 40px;float: left;cursor: pointer;">
 		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
-		    Ajouter une page
+		    Add a taxonomy
 		</div>
 	    </div>
 	    <div class="menu-top-1">

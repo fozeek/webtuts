@@ -28,12 +28,15 @@ class TableModel{
 	public function save(array $attributs) {
 		if(!$this->_validator($attributs))
 			return false;
-		return (Sql::create()
+		if($returnId = Sql::create()
 				->insert($this->getName())
 				->columnsValues($attributs)
 				->execute()
-			) ?
-			true : false;
+			) {
+			return $returnId;
+		}
+		else
+			return false;
 	}
 
 	/*
@@ -164,14 +167,14 @@ class TableModel{
 			$res = Sql::create()
 					->select()
 					->from("_links")
-					->where("root", "=", $param, false)
-					->andWhere("code", "=", $code, false)
+					->where("link_root", "=", $param, false)
+					->andWhere("link_code", "=", $code, false)
 					->fetch();
 			if(count($res)==0)
 				return array();
 			$ids = array();
 			foreach ($res as $key => $value)
-				array_push($ids, $value["link"]);
+				array_push($ids, $value["link_link"]);
 			$return = $table->getById($ids);
 			if(count($return) == 0)
 				$return = array();
@@ -181,6 +184,26 @@ class TableModel{
 				$return = $return;
 		}
 		return $return;
+	}
+
+	public function getShema() {
+		if(!$shema = ModelComponent::$cache->read($this->getName()."_shema")) {	
+			$res = Sql::create()->query("show full columns from ".$this->getName());
+			$shema = array();
+			foreach ($res as $key => $value) {
+				$field = $value["Field"];
+				$value["Link"] = json_decode($value["Comment"]);
+				if($value["Link"] !== null)
+					$value["Link"] = get_object_vars($value["Link"]);
+				unset($value["Comment"]);
+				unset($value["Privileges"]);
+				$shema[$field] = $value;
+			}
+			ModelComponent::$cache->write($this->getName()."_shema", serialize($shema));
+		}
+		else
+			$shema = unserialize($shema);
+		return $shema;
 	}
 
 	// Fonctions à définir dans la classe fille

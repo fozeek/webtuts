@@ -40,35 +40,101 @@ class ModelComponent extends Component {
 	}
 
 	public function save() {
+		$objectName = ucfirst($this->_controller->Request->getData("_object_name"));
+		return $this->$objectName->getById(($this->_controller->Request->getData("_object_id")) ?
+			$this->update():
+			$this->insert());
+	}
+
+	private function insert() {
 		$data = $this->_controller->Request->getData();
-		$objectName = $data["_object_name"];
-		echo "<br />";
-		$object = $this->_controller->Model->$objectName->getById($data["_object_id"]);
-		foreach ($object->getShema() as $key => $shema) {
-			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
-				echo $key." : ";
+		$objectName = ucfirst($data["_object_name"]);
+		$hasSlug = false;
+		$hasDate = false;
+		foreach ($this->$objectName->getShema() as $key => $shema) {
+			if($key == "slug")
+				$hasSlug = true;
+			if($key == "date")
+				$hasDate = true;
+			if(!in_array($key, array("id", "deleted", "slug")) && array_key_exists($key, $data) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
 				if($shema["Link"]=="")
-					echo "a normal type";
+					$attrToUpdate[$key] = $data[$key];
 				elseif($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
-					if($object->get($key)->isType()) {
-						
-						echo "is a spécial type";
-					} else {
-						echo "is a liaison toOne";
-					}
+					$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
+					$ref = $shema["Link"]["reference"];
+					$this->_controller->Model->$ref;
+					
+					if(class_exists($classOfKey) && property_exists($classOfKey, "isType"))
+						$attrToUpdate[$key] = $classOfKey::__executeFormNew($this, $data[$key]);
+					else
+						$attrToUpdate[$key] = $data[$key];
 				}
 				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
-					echo "is a laison toMany";
+					/*foreach ($data[$key] as $id_ref)
+						Sql::create()
+							->insert("_links")
+							->columnsValues(array("link_root" => $object->get("id"), "link_code" => $shema["Link"]["code"], "link_link" => $id_ref))
+							->execute();
+							*/
 				}
-				echo "[";
-				if(array_key_exists($key, $data))
-					print_r($data[$key]);
-				else
-					echo "NULL";
-				echo "]<br />";
 			}
 			
 		}
+		if($hasSlug && array_key_exists("title", $data)) {
+			foreach (Kernel::getLangs() as $lang)
+				$slug[$lang] = $this->_controller->String->sanitize($data["title"][$lang]);
+			$attrToUpdate["slug"] = LangObject::__executeFormNew($this, $slug);
+		}
+		if($hasDate) {
+			$attrToUpdate["date"] = date("Y-m-d H:i:s");
+		}
+		return $this->$objectName->save($attrToUpdate);
+	}
+
+	private function update() {
+		$data = $this->_controller->Request->getData();
+		$objectName = $data["_object_name"];
+		$attrToUpdate = array();
+		$hasSlug = false;
+		$object = $this->_controller->Model->$objectName->getById($data["_object_id"]);
+		foreach ($object->getShema() as $key => $shema) {
+			if($key == "slug")
+				$hasSlug = true;
+			if(!in_array($key, array("id", "deleted", "slug")) && array_key_exists($key, $data) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
+				if($shema["Link"]=="")
+					$attrToUpdate[$key] = $data[$key];
+				elseif($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
+					$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
+					$ref = $shema["Link"]["reference"];
+					$this->_controller->Model->$ref;
+					if(class_exists($classOfKey) && property_exists($classOfKey, "isType"))
+						$object->get($key)->__executeForm($data[$key]);
+					else
+						$attrToUpdate[$key] = $data[$key];
+				}
+				elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
+					Sql::create()
+						->delete("_links")
+						->where("link_root", "=", $object->get("id"), false)
+						->andWhere("link_code", "=", $shema["Link"]["code"], false)
+						->execute();
+					foreach ($data[$key] as $id_ref)
+						Sql::create()
+							->insert("_links")
+							->columnsValues(array("link_root" => $object->get("id"), "link_code" => $shema["Link"]["code"], "link_link" => $id_ref))
+							->execute();
+				}
+			}
+			
+		}
+		if($hasSlug && array_key_exists("title", $data)) {
+			foreach (Kernel::getLangs() as $lang)
+				$slug[$lang] = $this->_controller->String->sanitize($data["title"][$lang]);
+			$this->Lang->update($object->get("slug")->get("id"), $slug);
+		}
+		if(count($attrToUpdate)>0)
+			$this->$objectName->update($object->get("id"), $attrToUpdate);
+		return $object->get("id");
 	}
 
 	public function bundle($bundle, $options = null) {

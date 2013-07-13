@@ -4,8 +4,8 @@
 </div>
 <div class="corps-border">
 	<div class="corps">
-		<br /><br />
-		<pre><?php var_dump(Bundles::getBundle("content")); ?></pre>
-		<br /><br />
+		<?php $bundles = Bundles::getBundle("content"); foreach ($bundles["tables"] as $key => $value): ?>
+			<div class="add-selected-node" data-node="<?= $value ?>" style="text-align: center;font-weight: bold;padding: 25px;border-bottom: 1px solid #E5E5E5;margin-bottom: -1px;"><?= $value ?></div>
+		<?php endforeach ?>
 	</div>
 </div>

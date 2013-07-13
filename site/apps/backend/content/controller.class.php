@@ -27,19 +27,23 @@ class ContentController extends Controller {
 		$this->render(compact("content"));
 	}
 
-	public function UpdateajaxAction() {
-		echo "<pre>";
-		/*$id = $this->Request->getData("id");
+	public function AddcontentajaxAction() {
 		$node = $this->Request->getData("node");
-		$title = $this->Request->getData("title");
-		$text = $this->Request->getData("text");
-		$content = $this->Model->$node->update($id, compact("title", "text"));*/
-
-		$this->Model->save();
-		
-		
-		echo "</pre>";
+		$table = $this->Model->$node;
+		$this->Form->setForm($table);
+		$this->render(compact("table", "node"));
 	}
+
+	public function UpdateajaxAction() {
+		$this->Form->setForm($content = $this->Model->save());
+		$this->render(array("content" => $content));
+	}
+
+	public function AddcontentsaveajaxAction() {
+		$this->Form->setForm($content = $this->Model->save());
+		$this->render(array("content" => $content));
+	}
+
 
 	public function PoplistdeletedajaxAction() {
 		$date = $this->Request->getData("date");
@@ -87,10 +91,6 @@ class ContentController extends Controller {
 		$this->Model->$node->update($id, array("deleted" => 0));
 		$content = $this->Model->$node->getById($id);
 		$this->render(compact("content"));
-	}
-
-	public function AddcontentajaxAction() {
-		$this->render();
 	}
 
 	public function AddcontentchoosenodeajaxAction() {

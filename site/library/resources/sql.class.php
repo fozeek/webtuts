@@ -15,6 +15,7 @@ class Sql {
     public static $TYPE_SELECT = "_SELECT";
     public static $TYPE_INSERT = "_INSERT";
     public static $TYPE_UPDATE = "_UPDATE";
+    public static $TYPE_DELETE = "_DELETE";
     public static $COUNT = 0;
     public static $HISTO = array();
     public static $TYPE_NO_QUOTE = false;
@@ -89,15 +90,21 @@ class Sql {
     }
 
     public function insert($into) {
-	$this->type = Sql::$TYPE_INSERT;
-	$this->class = $into;
-	return $this;
+		$this->type = Sql::$TYPE_INSERT;
+		$this->class = $into;
+		return $this;
     }
 
     public function update($table) {
-	$this->type = Sql::$TYPE_UPDATE;
-	$this->from = $table;
-	return $this;
+		$this->type = Sql::$TYPE_UPDATE;
+		$this->from = $table;
+		return $this;
+    }
+
+    public function delete($table) {
+		$this->type = Sql::$TYPE_DELETE;
+		$this->from = $table;
+		return $this;
     }
 
     public function columns($columns = null) {
@@ -246,6 +253,8 @@ class Sql {
 	    $requete = $this->getInsertRequete();
 	elseif ($this->type == Sql::$TYPE_UPDATE)
 	    $requete = $this->getUpdateRequete();
+	elseif ($this->type == Sql::$TYPE_DELETE)
+	    $requete = $this->getDeleteRequete();
 	else
 	    return new Error(1);
 	return $requete;
@@ -371,6 +380,17 @@ class Sql {
 	    return new Error(4);
     }
 
+    private function getDeleteRequete() {
+	if (true) {
+	    $requete = "DELETE FROM " . mb_strtolower($this->from) . " ";
+	    if (!empty($this->where))
+			$requete .= $this->getWhereString();
+	    return $requete;
+	}
+	else
+	    return new Error(4);
+    }
+
     public function fetchClass() {
 	if ($this->type == Sql::$TYPE_SELECT) {
 	    $requete = $this->getRequete();
@@ -421,7 +441,7 @@ class Sql {
     }
 
     public function execute() {
-	if ($this->type == Sql::$TYPE_INSERT || $this->type == Sql::$TYPE_UPDATE) {
+	if ($this->type == Sql::$TYPE_INSERT || $this->type == Sql::$TYPE_UPDATE || $this->type == Sql::$TYPE_DELETE) {
 	    $requete = $this->getRequete();
 	    array_push(self::$_historique, $requete);
 	    if (Sql::$_PDO->exec($requete)) {

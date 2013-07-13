@@ -4,7 +4,8 @@
 class LangObject extends ObjectModel {
 	
 	private $_currentLang = null;
-	protected $_isType = true;
+
+	public static $isType = true;
 
 	public function __toString() {
 		return $this->get(($this->_currentLang==null) ? Kernel::getCurrentLang() : $this->_currentLang);
@@ -25,8 +26,23 @@ class LangObject extends ObjectModel {
 		return $string;
 	}
 
-	public function __executeForm(array $options) {
-		
+	public static function __printFormNew($shema) {
+		$string = array();
+		foreach (Kernel::getLangs() as $lang) {
+			$typeInput = (array_key_exists("size", $shema["Link"]) && $shema["Link"]["size"]=="small") ? "input":"textarea";
+			array_push($string, FormHelper::getInstance()->$typeInput($shema["Field"]."[".$lang."]"));
+		}
+		return $string;
+	}
+
+	public function __executeForm(array $data) {
+		$table = $this->getTable();
+		$table->update($this->get("id"), $data);
+		return false;
+	}
+	public static function __executeFormNew($model, array $data) {
+		$lang = $model->Lang->save($data);
+		return $lang;
 	}
 
 }

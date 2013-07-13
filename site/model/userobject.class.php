@@ -16,4 +16,10 @@ class UserObject extends ObjectModel {
 	    }
 	    return $url;
 	}
+
+	public function get($attributName, $params = null) {
+		return ($attributName=="title") ?
+			$this->get("pseudo") : 
+			parent::get($attributName, $params);
+	}
 }

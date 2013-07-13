@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 10 Juillet 2013 à 22:39
+-- Généré le: Sam 13 Juillet 2013 à 18:36
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -48,16 +48,17 @@ CREATE TABLE `category` (
   `image` int(10) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"image"}',
   `deleted` int(1) NOT NULL DEFAULT '0',
   `articles` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial"}',
-  `slug` varchar(255) DEFAULT NULL,
+  `slug` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `category`
 --
 
 INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `articles`, `slug`) VALUES
-(1, 1, 2, 0, 0, 0, '');
+(1, 1, 2, 0, 0, 0, 0),
+(2, 25, 26, 1, 0, NULL, 27);
 
 -- --------------------------------------------------------
 
@@ -115,7 +116,7 @@ CREATE TABLE `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 --
 -- Contenu de la table `lang`
@@ -128,8 +129,8 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (4, 'Contenu Article Français', 'English Article Content'),
 (5, 'Titre Article Français', 'English Article Title'),
 (6, 'Contenu Article Français', 'English Article Content'),
-(7, 'Titre Article Français', 'English Article Title'),
-(8, 'Contenu Article Français', 'English Article Content'),
+(7, 'Titre Article Français UP', 'English Article Title UP'),
+(8, 'Contenu Article Français TE', 'English Article Content TE'),
 (9, 'Titre Article Français', 'English Article Title'),
 (10, 'Contenu Article Français', 'English Article Content'),
 (11, 'Titre Article Français', 'English Article Title'),
@@ -138,8 +139,40 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (14, 'Contenu Article Français', 'English Article Content'),
 (15, 'Titre Article Français', 'English Article Title'),
 (16, 'Contenu Article Français', 'English Article Content'),
-(17, 'Titre Article Français', 'English Article Title'),
-(18, 'Contenu Article Français', 'English Article Content');
+(17, 'Titre Article Français YEAH !!!', 'English Article Title'),
+(18, 'Contenu Article Français', 'English Article Content'),
+(19, 'azd', 'qzd'),
+(20, 'qzd', 'qzd'),
+(21, 'titre-article-français-updd', 'english-article-title-up'),
+(22, 'qzd', 'qzd'),
+(23, 'qzdzqd', 'qzdqzd'),
+(24, 'qzdqzdq', 'zdqzdqz'),
+(25, 'Titre cat 2', 'Cat tilte two'),
+(26, 'desc', 'desc'),
+(27, 'slug cat 2', 'cat 2 slug'),
+(28, 'aS', 'QZDQZD'),
+(29, 'titre-article-français-yeah', 'english-article-title'),
+(30, 'NEW TITRE ! TESTOUfff :D LOL BESTAH <3', 'qzdqzd POUET :D'),
+(31, 'qzdqzd', 'qzdzqd'),
+(32, 'new-titre--testoufff-d-lol-bestah-<3', 'qzdqzd-pouet-d'),
+(33, 'qzdqzd', 'qzdqzd'),
+(34, 'qzdqzd', 'qzdzqd'),
+(35, 'qzdqzd', 'qzdqzd'),
+(36, 'qzdqzd', 'qzdzqd'),
+(37, 'qzdqzd', 'qzdqzd'),
+(38, 'qzdqzd', 'qzdzqd'),
+(39, 'DATA 1 FUCKED UP DOWN', 'DATA 2'),
+(40, 'DATA 3', 'DATA 4'),
+(41, 'data-1-fucked-up-down', 'data-2'),
+(42, 'UNE NEWs', 'A NEWs'),
+(43, 'qzdqzdzqd', 'qzdqzdqzd'),
+(44, 'une-news', 'a-news'),
+(45, 'NEWSLOL', 'DDSO'),
+(46, 'ODODODs L', 'DODODOD'),
+(47, 'newslol', 'ddso'),
+(48, 'THIS IS SPARTA !!!!!', 'zdq'),
+(49, 'qzdqzd', 'qzdqzdd'),
+(50, 'this-is-sparta', 'zdq');
 
 -- --------------------------------------------------------
 
@@ -152,21 +185,49 @@ CREATE TABLE `news` (
   `deleted` int(11) NOT NULL,
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"user"}',
   `date` datetime NOT NULL,
-  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"small"}',
   `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(11) NOT NULL,
-  `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2}',
-  `slug` varchar(255) NOT NULL,
+  `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2,"editable":false}',
+  `slug` text NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `news`
 --
 
 INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`, `slug`) VALUES
-(1, 0, 1, '2013-05-08 05:07:15', 15, 16, 1, 0, ''),
-(2, 0, 1, '2013-05-15 11:28:29', 17, 18, 1, 0, '');
+(1, 0, 1, '2013-05-08 05:07:15', 15, 16, 1, 0, '28'),
+(2, 0, 1, '2013-05-15 11:28:29', 17, 18, 1, 0, '29'),
+(3, 0, 1, '2013-07-19 07:44:26', 39, 40, 0, 0, '41'),
+(4, 0, 1, '2013-07-13 17:49:58', 42, 43, 0, 0, '44'),
+(5, 0, 1, '2013-07-13 18:28:07', 45, 46, 0, 0, '47');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `page`
+--
+
+CREATE TABLE `page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` int(1) NOT NULL,
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"small"}',
+  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"big"}',
+  `date` datetime NOT NULL,
+  `slug` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","editable":false}',
+  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `page`
+--
+
+INSERT INTO `page` (`id`, `deleted`, `title`, `text`, `date`, `slug`, `image`) VALUES
+(1, 0, 30, 31, '2013-07-13 06:34:22', 32, 1),
+(2, 0, 48, 49, '2013-07-13 18:29:03', 50, 0);
 
 -- --------------------------------------------------------
 
@@ -204,24 +265,25 @@ CREATE TABLE `tutorial` (
   `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"big"}',
   `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
   `comments` int(10) DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2,"editable":false}',
-  `slug` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"small"}',
   `category` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"category"}',
   `author` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"user"}',
   `tags` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany","reference":"tag","code":4}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `tutorial`
 --
 
 INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
-(1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '', 1, 1, 0),
-(2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '', 1, 1, 0),
-(3, 0, '2013-05-16 00:00:00', 7, 8, 2, NULL, 'SLUG', 1, 1, 0),
-(4, 1, '2013-05-31 04:26:38', 9, 10, 1, NULL, '', 1, 1, 0),
-(5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '', 1, 1, 0),
-(6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '', 1, 1, 0);
+(1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '19', 1, 1, 0),
+(2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '20', 1, 1, 0),
+(3, 0, '2013-05-16 00:00:00', 7, 8, 2, NULL, '21', 1, 1, 0),
+(4, 1, '2013-05-31 04:26:38', 9, 10, 1, NULL, '22', 1, 1, 0),
+(5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '23', 1, 1, 0),
+(6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '24', 1, 1, 0),
+(7, 0, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -263,15 +325,16 @@ INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mai
 --
 
 CREATE TABLE `_links` (
-  `code` int(11) NOT NULL,
-  `root` int(11) NOT NULL,
-  `link` int(11) NOT NULL
+  `link_code` int(11) NOT NULL,
+  `link_root` int(11) NOT NULL,
+  `link_link` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `_links`
 --
 
-INSERT INTO `_links` (`code`, `root`, `link`) VALUES
+INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (1, 1, 2),
-(1, 1, 1);
+(1, 1, 1),
+(4, 3, 2);

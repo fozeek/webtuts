@@ -11,7 +11,9 @@
 	var urlRestoreContent = '<?= Router::getUrl("content", "restorecontentajax") ?>';
 	var urlAddContentChooseNode = '<?= Router::getUrl("content", "addcontentchoosenodeajax") ?>';
 	var urlAddContent = '<?= Router::getUrl("content", "addcontentajax") ?>';
-	var urlManageNodes = '<?= Router::getUrl("content", "manageNodesajax") ?>';
+	var urlManageNodes = '<?= Router::getUrl("content", "managenodesajax") ?>';
+	var urlAddContent = '<?= Router::getUrl("content", "addcontentajax") ?>';
+	var urlAddContentSave = '<?= Router::getUrl("content", "addcontentsaveajax") ?>';
 </script>
 <div style="clear: both;height: 1px;background: #E5E5E5;">
 </div>		

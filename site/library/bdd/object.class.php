@@ -2,17 +2,13 @@
 
 class ObjectModel {
 
+	protected $_table = null;
 	protected $_name;
 	protected $_attributs;
-	protected $_isType = false;
 
 	public function __construct(array $attributs, $name) {
 		$this->_attributs = $attributs;
 		$this->_name = $name;
-	}
-
-	public function isType() {
-		return $this->_isType;
 	}
 
 	public function getName() {
@@ -52,23 +48,15 @@ class ObjectModel {
 	}
 
 	public function getShema() {
-		if(!$shema = ModelComponent::$cache->read($this->getName()."_shema")) {	
-			$res = Sql::create()->query("show full columns from ".$this->getName());
-			$shema = array();
-			foreach ($res as $key => $value) {
-				$field = $value["Field"];
-				$value["Link"] = json_decode($value["Comment"]);
-				if($value["Link"] !== null)
-					$value["Link"] = get_object_vars($value["Link"]);
-				unset($value["Comment"]);
-				unset($value["Privileges"]);
-				$shema[$field] = $value;
-			}
-			ModelComponent::$cache->write($this->getName()."_shema", serialize($shema));
+		return $this->getTable()->getShema();
+	}
+
+	public function getTable() {
+		if($this->_table == null) {
+			$nameTable = (class_exists($this->getName()."Table")) ? $this->getName()."Table" : "StdTable";
+			$this->_table = new $nameTable($this->getName());
 		}
-		else
-			$shema = unserialize($shema);
-		return $shema;
+		return $this->_table;
 	}
 
 	public function __call($function, $params) {
