@@ -78,7 +78,7 @@ class ModelComponent extends Component {
 							*/
 				}
 			}
-			elseif(!in_array($key, array("id", "deleted", "slug"))) {
+			elseif(!in_array($key, array("id", "deleted", "slug")) && array_key_exists($key, $data)) {
 				$attrToUpdate[$key] = $data[$key];
 			}
 			
