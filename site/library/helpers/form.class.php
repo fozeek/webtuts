@@ -185,6 +185,9 @@ class FormHelper extends Helper {
 					$form[$key] = FormHelper::getInstance()->select($key."[]", $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true, "class" => "select-multiple"));		
 				}
 			}
+			elseif(!in_array($key, array("id", "deleted", "slug")) && !is_array($shema["Link"])) {
+				$form[$key] = FormHelper::getInstance()->input($key, array("value" => $object->get($key)));
+			}
 		}
 		return $form;
 	}
@@ -223,6 +226,9 @@ class FormHelper extends Helper {
 							array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));
 					$form[$key] = FormHelper::getInstance()->select($key."[]", $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true, "class" => "select-multiple"));		
 				}*/
+			}
+			elseif(!in_array($key, array("id", "deleted", "slug")) && !is_array($shema["Link"])) {
+				$form[$key] = FormHelper::getInstance()->input($key);
 			}
 		}
 		return $form;

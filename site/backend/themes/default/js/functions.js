@@ -14,6 +14,7 @@ $("document").ready(function() {
 		$(this).toggle();
 		$("#page").toggleClass("page-fixed");
 		$("#search-input").trigger("keyup").focus();
+		$("#panel").find(".box").css("max-width", "1000px");
 	});
 
 	$("#add-tag").keyup(function(e) { //remplacez {id_img} par l'id de votre image
@@ -32,6 +33,7 @@ $("document").ready(function() {
 	   		$("#panel").css("display", "none");
 	   		$("#sub-panel").css("display", "none");
 	   		$("#page").toggleClass("page-fixed");
+	   		$("#panel").find(".box").css("max-width", "1000px");
 	       }
 	});
 
@@ -158,8 +160,10 @@ $("document").ready(function() {
 				$("#panel").find(".box").css("max-width", "1000px");
 			},
 			success : function(data) {
-				console.log(data);
-				$("#panel").find(".loader").toggle();
+				$("#panel").show();
+				$("#sub-panel").show();
+				$("#page").addClass("page-fixed");
+				$("#panel").find(".loader").hide();
 				$("#panel").find(".html").html(data);
 			}
 		});
@@ -263,10 +267,10 @@ $("document").ready(function() {
 		});
 	});
 
-	$("#add-content").live("click", function() {
+	$(".add").live("click", function() {
 		$.ajax({
 			type : 'post',
-			url : urlAddChooseNode,
+			url : urlAddChooseBundle,
 			beforeSend: function() {
 				$("#panel").toggle();
 				$("#sub-panel").toggle();
@@ -274,6 +278,9 @@ $("document").ready(function() {
 				$("#panel").find(".html").html('');
 				$("#panel").find(".loader").toggle();
 				$("#panel").find(".box").css("max-width", "400px");
+			},
+			data : {
+				'bundle' : $(this).data("bundle")
 			},
 			success : function(data) {
 				$("#panel").find(".loader").toggle();

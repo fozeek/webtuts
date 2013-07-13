@@ -78,6 +78,9 @@ class ModelComponent extends Component {
 							*/
 				}
 			}
+			elseif(!in_array($key, array("id", "deleted", "slug"))) {
+				$attrToUpdate[$key] = $data[$key];
+			}
 			
 		}
 		if($hasSlug && array_key_exists("title", $data)) {
@@ -124,6 +127,9 @@ class ModelComponent extends Component {
 							->columnsValues(array("link_root" => $object->get("id"), "link_code" => $shema["Link"]["code"], "link_link" => $id_ref))
 							->execute();
 				}
+			}
+			elseif(!in_array($key, array("id", "deleted", "slug"))) {
+				$attrToUpdate[$key] = $data[$key];
 			}
 			
 		}

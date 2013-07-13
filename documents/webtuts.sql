@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 13 Juillet 2013 à 18:36
+-- Généré le: Sam 13 Juillet 2013 à 21:20
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -47,18 +47,19 @@ CREATE TABLE `category` (
   `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(10) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"image"}',
   `deleted` int(1) NOT NULL DEFAULT '0',
-  `articles` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial"}',
+  `tutorials` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial", "editable":false}',
   `slug` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `category`
 --
 
-INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `articles`, `slug`) VALUES
+INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `tutorials`, `slug`) VALUES
 (1, 1, 2, 0, 0, 0, 0),
-(2, 25, 26, 1, 0, NULL, 27);
+(2, 25, 26, 1, 0, NULL, 27),
+(3, 55, 56, 0, 0, NULL, 57);
 
 -- --------------------------------------------------------
 
@@ -68,8 +69,9 @@ INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `articles`, `
 
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` int(1) NOT NULL,
   `date` datetime NOT NULL,
-  `author` int(11) NOT NULL,
+  `author` int(11) NOT NULL COMMENT '{"link":"OneToOne", "reference":"user"}',
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
@@ -78,9 +80,9 @@ CREATE TABLE `comment` (
 -- Contenu de la table `comment`
 --
 
-INSERT INTO `comment` (`id`, `date`, `author`, `text`) VALUES
-(1, '2013-05-23 09:29:17', 1, 'Ceci est un com'' de fou !'),
-(2, '2013-05-16 00:00:00', 1, 'Cooment Twou');
+INSERT INTO `comment` (`id`, `deleted`, `date`, `author`, `text`) VALUES
+(1, 0, '2013-05-23 09:29:17', 1, 'Ceci est un com'' de fou !'),
+(2, 0, '2013-05-16 00:00:00', 1, 'Cooment Twou');
 
 -- --------------------------------------------------------
 
@@ -116,7 +118,7 @@ CREATE TABLE `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
 
 --
 -- Contenu de la table `lang`
@@ -147,9 +149,9 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (22, 'qzd', 'qzd'),
 (23, 'qzdzqd', 'qzdqzd'),
 (24, 'qzdqzdq', 'zdqzdqz'),
-(25, 'Titre cat 2', 'Cat tilte two'),
+(25, 'Titre cat 2 LOL', 'Cat tilte two'),
 (26, 'desc', 'desc'),
-(27, 'slug cat 2', 'cat 2 slug'),
+(27, 'titre-cat-2-lol', 'cat-tilte-two'),
 (28, 'aS', 'QZDQZD'),
 (29, 'titre-article-français-yeah', 'english-article-title'),
 (30, 'NEW TITRE ! TESTOUfff :D LOL BESTAH <3', 'qzdqzd POUET :D'),
@@ -161,9 +163,9 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (36, 'qzdqzd', 'qzdzqd'),
 (37, 'qzdqzd', 'qzdqzd'),
 (38, 'qzdqzd', 'qzdzqd'),
-(39, 'DATA 1 FUCKED UP DOWN', 'DATA 2'),
+(39, 'DATA 1 FUCKED UP DOWN ZUP', 'DATA 2'),
 (40, 'DATA 3', 'DATA 4'),
-(41, 'data-1-fucked-up-down', 'data-2'),
+(41, 'data-1-fucked-up-down-zup', 'data-2'),
 (42, 'UNE NEWs', 'A NEWs'),
 (43, 'qzdqzdzqd', 'qzdqzdqzd'),
 (44, 'une-news', 'a-news'),
@@ -172,7 +174,14 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (47, 'newslol', 'ddso'),
 (48, 'THIS IS SPARTA !!!!!', 'zdq'),
 (49, 'qzdqzd', 'qzdqzdd'),
-(50, 'this-is-sparta', 'zdq');
+(50, 'this-is-sparta', 'zdq'),
+(51, 'Un tag', 'One tag'),
+(52, 'Desc', 'Desc'),
+(53, 'AUTRE tag MAJ', 'ANOTHER tag'),
+(54, 'DE', 'cddd'),
+(55, 'Newcat LOL', 'Newcat'),
+(56, 'Newcat', 'Newcat'),
+(57, 'newcat-lol', 'newcat');
 
 -- --------------------------------------------------------
 
@@ -200,9 +209,9 @@ CREATE TABLE `news` (
 INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`, `slug`) VALUES
 (1, 0, 1, '2013-05-08 05:07:15', 15, 16, 1, 0, '28'),
 (2, 0, 1, '2013-05-15 11:28:29', 17, 18, 1, 0, '29'),
-(3, 0, 1, '2013-07-19 07:44:26', 39, 40, 0, 0, '41'),
-(4, 0, 1, '2013-07-13 17:49:58', 42, 43, 0, 0, '44'),
-(5, 0, 1, '2013-07-13 18:28:07', 45, 46, 0, 0, '47');
+(3, 1, 1, '2013-07-19 07:44:26', 39, 40, 0, 0, '41'),
+(4, 1, 1, '2013-07-13 17:49:58', 42, 43, 0, 0, '44'),
+(5, 1, 1, '2013-07-13 18:28:07', 45, 46, 0, 0, '47');
 
 -- --------------------------------------------------------
 
@@ -237,9 +246,10 @@ INSERT INTO `page` (`id`, `deleted`, `title`, `text`, `date`, `slug`, `image`) V
 
 CREATE TABLE `tag` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `text` text,
-  `articles` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"article", "code":3}',
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"small"}',
+  `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"big"}',
+  `tutorials` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"tutorial", "code":3, "editable":false}',
+  `deleted` int(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
@@ -247,9 +257,9 @@ CREATE TABLE `tag` (
 -- Contenu de la table `tag`
 --
 
-INSERT INTO `tag` (`id`, `title`, `text`, `articles`) VALUES
-(1, 'Un tag', 'qzdqzdqzd', 0),
-(2, 'Un autre tag', 'qzdqzdqzd', 0);
+INSERT INTO `tag` (`id`, `title`, `text`, `tutorials`, `deleted`) VALUES
+(1, 51, 52, 0, 0),
+(2, 53, 54, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -280,7 +290,7 @@ INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comm
 (1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '19', 1, 1, 0),
 (2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '20', 1, 1, 0),
 (3, 0, '2013-05-16 00:00:00', 7, 8, 2, NULL, '21', 1, 1, 0),
-(4, 1, '2013-05-31 04:26:38', 9, 10, 1, NULL, '22', 1, 1, 0),
+(4, 0, '2013-05-31 04:26:38', 9, 10, 1, NULL, '22', 1, 1, 0),
 (5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '23', 1, 1, 0),
 (6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '24', 1, 1, 0),
 (7, 0, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 1, 1, 0);
@@ -300,7 +310,7 @@ CREATE TABLE `user` (
   `surname` text NOT NULL,
   `mail` text NOT NULL,
   `image` int(11) NOT NULL,
-  `datesignin` datetime NOT NULL,
+  `date` datetime NOT NULL,
   `civility` text NOT NULL,
   `password` text NOT NULL,
   `country` text NOT NULL,
@@ -315,7 +325,7 @@ CREATE TABLE `user` (
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `datesignin`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
+INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `date`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
 (1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'mal', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'fozeek.com', 'fr', 0);
 
 -- --------------------------------------------------------

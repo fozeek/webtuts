@@ -25,6 +25,16 @@ a {
 	cursor: auto !important;
 }
 
+.item-choose {
+	text-align: center;
+	cursor: pointer;
+	font-size: 2em;
+	padding: 15px;
+	border-bottom: 1px solid #E5E5E5;
+	margin-bottom: -1px;
+	color: #3F6EC2;
+}
+
 @keyframes loadermove
 {
 	0% {transform: rotate(0deg)}

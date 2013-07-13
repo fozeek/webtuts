@@ -95,8 +95,8 @@ class ContentController extends Controller {
 		$this->render(compact("content"));
 	}
 
-	public function AddchoosenodeajaxAction() {
-		$this->render();
+	public function AddchoosebundleajaxAction() {
+		$this->render(array("bundle" => $this->Request->getData("bundle")));
 	}
 
 	public function ManagerNodesajaxAction() {

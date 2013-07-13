@@ -55,7 +55,7 @@
 	    </div>
 	    <div class="menu-top-2">
 	    </div>
-	    <div id="add-content" style="height: 40px;float: left;cursor: pointer;">
+	    <div class="add" data-bundle="content" style="height: 40px;float: left;cursor: pointer;">
 		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
 		    Add a content
 		</div>
@@ -64,9 +64,18 @@
 	    </div>
 	    <div class="menu-top-2">
 	    </div>
-	    <div style="height: 40px;float: left;cursor: pointer;">
+	    <div class="add" data-bundle="taxonomy" style="height: 40px;float: left;cursor: pointer;">
 		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
 		    Add a taxonomy
+		</div>
+	    </div>
+	    <div class="menu-top-1">
+	    </div>
+	    <div class="menu-top-2">
+	    </div>
+	    <div class="add-selected-node" data-node="user" style="height: 40px;float: left;cursor: pointer;">
+		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
+		    Add an user
 		</div>
 	    </div>
 	    <div class="menu-top-1">
@@ -95,7 +104,7 @@
 			Users
 		    </div>
 		</a>
-		<a href="<?php echo Router::getUrl("comments", "index"); ?>">
+		<a href="<?php echo Router::getUrl("comment", "index"); ?>">
 		    <div class="menu-onglet<?php if ($header == "comment") { ?>-active<?php } ?>">
 			Comments
 		    </div>
