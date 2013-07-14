@@ -16,11 +16,6 @@
 					<?= ucfirst($value) ?>
 				</div>
 			<?php endforeach; ?>
-				<div id="manage-nodes" style="padding: 5px;">
-					<div style="text-align: center;background: #93cd71;background: -moz-linear-gradient(top, #93cd71 0%, #74af67 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#93cd71), color-stop(100%,#74af67));background: -webkit-linear-gradient(top, #93cd71 0%,#74af67 100%);background: -o-linear-gradient(top, #93cd71 0%,#74af67 100%);background: -ms-linear-gradient(top, #93cd71 0%,#74af67 100%);background: linear-gradient(to bottom, #93cd71 0%,#74af67 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cd71', endColorstr='#74af67',GradientType=0 );border-bottom: 1px solid #5e8e54;border-top: 1px solid #dbdde4;color: white;padding: 6px;font-weight: bold;border-radius: 2px;font-size: 0.9em;text-shadow: 0px -1px #71a45e;">
-						Manage nodes
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

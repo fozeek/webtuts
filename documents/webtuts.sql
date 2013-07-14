@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 13 Juillet 2013 à 21:20
+-- Généré le: Dim 14 Juillet 2013 à 17:40
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -57,7 +57,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `tutorials`, `slug`) VALUES
-(1, 1, 2, 0, 0, 0, 0),
+(1, 1, 2, 0, 0, 0, 58),
 (2, 25, 26, 1, 0, NULL, 27),
 (3, 55, 56, 0, 0, NULL, 57);
 
@@ -118,15 +118,15 @@ CREATE TABLE `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
 
 --
 -- Contenu de la table `lang`
 --
 
 INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
-(1, 'Titre français', 'English title '),
-(2, 'Contenu français', 'English Content'),
+(1, 'Titre français TEST:D', 'English title '),
+(2, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur asperiores sit enim consectetur molestias explicabo ullam officiis nobis optio totam aperiam non quas assumenda consequatur dolorem neque molestiae. Natus nihil.', 'English Content'),
 (3, 'Titre Article Français', 'English Article Title'),
 (4, 'Contenu Article Français', 'English Article Content'),
 (5, 'Titre Article Français', 'English Article Title'),
@@ -160,9 +160,9 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (33, 'qzdqzd', 'qzdqzd'),
 (34, 'qzdqzd', 'qzdzqd'),
 (35, 'qzdqzd', 'qzdqzd'),
-(36, 'qzdqzd', 'qzdzqd'),
-(37, 'qzdqzd', 'qzdqzd'),
-(38, 'qzdqzd', 'qzdzqd'),
+(36, 'qzdqzdLOLqzd', 'qzdzqd'),
+(37, 'qzdqzdLOL', 'qzdqzd'),
+(38, 'qzdqzdlolqzd', 'qzdzqd'),
 (39, 'DATA 1 FUCKED UP DOWN ZUP', 'DATA 2'),
 (40, 'DATA 3', 'DATA 4'),
 (41, 'data-1-fucked-up-down-zup', 'data-2'),
@@ -172,7 +172,7 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (45, 'NEWSLOL', 'DDSO'),
 (46, 'ODODODs L', 'DODODOD'),
 (47, 'newslol', 'ddso'),
-(48, 'THIS IS SPARTA !!!!!', 'zdq'),
+(48, 'THIS IS SPARTA !!!!!MMMM', 'zdq'),
 (49, 'qzdqzd', 'qzdqzdd'),
 (50, 'this-is-sparta', 'zdq'),
 (51, 'Un tag', 'One tag'),
@@ -180,8 +180,9 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (53, 'AUTRE tag MAJ', 'ANOTHER tag'),
 (54, 'DE', 'cddd'),
 (55, 'Newcat LOL', 'Newcat'),
-(56, 'Newcat', 'Newcat'),
-(57, 'newcat-lol', 'newcat');
+(56, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem atque perferendis voluptate nam dolores incidunt illum dignissimos praesentium rerum aut est numquam autem quo aliquid animi voluptatem libero deleniti soluta.', 'Newcat'),
+(57, 'newcat-lol', 'newcat'),
+(58, 'titre-français-test-d', 'english-title');
 
 -- --------------------------------------------------------
 
@@ -264,6 +265,22 @@ INSERT INTO `tag` (`id`, `title`, `text`, `tutorials`, `deleted`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `test`
+--
+
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `deleted` int(1) NOT NULL,
+  `date` datetime NOT NULL,
+  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
+  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "big"}',
+  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `tutorial`
 --
 
@@ -293,7 +310,7 @@ INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comm
 (4, 0, '2013-05-31 04:26:38', 9, 10, 1, NULL, '22', 1, 1, 0),
 (5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '23', 1, 1, 0),
 (6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '24', 1, 1, 0),
-(7, 0, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 1, 1, 0);
+(7, 0, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 3, 1, 0);
 
 -- --------------------------------------------------------
 

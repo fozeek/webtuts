@@ -36,4 +36,14 @@ class Bundles {
 		self::$bundles[$bundle] = $attributs;
 	}
 
+	public static function addToBundle($bundle, $new) {
+		array_push(self::$bundles[$bundle]["tables"], $new);
+		file_put_contents(Kernel::path("config")."bundles.config.json", json_encode(self::$bundles));
+	}
+
+	public static function removeToBundle($bundle, $new) {
+		unset(self::$bundles[$bundle]["tables"][$new]);
+		file_put_contents(Kernel::path("config")."bundles.config.json", json_encode(self::$bundles));
+	}
+
 }

@@ -100,7 +100,60 @@ class ContentController extends Controller {
 	}
 
 	public function ManagerNodesajaxAction() {
+		$nodes = array();
+		foreach (Bundles::getBundle("content")["tables"] as $key => $value) {
+			$nodes[$value] = $this->Model->$value->getShema();
+		}
+		$taxonomies = array();
+		foreach (Bundles::getBundle("taxonomy")["tables"] as $key => $value) {
+			$taxonomies[$value] = $this->Model->$value->getShema();
+		}
+		$this->render(compact("nodes", "taxonomies"));
+	}
+
+	public function ShowshemaajaxAction() {
+		$name = $this->Request->getData("content");
+		$shema = $this->Model->$name->getShema();
+		$this->render(compact("shema", "name"));
+	}
+
+	public function addnodeformajaxAction() {
 		$this->render();
+	}
+
+	public function addnodesaveajaxAction() {
+		/*CREATE TABLE `test` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
+		  `author` int(11) NOT NULL COMMENT '{"link":"OneToOne", "reference":"user"}',
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+*/
+	//		["id","deleted","title","text","date","image"]
+		$requete = "CREATE TABLE ".$this->Request->getData("name")." (";
+		$requete .= " id int(11) NOT NULL AUTO_INCREMENT,";
+		if($this->Request->getData("type")==0)  { // node
+			$requete .= " deleted int(1) NOT NULL,";
+			$requete .= " date datetime NOT NULL,";
+			$requete .= " title int(11) NOT NULL COMMENT '{\"link\" : \"OneToOne\", \"reference\":\"lang\",\"size\" : \"small\"}',";
+			$requete .= " text int(11) NOT NULL COMMENT '{\"link\" : \"OneToOne\", \"reference\":\"lang\",\"size\" : \"big\"}',";
+			$requete .= " image int(11) NOT NULL COMMENT '{\"link\":\"OneToOne\",\"reference\":\"image\"}',";
+			Bundles::addToBundle("content", $this->Request->getData("name"));
+		}
+		elseif ($this->Request->getData("type")==1) { // taxonomie
+			$requete .= " deleted int(1) NOT NULL,";
+			$requete .= " title int(11) NOT NULL COMMENT '{\"link\" : \"OneToOne\", \"reference\":\"lang\",\"size\" : \"small\"}',";
+			$requete .= " text int(11) NOT NULL COMMENT '{\"link\" : \"OneToOne\", \"reference\":\"lang\",\"size\" : \"big\"}',";
+			Bundles::addToBundle("taxonomy", $this->Request->getData("name"));
+		}
+
+		foreach ($this->Request->getData() as $key => $value) {
+			echo "<br />".$key." : ";
+			print_r($value);
+		}
+
+		$requete .= " PRIMARY KEY (id) )";
+		Sql::create()->exec($requete);
 	}
 	
 /*

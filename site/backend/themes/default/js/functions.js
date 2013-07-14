@@ -306,4 +306,60 @@ $("document").ready(function() {
 			}
 		});
 	});
+	$(".showshema").live("click", function() {
+		$.ajax({
+			type : 'post',
+			url : urlShowShema,
+			data : {
+				'content' : $(this).data("content")
+			},
+			beforeSend: function() {
+			},
+			success : function(data) {
+				$("#panel").find("#panelshema").html(data);
+			}
+		});
+	});
+	
+	var numColumn = 1;
+	$("#addcolumn").live("click", function() {
+		
+		numColumn++;
+		console.log("column-"+numColumn);
+		$("#column-"+numColumn).show();
+	});
+	$("#new-node").live("click", function() {
+		$.ajax({
+			type : 'post',
+			url : urlAddNodeForm,
+			beforeSend: function() {
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				console.log(data);
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
+			}
+		});
+	});
+	$("#save-node").live("click", function() {
+		var formData = new FormData(document.forms.namedItem("addNodeForm"));
+		$.ajax({
+			type : 'post',
+			url : urlAddNodeSave,
+			processData: false,
+    		contentType: false,
+			data : formData,
+			beforeSend: function() {
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				console.log(data);
+				$("#panel").find(".loader").toggle();
+				$("#panel").find(".html").html(data);
+			}
+		});
+	});
 });

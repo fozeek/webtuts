@@ -51,6 +51,15 @@
 		    Webtuts CMS
 		</div>
 	    </div>
+		<div class="menu-top-1">
+	    </div>
+	    <div class="menu-top-2">
+	    </div>
+	    <div id="manage-nodes" style="height: 40px;float: left;cursor: pointer;">
+		<div style="color: #414a5c;text-shadow: 0px 1px #8f97a6;font-weight: bold;text-align: center;padding-top: 13px;padding-left: 15px;padding-right: 15px;font-size: 0.8em;">
+		    Content manager
+		</div>
+	    </div>
 	    <div class="menu-top-1">
 	    </div>
 	    <div class="menu-top-2">

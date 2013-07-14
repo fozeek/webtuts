@@ -437,7 +437,10 @@ class Sql {
     }
 
     public function query($requete) {
-	return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
+		return Sql::$_PDO->query($requete)->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function exec($requete) {
+		return Sql::$_PDO->exec($requete);
     }
 
     public function execute() {
