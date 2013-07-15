@@ -35,16 +35,20 @@ class ObjectModel {
 			import("model", strtolower($link["reference"])."table");
 			$this->_attributs[$attributName] = TableModel::getLinkTo(
 				ucfirst($link["reference"])."Table", 
-				str_replace("Object", "", get_class($this))."Table", 
+				str_replace("Object", "", get_class($this))."Table",
 				(isset($link["link"])) ? $link["link"] : null, 
-				(!empty($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->_attributs["id"], 
+				($link["link"]=="OneToMany" || $link["link"]=="ManyToMany") ? $this->_attributs["id"] : $this->_attributs[$attributName], 
 				(isset($link["code"])) ? $link["code"] : null
 			);
 		}
 		if($params != null)
 			$this->_attributs[$attributName]->__setWithParams($params);
-		return (isset($this->_attributs[$attributName])) ?
+		return ($this->_attributs[$attributName] != null || is_array($this->_attributs[$attributName])) ?
 			$this->_attributs[$attributName] : false ;
+	}
+
+	public function exists($column) {
+		return (array_key_exists($column, $this->_attributs)) ? true : false ;
 	}
 
 	public function getShema() {

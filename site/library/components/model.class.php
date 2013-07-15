@@ -180,4 +180,8 @@ class ModelComponent extends Component {
 		}
 		return $return;
 	}
+
+	public function addLink($code, $root, $link) {
+		Sql::create()->exec("INSERT INTO _links VALUES (".$code.", ".$root.", ".$link.")");
+	}
 }

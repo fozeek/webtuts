@@ -12,7 +12,7 @@ class Helper {
 		$this->_view = $view;
 	}
 
-	public function getView($view) {
+	public function getView() {
 		return $this->_view;
 	}
 

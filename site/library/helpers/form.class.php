@@ -158,7 +158,7 @@ class FormHelper extends Helper {
 				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$params = array("value" => $object->get($key));
 					if($key=="password")
-						$params = array("value" => "", "type" => "password");
+						$form[$key] = FormHelper::getInstance()->input($key, array("type" => "password"));
 					elseif($key=="text")
 						$form[$key] = FormHelper::getInstance()->textarea($key, $params);
 					else {
@@ -219,7 +219,7 @@ class FormHelper extends Helper {
 				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$params = array("value" => "");
 					if($key=="password")
-						$params = array("value" => "", "type" => "password");
+						$form[$key] = FormHelper::getInstance()->input($key, array("type" => "password"));
 					elseif($key=="text")
 						$form[$key] = FormHelper::getInstance()->textarea($key, $params);
 					else {

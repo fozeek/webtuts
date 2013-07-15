@@ -15,7 +15,7 @@
 					 - <a href="<?= Router::getUrl("user", "disconnect"); ?>">Disconnect</a>
 					<?php endif ?>
 				</div>
-				<span style="font-size: 2em;">WELCOME TO WEBTUTS CMS !</span>
+				<span style="font-size: 2em;">WELCOME TO <a href="/">WEBTUTS CMS</a> !</span>
 			</div>
 		</div>
 		<div style="background: #F9F9F9;border-bottom: 1px solid #E5E5E5;">
