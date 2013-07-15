@@ -13,7 +13,7 @@ class UserController extends Controller {
 	if ($user) {
 
 	    $image = "";
-
+	    
 	    if ($user->get("image") != null) {
 		$image = "IN_USER";
 	    } else {
@@ -101,12 +101,13 @@ class UserController extends Controller {
 		if ($bool_error) {
 		    $this->render(compact("error", "attr"));
 		} else {
+		    $password = $attr["password"];
 		    $attr["password"] = md5($attr["password"]);
 
 		    if ($user_id = $this->Model->User->save($attr)) {
 			$user = $this->Model->User->getById($user_id);
 			
-			$this->Auth->connect($user->get("pseudo"), $user->get("password"));
+			$this->Auth->connect($user->get("pseudo"), $password);
 			$this->Auth->setFirstConnection();
 			$this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
 		    }
@@ -193,17 +194,17 @@ class UserController extends Controller {
 		$attr = array();
 		$attr["pseudo"] = htmlspecialchars($data["pseudo"]);
 		$attr["name"] = htmlspecialchars($data["name"]);
-		$attr["surname"] = htmlspecialchars($data["firstname"]);
-		$attr["mail"] = htmlspecialchars($data["email"]);
-		$attr["civility"] = htmlspecialchars($data["civilite"]);
-		$attr["country"] = htmlspecialchars($data["pays"]);
+		$attr["surname"] = htmlspecialchars($data["surname"]);
+		$attr["mail"] = htmlspecialchars($data["mail"]);
+		$attr["civility"] = htmlspecialchars($data["civility"]);
+		$attr["country"] = htmlspecialchars($data["country"]);
 		$attr["city"] = htmlspecialchars($data["city"]);
 		$attr["site"] = htmlspecialchars($data["site"]);
 		//$attr["deleted"] = 0;
 		//$attr["banned"] = 0;
 		//$attr["image"] = 0;
 		//$attr["access"] = 0;
-		$attr["language"] = htmlspecialchars($data["langage"]);
+		$attr["language"] = htmlspecialchars($data["language"]);
 
 		$languages_array = explode(',', $attr["language"]);
 
@@ -251,7 +252,7 @@ class UserController extends Controller {
 		    
 		    $user = $this->Model->User->getById($id);
 
-		    if ($user->update($attr)) {
+		    if ($this->Model->save()) {
 			$this->redirect(Router::getUrl("user", "compte"));
 		    } else {
 			$this->render(compact("user", "attr"));

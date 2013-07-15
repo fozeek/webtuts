@@ -4,7 +4,7 @@
 	if (Kernel::route("action") != "404" &&
 		(Kernel::route("action") != "compte" ||
 		(Kernel::route("action") == "compte" && !$this->Session->containsKey("first_connection")) ||
-		(Kernel::route("action") == "compte" && $this->Session->containsKey("first_connection") && !$this->Session->get("first_connection")))) {
+		(Kernel::route("action") == "compte" && $this->Session->containsKey("first_connection") && !$this->Session->read("first_connection")))) {
 	    ?>
     	<div id="oiseau-anime">
     	    <img src="<?php echo _theme_path_ . 'images/'; ?>oeuil-oiseau.png" alt="<?php echo ALT_BIRD_EYE; ?>" class="bird-eye" id="left-eye"/>
@@ -40,8 +40,8 @@
 	    <div id="flag-box">
 		<?php
 		if (empty($link)) {
-		    $link["fr"] = "/fr/" . Kernel::getUrl();
-		    $link["en"] = "/en/" . Kernel::getUrl();
+		    $link["fr"] = "/fr" . Kernel::getUrl();
+		    $link["en"] = "/en" . Kernel::getUrl();
 		}
 		?>
 		<a href="<?php echo $link["fr"]; ?>">
