@@ -103,7 +103,9 @@ class UserController extends Controller {
 		} else {
 		    $attr["password"] = md5($attr["password"]);
 
-		    if ($user = $this->Model->User->save($attr)) {
+		    if ($user_id = $this->Model->User->save($attr)) {
+			$user = $this->Model->User->getById($user_id);
+			
 			$this->Auth->connect($user->get("pseudo"), $user->get("password"));
 			$this->Auth->setFirstConnection();
 			$this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
@@ -147,7 +149,7 @@ class UserController extends Controller {
 		} else {
 		    if ($user = $this->Model->User->getByPseudo(strtolower($attr["pseudo"]))) {
 			if ($user->get("password") == md5($attr["password"])) {
-			    $this->Auth->connect($user->get("pseudo"), $user->get("password"));
+			    $this->Auth->connect($user->get("pseudo"), $attr["password"]);
 			    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
 			} else {
 			    $error["bad_login"] = "error";
@@ -241,14 +243,15 @@ class UserController extends Controller {
 			$error["languages"] = "error";
 		    }
 		}
+		
 		if ($bool_error) {
 		    $this->render(compact("user", "error", "attr"));
 		} else {
 		    $id = intval($data["id"]);
 		    
 		    $user = $this->Model->User->getById($id);
-		    if ($user->update($attr)) {
 
+		    if ($user->update($attr)) {
 			$this->redirect(Router::getUrl("user", "compte"));
 		    } else {
 			$this->render(compact("user", "attr"));

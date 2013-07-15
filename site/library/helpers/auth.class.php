@@ -13,6 +13,9 @@ class AuthHelper extends Helper {
 	public function getUser() {
 		return $this->_user;
 	}
+	public function getFirstConnection() {
+	    $this->getView()->Session->read("first_connection");
+	}
 
 }
 
