@@ -123,9 +123,11 @@ class ContentController extends Controller {
 	}
 
 	public function ManagerNodesajaxAction() {
-		foreach (Bundles::getBundle("content")["tables"] as $key => $value)
+		$bundle = Bundles::getBundle("content");
+		foreach ($bundle["tables"] as $key => $value)
 			$nodes[$value] = $this->Model->$value->getShema();
-		foreach (Bundles::getBundle("taxonomy")["tables"] as $key => $value)
+		$bundle = Bundles::getBundle("taxonomy");
+		foreach ($bundle["tables"] as $key => $value)
 			$taxonomies[$value] = $this->Model->$value->getShema();
 		$this->render(compact("nodes", "taxonomies"));
 	}
