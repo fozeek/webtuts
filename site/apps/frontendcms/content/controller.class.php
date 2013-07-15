@@ -13,7 +13,7 @@ class ContentController extends Controller {
 	}
 
 	public function ListAction($name) {
- 		$contents = $this->Model->$name->getAll();
+ 		$contents = $this->Model->$name->getAll(array("orderBy" => array("date", "DESC")));
  		$this->render(compact("contents"));
 	}
 

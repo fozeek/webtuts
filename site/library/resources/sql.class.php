@@ -49,26 +49,28 @@ class Sql {
     }
 
     static public function connect($name) {
-	try {
-	    self::$_PDO = new PDO('mysql:host=' . self::$_users[$name]["host"] . ';dbname=' . self::$_users[$name]["database"], self::$_users[$name]["user"], self::$_users[$name]["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-	    self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	} catch (PDOException $e) {
-	    $users = self::$_users;
-	    unset($name);
-	    foreach ($users as $key => $value) {
-		$connected = true;
 		try {
-		    self::$_PDO = new PDO('mysql:host=' . $value["host"] . ';dbname=' . $value["database"], $value["user"], $value["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+		    self::$_PDO = new PDO('mysql:host=' . self::$_users[$name]["host"] . ';dbname=' . self::$_users[$name]["database"], self::$_users[$name]["user"], self::$_users[$name]["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		    self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
+		    $users = self::$_users;
+		    unset($name);
 		    $connected = false;
+		    foreach ($users as $key => $value) {
+			$connected = true;
+			try {
+			    self::$_PDO = new PDO('mysql:host=' . $value["host"] . ';dbname=' . $value["database"], $value["user"], $value["password"], array(PDO::ATTR_PERSISTENT => true, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+			    self::$_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			} catch (PDOException $e) {
+			    $connected = false;
+			}
+			if ($connected)
+			    break;
+		    }
+		    if (!$connected)
+				header("Location:/setconfig.php");
+			//Error::render(5, $e->getMessage());
 		}
-		if ($connected)
-		    break;
-	    }
-	    if (!$connected)
-		Error::render(5, $e->getMessage());
-	}
     }
 
     public function __construct() {

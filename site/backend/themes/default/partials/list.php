@@ -1,7 +1,7 @@
 <?php if(count($contents)>0) : $tmpDate = null; $countDeleted = 0 ; ?>
 	<?php foreach($contents as $content) : 
 		
-		if($content->get("date")) {
+		if($content->exists("date")) {
 
 		$newDate = tmpDate($content->get("date"));
 		if($tmpDate===null) {
@@ -48,7 +48,7 @@
 	</div>
 	<?php else: $countDeleted++; endif; ?>
 	<?php endforeach; ?>
-	<?php if($content->get("date")) { ?>
+	<?php if($content->exists("date")) { ?>
 	<?php $flush = ob_get_clean(); ?>
 	<div style="position: relative;padding: 5px;padding-left: 20px;padding-right: 20px;text-align: center;font-size: 0.9em;color: #333;border-bottom: 1px solid #E5E5E5;">
 		<?php if($countDeleted > 0) : ?>

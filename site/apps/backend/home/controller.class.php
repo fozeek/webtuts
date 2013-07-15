@@ -18,6 +18,11 @@ class HomeController extends Controller {
 		$this->Auth->disconnect();
 		$this->redirect(Router::getUrl("/"));
 	}
+
+	public function GofrontendAction() {
+		$this->Session->clear("__app_name");
+		$this->redirect("/");
+	}
 }
 
 ?>
