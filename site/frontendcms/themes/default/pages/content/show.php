@@ -16,6 +16,9 @@
 				</div>
 			<?php endforeach ?>
 		<?php endif ?>
+		<?php if ($content->get("comments")): ?>
+		COMMENTS
+		<?php endif ?>
 	</div>
 	<div style="clear: both;">
 	</div>
