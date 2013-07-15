@@ -22,7 +22,9 @@ class SessionHelper extends Helper {
 			Lire une donnée en session
 	*/
 	public function read($key){
-	    return $this->_vars[$key];
+	    return (array_key_exists($key, $_SESSION)) ?
+		$_SESSION[$key] :
+		false;
 	}
 
 	/*

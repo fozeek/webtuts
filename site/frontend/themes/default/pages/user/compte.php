@@ -29,7 +29,7 @@
 	    <div class="left-column">
 		<div class="border-title">
 		    <h2 class="left-title">
-			<img src="<?php echo '/'._theme_path_ . 'images/'; ?>mandatory.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
+			<img src="<?php echo _theme_path_ . 'images/'; ?>mandatory.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
 			<span style="vertical-align: middle;"><?php echo MANDATORY_INFORMATIONS; ?></span>
 		    </h2>
 		</div>
@@ -71,7 +71,7 @@
 	    <div class="right-column">
 		<div class="border-title">
 		    <h2 class="left-title">
-			<img src="<?php echo '/'._theme_path_ . 'images/'; ?>optionnal.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
+			<img src="<?php echo _theme_path_ . 'images/'; ?>optionnal.png" alt="" width="25px" style="vertical-align: middle;margin-right: 10px;"/>
 			<span style="vertical-align: middle;"><?php echo OPTIONAL_INFORMATIONS; ?></span>
 		    </h2>
 		</div>
