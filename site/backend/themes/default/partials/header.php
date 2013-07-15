@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<?php partial("meta"); ?>
+	<?php partial("meta", compact("type", "name")); ?>
 	<title>Page d'accueil Webtuts</title>
 	<script></script>
     </head>
@@ -98,22 +98,22 @@
 	    <div style="position: absolute;right: 0px;top: 0px;width: 1px;height: 100%;background: rgba(152, 148, 193, 0.6);">
 	    </div>
 	    <div style="overflow: auto;height: 100%;">
-		<a href="<?php echo Router::getUrl("content", "index"); ?>" style="color: none;">
+		<a href="<?php echo Router::getUrl("content", "list", array("type" => "bundle", "name" => "content")); ?>" style="color: none;">
 		    <div class="menu-onglet<?php if ($header == "content") { ?>-active<?php } ?>">
 			Content
 		    </div>
 		</a>
-		<a href="<?php echo Router::getUrl("taxonomy", "index"); ?>">
+		<a href="<?php echo Router::getUrl("content", "list", array("type" => "bundle", "name" => "taxonomy")); ?>">
 		    <div class="menu-onglet<?php if ($header == "taxonomy") { ?>-active<?php } ?>">
 			Taxonomy
 		    </div>
 		</a>
-		<a href="<?php echo Router::getUrl("user", "index"); ?>">
+		<a href="<?php echo Router::getUrl("content", "list", array("type" => "user")); ?>">
 		    <div class="menu-onglet<?php if ($header == "user") { ?>-active<?php } ?>">
 			Users
 		    </div>
 		</a>
-		<a href="<?php echo Router::getUrl("comment", "index"); ?>">
+		<a href="<?php echo Router::getUrl("content", "list", array("type" => "comment")); ?>">
 		    <div class="menu-onglet<?php if ($header == "comment") { ?>-active<?php } ?>">
 			Comments
 		    </div>

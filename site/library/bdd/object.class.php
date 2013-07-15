@@ -29,15 +29,15 @@ class ObjectModel {
 
 	public function get($attributName, $params = null) {
 		$shema = $this->getShema();
-		$link = $shema[$attributName]["Link"];
-		if(!empty($link) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
+		$link = (array_key_exists($attributName, $shema)) ? $shema[$attributName]["Link"] : null;
+		if(!empty($link) && array_key_exists("link", $link) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
 			import("model", strtolower($link["reference"])."object");
 			import("model", strtolower($link["reference"])."table");
 			$this->_attributs[$attributName] = TableModel::getLinkTo(
 				ucfirst($link["reference"])."Table", 
 				str_replace("Object", "", get_class($this))."Table", 
 				(isset($link["link"])) ? $link["link"] : null, 
-				(isset($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->get("id"), 
+				(!empty($this->_attributs[$attributName])) ? $this->_attributs[$attributName] : $this->_attributs["id"], 
 				(isset($link["code"])) ? $link["code"] : null
 			);
 		}

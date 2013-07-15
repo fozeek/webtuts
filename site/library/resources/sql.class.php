@@ -350,7 +350,7 @@ class Sql {
 	    }
 	    if ($cpt != 0)
 		$requete .= ", ";
-	    $requete .= $cote . $value . $cote;
+	    $requete .= $cote . addslashes($value) . $cote;
 	    $cpt++;
 	}
 	$requete .= ")";

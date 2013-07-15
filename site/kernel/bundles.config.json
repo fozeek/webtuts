@@ -1,1 +1,1 @@
-{"content":{"tables":["tutorial","news","page","test"],"fields":["id","deleted","title","text","date","image"]},"taxonomy":{"tables":["category","tag"],"fields":["id","deleted","title","text"]}}
+{"content":{"tables":["tutorial","news","page","test","chedar","prout"],"fields":["id","deleted","title","text","date","image"]},"taxonomy":{"tables":["category","tag"],"fields":["id","deleted","title","text"]}}

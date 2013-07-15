@@ -5,6 +5,10 @@
 <script src="<?= Kernel::path("themes", true) ?>default/js/functions.js"></script>
 
 <script type="text/javascript">
+	var typeForRefresh = '<?= $type ?>';
+	var nameForRefresh = '<?= $name ?>';
+
+
 	var urlList = '<?= Router::getUrl("content", "listajax") ?>';
 	var urlShow = '<?= Router::getUrl("content", "showajax") ?>';
 	var urlPanelDeleted = '<?= Router::getUrl("content", "paneldeletedajax") ?>';

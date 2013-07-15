@@ -155,15 +155,16 @@ class FormHelper extends Helper {
 		$form = array();
 		foreach ($object->getShema() as $key => $shema) {
 			if(!in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
-				if(!is_array($shema["Link"])) {
+				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$params = array("value" => $object->get($key));
 					if($key=="password")
 						$params = array("value" => "", "type" => "password");
-
-					if($key=="text")
+					elseif($key=="text")
 						$form[$key] = FormHelper::getInstance()->textarea($key, $params);
-					else
-						$form[$key] = FormHelper::getInstance()->input($key, $params);
+					else {
+						$formType = ($shema["Link"]["size"]=="small") ? "input" : "textarea";
+						$form[$key] = FormHelper::getInstance()->$formType($key, $params);
+					}
 				}
 				elseif(array_key_exists("link", $shema["Link"])) {
 					if($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
@@ -188,10 +189,17 @@ class FormHelper extends Helper {
 						}
 					}
 					elseif($shema["Link"]["link"]=="OneToMany" || $shema["Link"]["link"]=="ManyToMany") {
-						$collection = array();
-						foreach ($this->_form[$key] as $value)
-								array_push($collection, array("key" => $value->get("id"), "value" => $value->get("title")));
-						$form[$key] = FormHelper::getInstance()->select($key."[]", $collection, array("style" => "width: 100%;height: 150px;", "multiple" => true, "class" => "select-multiple"));		
+						$have = array();
+						foreach ($object->get($key) as $doHave)
+							array_push($have, $doHave->get("id"));
+						$form[$key] = "";
+						foreach ($this->_form[$key] as $value) {
+							if(in_array($value->get("id"), $have))
+								$form[$key] .= FormHelper::getInstance()->checkBox($key."[]", $value->get("id"), array("checked" => true))." ".$value->get("title")."<br />";
+							else
+								$form[$key] .= FormHelper::getInstance()->checkBox($key."[]", $value->get("id"))." ".$value->get("title")."<br />";
+							
+						}
 					}
 				}
 			}
@@ -208,17 +216,18 @@ class FormHelper extends Helper {
 		$form = array();
 		foreach ($table->getShema() as $key => $shema) {
 			if(!in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
-				if(!is_array($shema["Link"])) {
+				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$params = array("value" => "");
 					if($key=="password")
 						$params = array("value" => "", "type" => "password");
-
-					if($key=="text")
+					elseif($key=="text")
 						$form[$key] = FormHelper::getInstance()->textarea($key, $params);
-					else
-						$form[$key] = FormHelper::getInstance()->input($key, $params);
+					else {
+						$formType = ($shema["Link"]["size"]=="small") ? "input" : "textarea";
+						$form[$key] = FormHelper::getInstance()->$formType($key, $params);
+					}
 				}
-				elseif($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {
+				elseif(array_key_exists("link", $shema["Link"]) && ($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne")) {
 					$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
 					if(class_exists($classOfKey) && property_exists($classOfKey, "isType")) {
 						if(is_array($inputs = $classOfKey::__printFormNew($shema))) {

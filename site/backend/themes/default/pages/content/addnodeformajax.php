@@ -36,7 +36,7 @@
 					<?= $this->Form->input($cpt."[name]", array("style" => "width : 180px", "placeholder" => "Column's name")) ?>
 				</div>
 				<div style="overflow: hidden;">
-					<?= $this->Form->select($cpt."[link]", array(array("key"=>0, "value"=>"None"),array("key"=>1, "value"=>"OneToOne"),array("key"=>2, "value"=>"OneToMany"),array("key"=>3, "value"=>"ManyToOne"),array("key"=>4, "value"=>"ManyToMany"))) ?>
+					<?= $this->Form->select($cpt."[link]", array(array("key"=>0, "value"=>"None"),array("key"=>"OneToOne", "value"=>"OneToOne"),array("key"=>"OneToMany", "value"=>"OneToMany"),array("key"=>"ManyToOne", "value"=>"ManyToOne"),array("key"=>"ManyToMany", "value"=>"ManyToMany"))) ?>
 					<br />
 					<?= $this->Form->input($cpt."[ref]", array("placeholder" => "Link's reference", "style" => "margin-top: 5px;")) ?>
 					<br />

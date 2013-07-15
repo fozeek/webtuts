@@ -57,7 +57,7 @@ class ModelComponent extends Component {
 			if($key == "date")
 				$hasDate = true;
 			if(array_key_exists($key, $data) && !in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
-				if(!is_array($shema["Link"])) {
+				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$attrToUpdate[$key] = $data[$key];
 				}
 				elseif(array_key_exists("link", $shema["Link"])) {
@@ -103,7 +103,7 @@ class ModelComponent extends Component {
 			if($key == "slug")
 				$hasSlug = true;
 			if(array_key_exists($key, $data) && !in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
-				if(!is_array($shema["Link"]))
+				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"]))
 					$attrToUpdate[$key] = $data[$key];
 				elseif(array_key_exists("link", $shema["Link"])) {
 					if($shema["Link"]["link"]=="OneToOne" || $shema["Link"]["link"]=="ManyToOne") {

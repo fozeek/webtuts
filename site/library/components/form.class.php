@@ -16,7 +16,7 @@ class FormComponent extends Component {
 	public function setForm($object) {
 		$form = array();
 		foreach ($object->getShema() as $key => $shema) {
-			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
+			if(!in_array($key, array("id", "deleted")) && is_array($shema["Link"]) && array_key_exists("link", $shema["Link"]) && !array_key_exists("editable", $shema["Link"])) {
 				$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
 				$ref = $shema["Link"]["reference"];
 				$this->_controller->Model->$ref; // pour l'import des classes de la table et de l'objet 

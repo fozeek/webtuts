@@ -22,4 +22,15 @@ class UserObject extends ObjectModel {
 			$this->get("pseudo") : 
 			parent::get($attributName, $params);
 	}
+
+	public function haveAccess($accessCode) {
+		$res = false;
+		foreach ($this->get("access") as $value) {
+			if($value->get("title")==$accessCode) {
+				$res = true;
+				break;
+			}
+		}
+		return $res;
+	}
 }

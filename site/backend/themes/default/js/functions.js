@@ -66,8 +66,9 @@ $("document").ready(function() {
 				$("#no-match-message").css("display", "none");
 			},
 			data : {
-				'node' : $("#node-value").attr("value"),
 				'query' : $("#search-input").attr("value"),
+				'type' : typeForRefresh,
+				'name' : nameForRefresh
 			},
 			success : function(data) {
 				$("#loader").toggle();
