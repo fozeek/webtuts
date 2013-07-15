@@ -44,7 +44,7 @@ class UserController extends Controller {
 		$attr["name"] = htmlspecialchars($data["name"]);
 		$attr["surname"] = htmlspecialchars($data["firstname"]);
 		$attr["mail"] = htmlspecialchars($data["email"]);
-		$attr["datesignin"] = date("Y-m-d H:i:s");
+		$attr["date"] = date("Y-m-d H:i:s");
 		$attr["civility"] = htmlspecialchars($data["civilite"]);
 		$attr["password"] = htmlspecialchars($data["password"]);
 		$attr["country"] = htmlspecialchars($data["pays"]);

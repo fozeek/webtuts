@@ -22,7 +22,7 @@
 	    <div class="pContainer">
 		<label class="label-presentation"><?php echo RECOGNIZE_HIM . " :";?></label><p> <?php echo ucfirst($user->get("name")) . " " . ucfirst($user->get("surname")); ?></p>
 		<label class="label-presentation"><?php echo CONTACT_HIM . " :";?></label><p> <?php echo $user->get("mail"); ?></p>
-		<label class="label-presentation"><?php echo DATE_SIGNIN . " :";?></label><p> <?php echo format_date($user->get("datesignin")); ?></p>
+		<label class="label-presentation"><?php echo DATE_SIGNIN . " :";?></label><p> <?php echo format_date($user->get("date")); ?></p>
 	    </div>
 	    
 	    <div class="cl"></div>
