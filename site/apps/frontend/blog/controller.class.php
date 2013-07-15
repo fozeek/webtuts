@@ -119,6 +119,8 @@ class BlogController extends Controller {
     }
 
     public function RssAction() {
+	$this->load("Rss");
+	
 	$articles = $this->Model->Tutorial->getAll(array('orderBy' => array('date', 'desc')));
 	$return = array();
 

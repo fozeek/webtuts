@@ -2,9 +2,9 @@
 
 class PageController extends Controller {
 
-    public function IndexAction($pageParam) {
-	if (!empty($params[3])) {
-	    $page = $this->Model->Page->getBy("slug", $pageParam);
+    public function IndexAction($pageName) {
+	if (!empty($pageName)) {
+	    $page = $this->Model->Page->getBy("slug", $pageName);
 	    if (!empty($page))
 		$this->render(compact("page"));
 	    else
@@ -14,7 +14,7 @@ class PageController extends Controller {
 	    $this->redirect(Kernel::getUrl(""));
     }
 
-    public function ContactAction($params) {
+    public function ContactAction() {
 	$this->load("Mail");
 		
 	if ($this->Request->is("post")) {
@@ -43,21 +43,21 @@ class PageController extends Controller {
 		$this->Mail->buildHeaders();
 		$this->Mail->fromName($pseudo);
 		$this->Mail->text($message);
-		$this->Mail->sens();
+		$this->Mail->send();
 	    }
 	}
 	$this->render(null);
     }
 
-    public function SitemapAction($params) {
+    public function SitemapAction() {
 	$this->render(null);
     }
 
-    public function AboutAction($params) {
+    public function AboutAction() {
 	$this->render(null);
     }
 
-    public function PartnersAction($params) {
+    public function PartnersAction() {
 	$this->render(null);
     }
 
