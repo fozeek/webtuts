@@ -66,6 +66,7 @@ class Router {
 			return "/".$lang.$url;
 		}
 		else {
+
 			$url = "/".$controller."/".$action;
 			if($params!==null)
 				foreach ($params as $value)
@@ -77,6 +78,7 @@ class Router {
 	public static function getRoute($pattern) {
 		$pattern = explode("?", $pattern);
 		$pattern = $pattern[0];
+		
 		if($route = self::findPattern(preg_replace("#{([".self::$_regex."]+)}#i", "{}", $pattern), true)) {
 			$tab = preg_split("#[{}]#i", $route["pattern"]);
 			if(count($tab) > 1) {

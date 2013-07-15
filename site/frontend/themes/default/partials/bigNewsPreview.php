@@ -1,5 +1,5 @@
 <?php
-    $urlNews = Router::getUrl("blog", "actualite", array("news" => $new->get("title")));
+    $urlNews = Router::getUrl("blog", "actualite", array("news" => $new->get("slug")));
 ?>
 
 <div class="one-article one-big-news">

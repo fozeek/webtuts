@@ -26,6 +26,7 @@
 	</div>
 	<form action="" method="post" id="register-form">
 	    <input type="hidden" name="id" value="<?php echo $user->get("id"); ?>"/>
+	    <input name="_object_name" type="hidden" value="user"><input name="_object_id" type="hidden" value="<?php echo $user->get("id"); ?>">
 	    <div class="left-column">
 		<div class="border-title">
 		    <h2 class="left-title">
@@ -36,13 +37,13 @@
 		<div class="cl"></div>
 
 		<label class="label"><?php echo LBL_CIVILITE; ?> :</label>
-		<input type="radio" checked="checked" name="civilite" id="man-civilite" value="homme" /><label for="man-civilite" class="box-next"><?php echo LBL_MAN; ?></label>
-		<input type="radio" name="civilite" id="woman-civilite" value="femme" /><label for="woman-civilite" class="box-next"><?php echo LBL_WOMAN; ?></label>
+		<input type="radio" checked="checked" name="civility" id="man-civilite" value="homme" /><label for="man-civilite" class="box-next"><?php echo LBL_MAN; ?></label>
+		<input type="radio" name="civility" id="woman-civilite" value="femme" /><label for="woman-civilite" class="box-next"><?php echo LBL_WOMAN; ?></label>
 
 		<div class="cl"></div>
 		
 		<label class="label"><?php echo LBL_NAME; ?> :</label>
-		<input type="text" name="firstname" id="firstname" value="<?php echo $attr["surname"]; ?>" placeholder="<?php echo PL_NAME; ?>" required/>
+		<input type="text" name="surname" id="firstname" value="<?php echo $attr["surname"]; ?>" placeholder="<?php echo PL_NAME; ?>" required/>
 
 		<div class="cl"></div>
 		<span class="tooltip" <?php echo (isset($error["surname"]) ? 'style="display: block;"' : ''); ?>><?php echo REQUIRED_FIELD; ?></span>
@@ -61,7 +62,7 @@
 		<span class="main-tooltip" <?php echo (isset($error["pseudo_exist"]) ? 'style="display: block;"' : ''); ?>><?php echo ALREADY_EXIST; ?></span>
 
 		<label class="label"><?php echo LBL_EMAIL; ?>* :</label>
-		<input type="text" name="email" id="email" value="<?php echo $attr["mail"]; ?>" placeholder="<?php echo PL_EMAIL; ?>" pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]+"  required/>
+		<input type="text" name="mail" id="email" value="<?php echo $attr["mail"]; ?>" placeholder="<?php echo PL_EMAIL; ?>" pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]+"  required/>
 		
 		<div class="cl"></div>
 		<span class="tooltip" <?php echo (isset($error["mail"]) ? 'style="display: block;"' : ''); ?>><?php echo WRONG_PATTERN_EMAIL; ?></span>
@@ -78,7 +79,7 @@
 		<div class="cl"></div>
 
 		<label class="label"><?php echo LBL_PAYS; ?> :</label>
-		<select name="pays">
+		<select name="country">
 		    <option>France</option>
 		</select>
 
@@ -119,7 +120,7 @@
 		<input type="checkbox" <?php echo (in_array("jquery", explode(",", $user->get("language"))) ? "checked" : ""); ?> name="langage-jquery" value="jquery" id="langage-jquery" class="check-langage"/>
 		<label for="langage-jquery" class="box-next">&nbsp; JQuery</label>
 
-		<input type="hidden" name="langage" value="<?php echo $user->get("language"); ?>" id="hidden-langage"/>
+		<input type="hidden" name="language" value="<?php echo $user->get("language"); ?>" id="hidden-langage"/>
 		<div class="cl"></div>
 	    </div>
 	    

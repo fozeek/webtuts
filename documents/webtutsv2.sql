@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 15 Juillet 2013 à 19:42
+-- Généré le: Lun 15 Juillet 2013 à 22:45
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(10) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"image"}',
   `deleted` int(1) NOT NULL DEFAULT '0',
-  `tutorials` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial", "editable":false}',
+  `tutorials` int(10) DEFAULT NULL COMMENT '{"link" : "OneToMany", "reference":"tutorial", "editable":false,"code":9}',
   `slug` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
@@ -301,25 +301,27 @@ CREATE TABLE IF NOT EXISTS `user` (
   `name` text NOT NULL,
   `surname` text NOT NULL,
   `mail` text NOT NULL,
-  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
+  `image` int(11) DEFAULT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
   `date` datetime NOT NULL,
   `civility` text NOT NULL,
   `password` text NOT NULL,
-  `country` text NOT NULL,
-  `city` text NOT NULL,
-  `site` text NOT NULL,
-  `language` text NOT NULL,
+  `country` text,
+  `city` text,
+  `site` text,
+  `language` text,
   `access` int(11) DEFAULT NULL COMMENT '{"link":"OneToMany", "reference":"access","code":5}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `date`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
-(1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'homme', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'http://fozeek.com', 'html,css,php', 0),
-(2, 0, 0, 'fitz_lucassen', 'Thibault', 'Dulon', 'thibault.dulon@gmail.com', 1, '2013-07-11 21:29:39', 'homme', 'ce0608b1cb5f1b15c59f9344f53729fd', 'France', 'Paris', 'http://fitz.hebergratuit.com/portfolio', 'php,asp,html,javascript,css,csharp,jquery', 0);
+(1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 0, '2013-02-17 09:31:39', 'homme', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'http://fozeek.com', 'html,css,php', 0),
+(2, 0, 0, 'fitzlucassen', 'Thibault', 'Dulon', 'thibault.dulon@gmail.com', 1, '2013-07-11 21:29:39', 'homme', 'ce0608b1cb5f1b15c59f9344f53729fd', 'France', 'Paris', 'http://fitz.hebergratuit.com/portfolio', 'asp,html,javascript,css,csharp,jquery', 0),
+(3, 0, 0, 'muusha', 'Jonathan', 'Bicheux', 'jonathan.bicheux@gmail.com', 0, '2013-07-15 21:02:11', 'homme', 'b4b8daf4b8ea9d39568719e1e320076f', 'France', 'Paris', NULL, 'php,html,css,javascript', 0),
+(4, 0, 0, 'richard', 'Richard', 'Ettou', 'richard.ettou@gmail.com', 0, '2013-07-15 21:03:49', 'homme', 'b4b8daf4b8ea9d39568719e1e320076f', 'France', 'Paris', NULL, 'php,html,css', 0);
 
 -- --------------------------------------------------------
 
@@ -348,7 +350,9 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (4, 2, 2),
 (4, 1, 5),
 (5, 2, 1),
-(5, 2, 2);
+(5, 2, 2),
+(9, 1, 2),
+(9, 6, 1);
 
 -- --------------------------------------------------------
 

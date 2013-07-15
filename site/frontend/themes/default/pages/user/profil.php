@@ -11,7 +11,8 @@
 	<div class="informations-major-container">
 	    <h2><?php echo IDENTITY; ?></h2>
 	    <?php
-		$default_image = '/' . _theme_path_ . 'images/' . 'article-image.png';
+		$default_image = _theme_path_ . 'images/' . 'article-image.png';
+
 		if($image == "IN_USER")
 		    $url_img = get_url_image($user);
 		else
