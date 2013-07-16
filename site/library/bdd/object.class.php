@@ -28,23 +28,27 @@ class ObjectModel {
 	}
 
 	public function get($attributName, $params = null) {
-		$shema = $this->getShema();
-		$link = (array_key_exists($attributName, $shema)) ? $shema[$attributName]["Link"] : null;
-		if(!empty($link) && array_key_exists("link", $link) && array_key_exists($attributName, $this->_attributs) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
-			import("model", strtolower($link["reference"])."object");
-			import("model", strtolower($link["reference"])."table");
-			$this->_attributs[$attributName] = TableModel::getLinkTo(
-				ucfirst($link["reference"])."Table", 
-				str_replace("Object", "", get_class($this))."Table",
-				(isset($link["link"])) ? $link["link"] : null, 
-				($link["link"]=="OneToMany" || $link["link"]=="ManyToMany") ? $this->_attributs["id"] : $this->_attributs[$attributName], 
-				(isset($link["code"])) ? $link["code"] : null
-			);
+		if($this->exists($attributName)) {
+			$shema = $this->getShema();
+			$link = (array_key_exists($attributName, $shema)) ? $shema[$attributName]["Link"] : null;
+			if(!empty($link) && array_key_exists("link", $link) && array_key_exists($attributName, $this->_attributs) && !is_object($this->_attributs[$attributName]) && !is_array($this->_attributs[$attributName])) {
+				import("model", strtolower($link["reference"])."object");
+				import("model", strtolower($link["reference"])."table");
+				$this->_attributs[$attributName] = TableModel::getLinkTo(
+					ucfirst($link["reference"])."Table", 
+					str_replace("Object", "", get_class($this))."Table",
+					(isset($link["link"])) ? $link["link"] : null, 
+					($link["link"]=="OneToMany" || $link["link"]=="ManyToMany") ? $this->_attributs["id"] : $this->_attributs[$attributName], 
+					(isset($link["code"])) ? $link["code"] : null
+				);
+			}
+			if($params != null)
+				$this->_attributs[$attributName]->__setWithParams($params);
+			return ($this->_attributs[$attributName] != null || is_array($this->_attributs[$attributName])) ?
+				$this->_attributs[$attributName] : false ;
 		}
-		if($params != null)
-			$this->_attributs[$attributName]->__setWithParams($params);
-		return ($this->_attributs[$attributName] != null || is_array($this->_attributs[$attributName])) ?
-			$this->_attributs[$attributName] : false ;
+		else
+			return false;
 	}
 
 	public function exists($column) {

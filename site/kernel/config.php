@@ -33,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("frontend");
+	Kernel::setApp((array_key_exists("__app_name", $_SESSION)) ? $_SESSION["__app_name"]: "frontendcms");
 
 	/*
 		Paths files
@@ -79,6 +79,7 @@
 			"Model",
 			"Form",
 			"String",
+			"Params",
 			"View" => array(
 					"helpers" => array(
 							"Auth",
@@ -86,6 +87,7 @@
 							"Image",
 							"Form",
 							"Session",
+							"Params",
 						),
 					"themeName" => "default",
 				),
