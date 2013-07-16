@@ -42,8 +42,14 @@ class Bundles {
 	}
 
 	public static function removeToBundle($bundle, $new) {
-		unset(self::$bundles[$bundle]["tables"][$new]);
-		file_put_contents(Kernel::path("config")."bundles.config.json", json_encode(self::$bundles));
+		if(in_array($new, self::$bundles[$bundle]["tables"])) {
+			foreach (self::$bundles[$bundle]["tables"] as $key => $value) {
+				if($value == $new)
+					unset(self::$bundles[$bundle]["tables"][$key]);
+			}
+			self::$bundles[$bundle]["tables"] = array_values(self::$bundles[$bundle]["tables"]);
+			file_put_contents(Kernel::path("config")."bundles.config.json", json_encode(self::$bundles));
+		}
 	}
 
 }

@@ -185,6 +185,13 @@ class ContentController extends Controller {
 		$requete .= " PRIMARY KEY (id) )";
 		Sql::create()->exec($requete);
 	}
+
+	public function DeletenodeajaxAction() {
+		$name = $this->Request->getData("name");
+		Bundles::removeToBundle("content", $name);
+		Bundles::removeToBundle("taxonomy", $name);
+		Sql::create()->exec("DROP TABLE ".$name);
+	}
 }
 
 ?>

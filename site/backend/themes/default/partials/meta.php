@@ -18,6 +18,7 @@
 	var urlAddNodeForm = '<?= Router::getUrl("content", "addnodeformajax") ?>';
 	var urlAddNodeSave = '<?= Router::getUrl("content", "addnodesaveajax") ?>';
 	var urlShowShema = '<?= Router::getUrl("content", "showshemaajax") ?>';
+	var urlDeleteNode = '<?= Router::getUrl("content", "deletenodeajax") ?>';
 
 	var urlUpdate = '<?= Router::getUrl("content", "updateajax") ?>';
 	var urlRemove = '<?= Router::getUrl("content", "removeajax") ?>';

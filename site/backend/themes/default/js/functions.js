@@ -302,7 +302,7 @@ $("document").ready(function() {
 				$("#panel").find(".loader").toggle();
 			},
 			success : function(data) {
-				$("#panel").find(".loader").toggle();
+				$("#panel").find(".loader").hide();
 				$("#panel").find(".html").html(data);
 			}
 		});
@@ -324,9 +324,7 @@ $("document").ready(function() {
 	
 	var numColumn = 1;
 	$("#addcolumn").live("click", function() {
-		
 		numColumn++;
-		console.log("column-"+numColumn);
 		$("#column-"+numColumn).show();
 	});
 	$("#new-node").live("click", function() {
@@ -338,9 +336,24 @@ $("document").ready(function() {
 				$("#panel").find(".loader").toggle();
 			},
 			success : function(data) {
-				console.log(data);
 				$("#panel").find(".loader").toggle();
 				$("#panel").find(".html").html(data);
+			}
+		});
+	});
+	$("#delete-type-content").live("click", function() {
+		$.ajax({
+			type : 'post',
+			url : urlDeleteNode,
+			data : {
+				'name' : $(this).data("name")
+			},
+			beforeSend: function() {
+				$("#panel").find(".html").html('');
+				$("#panel").find(".loader").toggle();
+			},
+			success : function(data) {
+				$("#manage-nodes").trigger("click");
 			}
 		});
 	});
@@ -357,9 +370,7 @@ $("document").ready(function() {
 				$("#panel").find(".loader").toggle();
 			},
 			success : function(data) {
-				console.log(data);
-				$("#panel").find(".loader").toggle();
-				$("#panel").find(".html").html(data);
+				$("#manage-nodes").trigger("click");
 			}
 		});
 	});
