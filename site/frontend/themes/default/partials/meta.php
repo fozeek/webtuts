@@ -24,7 +24,7 @@
     else {
 ?>
 	<meta property="og:title" content="<?php echo $article->get("title"); ?>" />
-	<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME'] . '/' . Kernel::get("url"); ?>" />
+	<meta property="og:url" content="<?php echo $_SERVER['SERVER_NAME'] . '/' . Kernel::getUrl(); ?>" />
 	<meta property="og:image" content="<?php echo $_SERVER['SERVER_NAME'] . get_url_image($article); ?>" />
 <?php
     }

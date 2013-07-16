@@ -22,7 +22,7 @@
 		    $url_image = get_url_image($cat);
 	    ?>
     	    <li>
-    		<a href="<?php echo Router::getUrl("blog", "category", array("category" => $cat->get("slug"))); ?>">
+    		<a href="<?php echo Router::getUrl("blog", "category", array("category" => $cat->get("slug"), "id" => $cat->get("id"))); ?>">
     		    <span><?php echo $cat->get("title"); ?></span>
     		    <img src="<?php echo $url_image; ?>" alt="<?php echo ALT_CATEGORY_IMAGE . " " . $cat->get("title"); ?>" />
     		</a>

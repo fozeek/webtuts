@@ -20,8 +20,8 @@
 		<?php 
 		    foreach($news->get("tags") as $tag) {
 		?>
-			<a href="<?php echo Router::getUrl("blog", "tag", array("tag" => $tag->get("name"))); ?>" class="article-tag">
-			    <?php echo $tag->get("name"); ?>
+			<a href="<?php echo Router::getUrl("blog", "tag", array("tag" => $tag->get("title"), "id" => $tag->get("id"))); ?>" class="article-tag">
+			    <?php echo $tag->get("title"); ?>
 			</a>
 		<?php
 		    }

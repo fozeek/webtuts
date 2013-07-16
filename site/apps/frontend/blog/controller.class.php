@@ -6,15 +6,10 @@ class BlogController extends Controller {
 	return $this->redirect(Kernel::getUrl(""));
     }
 
-    public function ArticleAction($category, $article) {
+    public function ArticleAction($category, $article, $id) {
 	$this->load("String");
-	if ($article = $this->Model->Tutorial->getBy("slug", $article)) {
-
-	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
-//		    $link = array(
-//		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "en"))."/".Kernel::sanitize($article->get("title", "en"))),
-//		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($article->get("category")->get("name", "fr"))."/".Kernel::sanitize($article->get("title", "fr")))
-//		    );
+	
+	if ($article = $this->Model->Tutorial->getById($id)) {
 
 	    if ($this->Request->is("post")) {
 		$data = $this->Request->getData();
@@ -42,16 +37,12 @@ class BlogController extends Controller {
 	    $this->render(compact('article', 'link'));
 	}
 	else
-	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));
+	    $this->redirect(Router::getUrl("error", "http", array('codeError' => '404')));
     }
 
-    public function CategoryAction($category) {
-	if ($category = $this->Model->Category->getBy('slug', $category)) {
-	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
-//		    $link = array(
-//		    	"en" => Kernel::getUrl("en/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "en"))),
-//		    	"fr" => Kernel::getUrl("fr/".$params[1]."/".$params[2]."/".Kernel::sanitize($category->get("name", "fr")))
-//		    );
+    public function CategoryAction($category, $id) {
+	if ($category = $this->Model->Category->getById($id)) {
+
 	    $this->render(compact('category', 'link'));
 	}
 	else
@@ -81,16 +72,10 @@ class BlogController extends Controller {
       Description : Retourne un article selon le titre passé en paramêtre
      */
 
-    public function ActualiteAction($actualite) {
+    public function ActualiteAction($actualite, $id) {
 	// Récupère l'article
-	if ($news = $this->Model->News->getBy("slug", $actualite)) {
-	    // Création des liens pour le changement de langue
-	    // 
-	    // TODO: QUENTIN GESTION DES LANGUES!!!!!
-//	    $link = array(
-//		"en" => Kernel::getUrl("en/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "en"))),
-//		"fr" => Kernel::getUrl("fr/" . $params[1] . "/" . $params[2] . "/" . Kernel::sanitize($news->get("title", "fr")))
-//	    );
+	if ($news = $this->Model->News->getById($id)) {
+
 	    // Retourne à la vue l'article et les liens
 	    $this->render(array("news" => $news, 'link' => $link));
 	}
@@ -103,8 +88,8 @@ class BlogController extends Controller {
 	$this->render(compact("tags"));
     }
 
-    public function TagAction($tagParam) {
-	if ($tag_target = $this->Model->Tag->getBy('slug', $tagParam)) {
+    public function TagAction($tagParam, $id) {
+	if ($tag_target = $this->Model->Tag->getById($id)) {
 	    $tags = $this->Model->Tag->getAll();
 
 	    // TODO: QUENTIN GESTION DES LANGUES!!!!!

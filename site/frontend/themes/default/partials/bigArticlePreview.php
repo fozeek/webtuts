@@ -1,5 +1,5 @@
 <?php
-    $urlArticle = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("slug"), "article" => $article->get("slug")));
+    $urlArticle = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("slug"), "article" => $article->get("slug"), "id" => $article->get("id")));
 ?>
 
 <div class="one-article">
@@ -48,7 +48,7 @@
 		    $temp = implode("<br/>", $temp_array);
 		}
 	?>
-	<a style="<?php echo (strlen($article->get("category")->get("title")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Router::getUrl("blog", "category", array("category" => $article->get("category")->get("title"))); ?>">
+	<a style="<?php echo (strlen($article->get("category")->get("title")) > 15 ? 'height:40px;padding-top:13px;margin-left:-8px;' : ''); ?>" class="aBlock" href="<?php echo Router::getUrl("blog", "category", array("category" => $article->get("category")->get("title"), "id" => $article->get("category")->get("id"))); ?>">
 	    <?php 
 		echo $temp; ?>
 	</a>
@@ -59,7 +59,7 @@
 	<?php 
 	    foreach($article->get("tags") as $tag) {
 	?>
-		<a href="<?php echo Router::getUrl("blog", "tag", array("tag", $tag->get("title"))); ?>" class="article-tag">
+		<a href="<?php echo Router::getUrl("blog", "tag", array("tag", $tag->get("title"), "id", $tag->get("id"))); ?>" class="article-tag">
 		    <?php echo $tag->get("title"); ?>
 		</a>
 	<?php

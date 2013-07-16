@@ -20,7 +20,7 @@
 		Regex : Les caractères acceptés pour les parametres passés dans l'url
 	*/
 	Router::setDefaultsRoutes("home", "index");
-	Router::setRegex("A-Za-z0-9");
+	Router::setRegex("A-Za-z0-9\-");
 
  	/*
 		Mode de transmission des parametres

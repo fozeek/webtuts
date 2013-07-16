@@ -5,7 +5,7 @@ class Router {
 	public static $_routes = array();
 	public static $_defaultController = "home";
 	public static $_defaultAction = "index";
-	public static $_regex = "A-Za-z0-9";
+	public static $_regex = "A-Za-z0-9\-";
 
 	public static function setDefaultsRoutes($defaultController, $defaultAction) {
 		self::$_defaultController = $defaultController;
@@ -48,6 +48,7 @@ class Router {
 		else {
 			foreach (self::getRoutes() as $key => $value) {
 				$regex = "#".preg_replace("#{([".self::$_regex."]+)}#i", "([".self::$_regex."]+)", $value["pattern"])."#i";
+				
 				if(preg_match($regex, $pattern))
 					return self::getRoutes($key);
 			}

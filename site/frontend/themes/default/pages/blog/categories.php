@@ -17,7 +17,7 @@
 	    $cpt_cat = 0;
 	    foreach($cats as $cat){
 		$url_image = get_url_image($cat);
-		$urlCategory = Router::getUrl("blog", "category", array("category" => $cat->get("slug")));
+		$urlCategory = Router::getUrl("blog", "category", array("category" => $cat->get("slug"), "id" => $cat->get("id")));
 		$tutos_category = count($cat->get("tutorials"));
 	?>
 		<div class="one-article minSize <?php echo ($cpt_cat % 2 == 0 ? "no-margin" : ""); ?>">

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 15 Juillet 2013 à 22:45
+-- Généré le: Lun 15 Juillet 2013 à 23:59
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -84,7 +84,15 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne", "reference":"user"}',
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `comment`
+--
+
+INSERT INTO `comment` (`id`, `deleted`, `date`, `author`, `text`) VALUES
+(1, 0, '2013-07-16 00:00:00', 1, 'Sympa ce tuto !'),
+(2, 0, '2013-07-16 00:00:00', 1, 'J''ai beaucoup appris, merci !');
 
 -- --------------------------------------------------------
 
@@ -352,7 +360,9 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (5, 2, 1),
 (5, 2, 2),
 (9, 1, 2),
-(9, 6, 1);
+(9, 6, 1),
+(2, 1, 1),
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
