@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 15 Juillet 2013 à 19:26
+-- Généré le: Mar 16 Juillet 2013 à 09:25
 -- Version du serveur: 5.5.25
 -- Version de PHP: 5.4.4
 
@@ -104,7 +104,7 @@ CREATE TABLE `comment` (
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne", "reference":"user"}',
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `comment`
@@ -112,7 +112,18 @@ CREATE TABLE `comment` (
 
 INSERT INTO `comment` (`id`, `deleted`, `date`, `author`, `text`) VALUES
 (1, 1, '2013-05-23 09:29:17', 1, 'Ceci est un com'' de fou !'),
-(2, 0, '2013-05-16 00:00:00', 1, 'Cooment Twou');
+(2, 0, '2013-05-16 00:00:00', 1, 'Cooment Twou'),
+(3, 0, '2013-07-15 23:05:33', 1, 'TESTOU'),
+(4, 0, '2013-07-15 23:09:43', 1, 'TEST'),
+(5, 0, '2013-07-15 23:11:26', 1, 'TESTOU'),
+(6, 0, '2013-07-15 23:12:26', 1, 'TESTOU'),
+(7, 0, '2013-07-15 23:12:43', 1, 'TESTOU'),
+(8, 0, '2013-07-15 23:13:00', 1, 'TESTOU'),
+(9, 0, '2013-07-15 23:18:09', 1, 'RETESTOU'),
+(10, 0, '2013-07-15 23:18:24', 1, 'C''est coooool :D'),
+(11, 0, '2013-07-15 23:18:31', 1, '<?php lol ?>'),
+(12, 0, '2013-07-15 23:18:47', 1, '<body>trololol</body>'),
+(13, 0, '2013-07-16 01:58:28', 1, 'TESt');
 
 -- --------------------------------------------------------
 
@@ -148,7 +159,7 @@ CREATE TABLE `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=77 ;
 
 --
 -- Contenu de la table `lang`
@@ -227,8 +238,10 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (70, 'If you wanted to see my pussy', 'If you wanted to see my pussy'),
 (71, 'If you wanted to see my pussy', 'If you wanted to see my pussy'),
 (72, 'qzdqz', 'qzdzqdqz'),
-(73, 'zqdzqd', 'qzdqzdzq'),
-(74, 'qzdqzd', 'zqdqzd');
+(73, 'zqdzqd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi dignissimos delectus minus est ducimus inventore molestiae natus voluptates cumque quos placeat ex ipsam a dolorem debitis nam nostrum ipsa explicabo.'),
+(74, 'qzdqzd', 'zqdqzd'),
+(75, 'dzqljzdlij', 'dlqzijdliqzdj'),
+(76, 'dzqlijdqlzidjq', 'qlzidjqzlidjqzld');
 
 -- --------------------------------------------------------
 
@@ -336,30 +349,6 @@ INSERT INTO `tag` (`id`, `title`, `text`, `tutorials`, `deleted`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `test`
---
-
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `deleted` int(1) NOT NULL,
-  `date` datetime NOT NULL,
-  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
-  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "big"}',
-  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Contenu de la table `test`
---
-
-INSERT INTO `test` (`id`, `deleted`, `date`, `title`, `text`, `image`) VALUES
-(1, 0, '2013-07-14 18:03:34', 59, 60, 0),
-(2, 0, '2013-07-14 18:52:34', 61, 62, 0);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `tutorial`
 --
 
@@ -422,7 +411,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `date`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
-(1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'mal', '', 'France', 'Paris', 'fozeek.com', 'html,css', 0);
+(1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'mal', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'fozeek.com', 'html,css', 0);
 
 -- --------------------------------------------------------
 
@@ -449,7 +438,17 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (16, 3, 1),
 (16, 3, 2),
 (5, 1, 1),
-(5, 1, 2);
+(5, 1, 2),
+(17, 1, 1),
+(17, 1, 2),
+(2, 1, 1),
+(2, 7, 8),
+(2, 7, 9),
+(2, 7, 10),
+(2, 7, 11),
+(2, 7, 12),
+(2, 4, 13),
+(18, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -458,12 +457,14 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 --
 
 CREATE TABLE `_params` (
-  `link_number` int(11) NOT NULL
+  `link_number` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `_params`
 --
 
-INSERT INTO `_params` (`link_number`) VALUES
-(18);
+INSERT INTO `_params` (`link_number`, `title`, `description`) VALUES
+(20, 'WEBTUTS CMS TRES FUN', 'CECI EST UN SITE ;)');
