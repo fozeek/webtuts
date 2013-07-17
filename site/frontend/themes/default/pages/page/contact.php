@@ -17,10 +17,13 @@
 	    <div class="cl"></div>
 
 	    <label class="label"><?php echo LBL_EMAIL; ?> : </label>
-	    <input type="text" name="mail" value="" placeholder="<?php echo PL_EMAIL; ?>" pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]+" required/>	
+	    <input type="text" name="mail" value="" placeholder="<?php echo PL_EMAIL; ?>"  required/>	
 	    
 	    <div class="cl"></div>
-
+	    <label class="label" <?php echo (!isset($error["email"]) ? 'style="display: none;"' : ''); ?>></label>
+	    <span class="tooltip" <?php echo (isset($error["email"]) ? 'style="display: block;margin: 0;float:left;"' : ''); ?>><?php echo WRONG_PATTERN_EMAIL; ?></span>
+	    <div class="cl"></div>
+	    
 	    <label class="label"><?php echo LBL_OBJECT; ?> : </label>
 	    <input type="text" name="object" value="" placeholder="<?php echo PL_OBJECT; ?>" required/>	
 	    

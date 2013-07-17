@@ -20,33 +20,37 @@ class PageController extends Controller {
 	if ($this->Request->is("post")) {
 	    $data = $this->Request->getData();
 	    
-	    $pseudo = htmlspecialchars($data["nickname"]);
-	    $email = htmlspecialchars($data["mail"]);
-	    $object = htmlspecialchars($data["object"]);
-	    $message = htmlspecialchars($data["message"]);	    
+	    $attr["pseudo"] = htmlspecialchars($data["nickname"]);
+	    $attr["email"] = htmlspecialchars($data["mail"]);
+	    $attr["object"] = htmlspecialchars($data["object"]);
+	    $attr["message"] = htmlspecialchars($data["message"]);	    
 	    
 	    $mail_regex = "/[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+\.[a-zA-Z]+/";
 	    $bool_error = false;
 	    $error = array();
 	    
-	    if (!preg_match($mail, $attr["mail"])) {
+	    if (!preg_match($mail_regex, $attr["email"])) {
 		$bool_error = true;
-		$error["mail"] = "error";
+		$error["email"] = "error";
 	    }
 	    if ($bool_error) {
 		$this->render(compact("error", "attr"));
 	    }
 	    else {
-		$this->Mail->from($email);
+		$this->Mail->from($attr["email"]);
 		$this->Mail->to("contact@webtuts.fr");
-		$this->Mail->subject($object);
+		$this->Mail->subject($attr["object"]);
 		$this->Mail->buildHeaders();
-		$this->Mail->fromName($pseudo);
-		$this->Mail->text($message);
+		$this->Mail->fromName($attr["pseudo"]);
+		$this->Mail->text($attr["message"]);
 		$this->Mail->send();
+		
+		$this->render(null);
 	    }
 	}
-	$this->render(null);
+	else {
+	    $this->render(null);
+	}
     }
 
     public function SitemapAction() {

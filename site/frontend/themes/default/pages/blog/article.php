@@ -58,7 +58,7 @@
     		</div>
     		<div class="comment-body">
     		    <div class="comment-header">
-    			<span class="author"><a href="<?php echo Router::getUrl("user', 'profil", array("user" => $comment->get("author")->get("pseudo"))); ?>"><?php echo $comment->get("author")->get("pseudo"); ?></a></span>
+    			<span class="author"><a href="<?php echo Router::getUrl("user", "profil", array("user" => $comment->get("author")->get("pseudo"))); ?>"><?php echo $comment->get("author")->get("pseudo"); ?></a></span>
     			<span class="date"><?php echo PUBLISH . " " . format_date($comment->get("date")); ?></span>
     		    </div>
     		    <p><?php echo $comment->get("text"); ?></p>
