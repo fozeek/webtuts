@@ -14,7 +14,7 @@ class FormComponent extends Component {
 		if(!empty($formToken) && $formToken!=$sessionToken)
 			Error::render(6, "Fail CSRF detected !");
 
-		$token = md5(uniqid('csrf_'));
+		$token = md5(Config::read("key").uniqid('csrf_'));
 		$this->getController()->Session->write("Form", $token);
 	}
 

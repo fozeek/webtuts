@@ -104,11 +104,9 @@
 		));
 
 	/*
-		Configurations CMS
-			- table des contents
-			- table des taxonomy
+		Clee hash
 	*/
-	Config::write("title", "Webtuts.fr");
+	Config::write("key", "ceciestunclegenial");
 
 	/*
 		Langues
