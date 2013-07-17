@@ -12,7 +12,7 @@ class Component {
 		$this->_controller = $controller;
 	}
 
-	public function getController($controller) {
+	public function getController() {
 		return $this->_controller;
 	}
 

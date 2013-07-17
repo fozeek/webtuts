@@ -16,6 +16,7 @@ class FormHelper extends Helper {
 		if(isset($options["name"]))
 			$html .= 'name="'.$options["name"].'" ';
 		$html .= '>';
+		$html .= $this->input("token_csrf", array("value" => $this->getView()->Session->read("Form"), "type" => "hidden")); 
 		return $html;
 	}
 

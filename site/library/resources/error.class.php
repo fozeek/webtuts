@@ -51,7 +51,10 @@ class Error {
 				break;
 			
 			default:
-				die("erreur default");
+				if(!Kernel::getDebugMode())
+					self::redirect(Router::getUrl("error", "http", array(404)));
+				$message = "Fatal Error catched !";
+				$origin = "Message :";
 				break;
 		} 
 

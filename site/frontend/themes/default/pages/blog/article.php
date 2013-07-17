@@ -86,8 +86,7 @@
     		    <div class="comment-header">
     			<span class="author"><a href="<?php echo Router::getUrl("user", "profil", array("user" => $user->get("pseudo"))); ?>" id="pseudo-text"><?php echo $user->get("pseudo"); ?></a></span>
     		    </div>
-
-    		    <form method="post" action="" id="post-comment">
+    		    <?= $this->Form->start(array("id" => "post-comment")) ?>
     			<textarea class="textarea" placeholder="Votre commentaire ici." name="text" id="message-text"></textarea>
 			<input type="hidden" name="_object_name" value="comment" />
 
@@ -99,7 +98,7 @@
     				</span>
     			    </div>
     			</div>
-    		    </form>
+    		    <?= $this->Form->end() ?>
     		</div>
 
     		<div class="cl"></div>
