@@ -39,15 +39,16 @@ class ModelComponent extends Component {
 			return $this->$table;
 	}
 
-	public function save() {
+	public function save(array $paramData = array()) {
 		$objectName = ucfirst($this->_controller->Request->getData("_object_name"));
 		return $this->$objectName->getById(($this->_controller->Request->getData("_object_id")) ?
-			$this->update():
-			$this->insert());
+			$this->update($paramData):
+			$this->insert($paramData));
 	}
 
-	private function insert() {
+	private function insert(array $paramData = array()) {
 		$data = $this->_controller->Request->getData();
+		$data = array_merge($data, $paramData);
 		$objectName = ucfirst($data["_object_name"]);
 		$hasSlug = false;
 		$hasDate = false;
@@ -93,8 +94,9 @@ class ModelComponent extends Component {
 		return $this->$objectName->save($attrToUpdate);
 	}
 
-	private function update() {
+	private function update(array $paramData = array()) {
 		$data = $this->_controller->Request->getData();
+		$data = array_merge($data, $paramData);
 		$objectName = $data["_object_name"];
 		$attrToUpdate = array();
 		$hasSlug = false;

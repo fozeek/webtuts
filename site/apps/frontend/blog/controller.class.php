@@ -12,7 +12,7 @@ class BlogController extends Controller {
 	if ($article = $this->Model->Tutorial->getById($id)) {
 
 	    if ($this->Request->is("post")) {
-		$comment = $this->Model->save();
+		$comment = $this->Model->save(array("author" => $this->Auth->getUser()->get("id")));
 		$shema = $article->getShema();
 		$this->Model->addLink($shema["comments"]["Link"]["code"], $id, $comment->get("id"));
 	    }

@@ -89,8 +89,6 @@
 
     		    <form method="post" action="" id="post-comment">
     			<textarea class="textarea" placeholder="Votre commentaire ici." name="text" id="message-text"></textarea>
-
-    			<input type="hidden" name="author" value="<?php echo $user->get("id"); ?>" />
 			<input type="hidden" name="_object_name" value="comment" />
 
     			<div class="cl"></div>
