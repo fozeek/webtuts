@@ -16,7 +16,6 @@
 	Router::add("fr", "user", "connection", "/connexion-webtuts.html");
 	Router::add("fr", "user", "compte", "/compte.html");
 	
-	Router::add("fr", "error", "http", "/404.html");
 	
 	Router::add("fr", "page", "index", "/page-{page}~{id}.html");
 	Router::add("fr", "page", "contact", "/contactez-nous.html");

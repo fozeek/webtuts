@@ -109,7 +109,7 @@ class UserController extends Controller {
 			
 			$this->Auth->connect($user->get("pseudo"), $password);
 			$this->Auth->setFirstConnection();
-			$this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
+			$this->redirect(Router::getUrl("user", "profil", array("user" => $user->get("pseudo"))));
 		    }
 		    else
 			$this->render(array("error" => "Vous n'avez pas bien rempli le formulaire"));
@@ -119,7 +119,7 @@ class UserController extends Controller {
 		$this->render(array('user' => null));
 	    }
 	} else {
-	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $this->Auth->getUser()->get("pseudo"))));
+	    $this->redirect(Router::getUrl("user", "profil", array("user" => $this->Auth->getUser()->get("pseudo"))));
 	}
     }
 
@@ -151,7 +151,7 @@ class UserController extends Controller {
 		    if ($user = $this->Model->User->getByPseudo(strtolower($attr["pseudo"]))) {
 			if ($user->get("password") == md5($attr["password"])) {
 			    $this->Auth->connect($user->get("pseudo"), $attr["password"]);
-			    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $user->get("pseudo"))));
+			    $this->redirect(Router::getUrl("user", "profil", array("user" => $user->get("pseudo"))));
 			} else {
 			    $error["bad_login"] = "error";
 			    $this->render(compact("error", "attr"));
@@ -162,10 +162,10 @@ class UserController extends Controller {
 		    }
 		}
 	    }
-
-	    $this->render(array('user' => null));
+	    else
+		$this->render(array('user' => null));
 	} else {
-	    $this->redirect(Router::getUrl("user", "profil", array("pseudo" => $this->Auth->getUser()->get("pseudo"))));
+	    $this->redirect(Router::getUrl("user", "profil", array("user" => $this->Auth->getUser()->get("pseudo"))));
 	}
     }
 

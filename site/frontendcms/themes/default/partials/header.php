@@ -14,7 +14,7 @@
 					<a href="<?= Router::getUrl("user", "myaccount"); ?>">My account</a>
 					 - <a href="<?= Router::getUrl("user", "disconnect"); ?>">Disconnect</a>
 						<?php if(!$view->Auth->getUser()->haveAccess("ACCES_BO")) : ?>
-						 - <a href="<?= Router::getUrl("home", "gobackend"); ?>">GO TO THE BO !</a>
+						 - <a href="<?= Router::getUrl("home", "gobackend"); ?>">Administration</a>
 						<?php endif ?>
 					<?php endif ?>
 				</div>

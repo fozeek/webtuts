@@ -88,10 +88,10 @@
     		    </div>
 
     		    <form method="post" action="" id="post-comment">
-    			<textarea class="textarea" placeholder="Votre commentaire ici." name="message-text" id="message-text"></textarea>
+    			<textarea class="textarea" placeholder="Votre commentaire ici." name="text" id="message-text"></textarea>
 
-    			<input type="hidden" name="user" value="<?php echo $user->get("pseudo"); ?>" />
-    			<input type="hidden" name="article" id="article-comment-value" value="<?php echo $article->get("id"); ?>"/>
+    			<input type="hidden" name="author" value="<?php echo $user->get("id"); ?>" />
+			<input type="hidden" name="_object_name" value="comment" />
 
     			<div class="cl"></div>
     			<div class="marginAuto">
@@ -117,11 +117,11 @@
 </div>
 
 <!-- SyntaxHighlighter -->
-<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shCore.js"></script>
-<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushCss.js"></script>
-<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushJScript.js"></script>
-<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushXml.js"></script>
-<script type="text/javascript" src="<?php echo _host_absolute_ . _theme_path_; ?>js/shBrushPhp.js"></script>
+<script type="text/javascript" src="<?php echo _theme_path_; ?>js/shCore.js"></script>
+<script type="text/javascript" src="<?php echo _theme_path_; ?>js/shBrushCss.js"></script>
+<script type="text/javascript" src="<?php echo _theme_path_; ?>js/shBrushJScript.js"></script>
+<script type="text/javascript" src="<?php echo _theme_path_; ?>js/shBrushXml.js"></script>
+<script type="text/javascript" src="<?php echo _theme_path_; ?>js/shBrushPhp.js"></script>
 
 <script type="text/javascript">
      SyntaxHighlighter.all()

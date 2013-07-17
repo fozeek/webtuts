@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 16 Juillet 2013 à 09:25
--- Version du serveur: 5.5.25
--- Version de PHP: 5.4.4
+-- Généré le: Mar 16 Juillet 2013 à 08:03
+-- Version du serveur: 5.5.24-log
+-- Version de PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `webtutsv2`
@@ -20,7 +26,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `access`
 --
 
-CREATE TABLE `access` (
+CREATE TABLE IF NOT EXISTS `access` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` tinyint(4) NOT NULL,
   `title` text NOT NULL,
@@ -42,7 +48,7 @@ INSERT INTO `access` (`id`, `deleted`, `title`, `description`) VALUES
 -- Structure de la table `category`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `title` int(255) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
@@ -58,38 +64,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `title`, `text`, `image`, `deleted`, `tutorials`, `slug`) VALUES
-(1, 1, 2, 0, 0, 0, 58),
-(2, 25, 26, 1, 0, NULL, 27),
-(3, 55, 56, 0, 0, NULL, 57);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `chedar`
---
-
-CREATE TABLE `chedar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `deleted` int(1) NOT NULL,
-  `date` datetime NOT NULL,
-  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
-  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "big"}',
-  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  `comments` int(11) NOT NULL COMMENT '{"link" : "OneToMany", "reference":"comment","size" : "small","editable" : "false","code" : "15"}',
-  `essaistext` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
-  `tags` int(11) NOT NULL COMMENT '{"link" : "OneToMany", "reference":"tag","size" : "small","code" : "16"}',
-  `something` text NOT NULL COMMENT '{"size" : "big"}',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `chedar`
---
-
-INSERT INTO `chedar` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `essaistext`, `tags`, `something`) VALUES
-(1, 0, '2013-07-14 22:26:22', 63, 64, 0, 0, 65, 0, 'LOOOL'),
-(2, 0, '2013-07-14 22:58:21', 66, 67, 0, 0, 68, 0, 'SPARTA'),
-(3, 1, '2013-07-15 16:06:51', 69, 70, 0, 0, 71, 0, 'If you wanted to see my pussy');
+(1, 1, 2, 0, 1, 0, 58),
+(2, 25, 26, 1, 1, NULL, 27),
+(3, 55, 56, 0, 1, NULL, 57);
 
 -- --------------------------------------------------------
 
@@ -97,14 +74,14 @@ INSERT INTO `chedar` (`id`, `deleted`, `date`, `title`, `text`, `image`, `commen
 -- Structure de la table `comment`
 --
 
-CREATE TABLE `comment` (
+CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(1) NOT NULL,
   `date` datetime NOT NULL,
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne", "reference":"user"}',
   `text` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `comment`
@@ -112,18 +89,19 @@ CREATE TABLE `comment` (
 
 INSERT INTO `comment` (`id`, `deleted`, `date`, `author`, `text`) VALUES
 (1, 1, '2013-05-23 09:29:17', 1, 'Ceci est un com'' de fou !'),
-(2, 0, '2013-05-16 00:00:00', 1, 'Cooment Twou'),
-(3, 0, '2013-07-15 23:05:33', 1, 'TESTOU'),
-(4, 0, '2013-07-15 23:09:43', 1, 'TEST'),
-(5, 0, '2013-07-15 23:11:26', 1, 'TESTOU'),
-(6, 0, '2013-07-15 23:12:26', 1, 'TESTOU'),
-(7, 0, '2013-07-15 23:12:43', 1, 'TESTOU'),
-(8, 0, '2013-07-15 23:13:00', 1, 'TESTOU'),
-(9, 0, '2013-07-15 23:18:09', 1, 'RETESTOU'),
+(2, 1, '2013-05-16 00:00:00', 1, 'Cooment Twou'),
+(3, 1, '2013-07-15 23:05:33', 1, 'TESTOU'),
+(4, 1, '2013-07-15 23:09:43', 1, 'TEST'),
+(5, 1, '2013-07-15 23:11:26', 1, 'TESTOU'),
+(6, 1, '2013-07-15 23:12:26', 1, 'TESTOU'),
+(7, 1, '2013-07-15 23:12:43', 1, 'TESTOU'),
+(8, 1, '2013-07-15 23:13:00', 1, 'TESTOU'),
+(9, 1, '2013-07-15 23:18:09', 1, 'RETESTOU'),
 (10, 0, '2013-07-15 23:18:24', 1, 'C''est coooool :D'),
-(11, 0, '2013-07-15 23:18:31', 1, '<?php lol ?>'),
+(11, 1, '2013-07-15 23:18:31', 1, '<?php lol ?>'),
 (12, 0, '2013-07-15 23:18:47', 1, '<body>trololol</body>'),
-(13, 0, '2013-07-16 01:58:28', 1, 'TESt');
+(13, 0, '2013-07-16 01:58:28', 1, 'TESt'),
+(14, 0, '2013-07-16 07:36:33', 1, 'top ce cms');
 
 -- --------------------------------------------------------
 
@@ -131,7 +109,7 @@ INSERT INTO `comment` (`id`, `deleted`, `date`, `author`, `text`) VALUES
 -- Structure de la table `image`
 --
 
-CREATE TABLE `image` (
+CREATE TABLE IF NOT EXISTS `image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
   `nom` text NOT NULL,
@@ -146,7 +124,7 @@ CREATE TABLE `image` (
 
 INSERT INTO `image` (`id`, `date`, `nom`, `type`, `width`) VALUES
 (1, '2013-05-26 00:00:00', 'fitz-lucassen', 'png', 80),
-(2, '2013-07-02 00:00:00', 'lolilol', 'png', 80);
+(2, '2013-07-02 00:00:00', 'article-image', 'png', 80);
 
 -- --------------------------------------------------------
 
@@ -154,7 +132,7 @@ INSERT INTO `image` (`id`, `date`, `nom`, `type`, `width`) VALUES
 -- Structure de la table `lang`
 --
 
-CREATE TABLE `lang` (
+CREATE TABLE IF NOT EXISTS `lang` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fr` text NOT NULL,
   `en` text NOT NULL,
@@ -186,7 +164,7 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (18, 'Contenu Article Français', 'English Article Content'),
 (19, 'azd', 'qzd'),
 (20, 'qzd', 'qzd'),
-(21, 'titre-article-français-updd', 'english-article-title-up'),
+(21, 'titre-article-français-up', 'english-article-title-up'),
 (22, 'qzd', 'qzd'),
 (23, 'qzdzqd', 'qzdqzd'),
 (24, 'qzdqzdq', 'zdqzdqz'),
@@ -249,7 +227,7 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 -- Structure de la table `news`
 --
 
-CREATE TABLE `news` (
+CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(11) NOT NULL,
   `author` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"user"}',
@@ -267,8 +245,8 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`, `comments`, `slug`) VALUES
-(1, 0, 1, '2013-05-08 05:07:15', 15, 16, 1, 0, '28'),
-(2, 0, 1, '2013-05-15 11:28:29', 17, 18, 1, 0, '29'),
+(1, 0, 1, '2013-05-08 05:07:15', 15, 16, 2, 0, '28'),
+(2, 1, 1, '2013-05-15 11:28:29', 17, 18, 2, 0, '29'),
 (3, 1, 1, '2013-07-19 07:44:26', 39, 40, 0, 0, '41'),
 (4, 1, 1, '2013-07-13 17:49:58', 42, 43, 0, 0, '44'),
 (5, 1, 1, '2013-07-13 18:28:07', 45, 46, 0, 0, '47');
@@ -279,7 +257,7 @@ INSERT INTO `news` (`id`, `deleted`, `author`, `date`, `title`, `text`, `image`,
 -- Structure de la table `page`
 --
 
-CREATE TABLE `page` (
+CREATE TABLE IF NOT EXISTS `page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(1) NOT NULL,
   `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size":"small"}',
@@ -295,33 +273,8 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`id`, `deleted`, `title`, `text`, `date`, `slug`, `image`) VALUES
-(1, 0, 30, 31, '2013-07-13 06:34:22', 32, 1),
-(2, 0, 48, 49, '2013-07-13 18:29:03', 50, 0);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `prout`
---
-
-CREATE TABLE `prout` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `deleted` int(1) NOT NULL,
-  `date` datetime NOT NULL,
-  `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
-  `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "big"}',
-  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  `tags` int(11) NOT NULL COMMENT '{"link" : "OneToMany", "reference":"tag","size" : "small","code" : "17"}',
-  `textou` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang","size" : "small"}',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `prout`
---
-
-INSERT INTO `prout` (`id`, `deleted`, `date`, `title`, `text`, `image`, `tags`, `textou`) VALUES
-(1, 0, '2013-07-15 16:09:25', 72, 73, 0, 0, 74);
+(1, 1, 30, 31, '2013-07-13 06:34:22', 32, 1),
+(2, 1, 48, 49, '2013-07-13 18:29:03', 50, 0);
 
 -- --------------------------------------------------------
 
@@ -329,7 +282,7 @@ INSERT INTO `prout` (`id`, `deleted`, `date`, `title`, `text`, `image`, `tags`, 
 -- Structure de la table `tag`
 --
 
-CREATE TABLE `tag` (
+CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"small"}',
   `text` int(11) DEFAULT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"big"}',
@@ -344,7 +297,7 @@ CREATE TABLE `tag` (
 
 INSERT INTO `tag` (`id`, `title`, `text`, `tutorials`, `deleted`) VALUES
 (1, 51, 52, 0, 0),
-(2, 53, 54, 0, 0);
+(2, 53, 54, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -352,7 +305,7 @@ INSERT INTO `tag` (`id`, `title`, `text`, `tutorials`, `deleted`) VALUES
 -- Structure de la table `tutorial`
 --
 
-CREATE TABLE `tutorial` (
+CREATE TABLE IF NOT EXISTS `tutorial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` int(11) NOT NULL,
   `date` datetime NOT NULL,
@@ -372,13 +325,13 @@ CREATE TABLE `tutorial` (
 --
 
 INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
-(1, 0, '2013-05-08 00:00:00', 3, 4, 1, NULL, '19', 1, 1, 0),
+(1, 0, '2013-05-08 00:00:00', 3, 4, 2, NULL, '19', 1, 1, 0),
 (2, 1, '2013-05-29 12:17:00', 5, 6, 0, NULL, '20', 1, 1, 0),
 (3, 0, '2013-05-16 00:00:00', 7, 8, 2, NULL, '21', 1, 1, 0),
-(4, 0, '2013-05-31 04:26:38', 9, 10, 1, NULL, '22', 1, 1, 0),
-(5, 1, '2013-05-15 04:22:40', 11, 12, 1, NULL, '23', 1, 1, 0),
-(6, 0, '2013-05-15 17:20:12', 13, 14, 1, NULL, '24', 1, 1, 0),
-(7, 0, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 3, 1, 0);
+(4, 1, '2013-05-31 04:26:38', 9, 10, 2, NULL, '22', 1, 1, 0),
+(5, 1, '2013-05-15 04:22:40', 11, 12, 2, NULL, '23', 1, 1, 0),
+(6, 0, '2013-05-15 17:20:12', 13, 14, 2, NULL, '24', 1, 1, 0),
+(7, 1, '2013-07-14 07:37:46', 36, 37, 0, 0, '38', 3, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -386,7 +339,7 @@ INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comm
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `deleted` tinyint(4) NOT NULL,
   `banned` tinyint(4) NOT NULL,
@@ -394,7 +347,7 @@ CREATE TABLE `user` (
   `name` text NOT NULL,
   `surname` text NOT NULL,
   `mail` text NOT NULL,
-  `image` int(11) NOT NULL,
+  `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
   `date` datetime NOT NULL,
   `civility` text NOT NULL,
   `password` text NOT NULL,
@@ -411,7 +364,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `date`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
-(1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'mal', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'fozeek.com', 'html,css', 0);
+(1, 0, 0, 'root', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 2, '2013-02-17 09:31:39', 'mal', 'root', 'France', 'Paris', 'fozeek.com', 'html,css', 0);
 
 -- --------------------------------------------------------
 
@@ -419,7 +372,7 @@ INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mai
 -- Structure de la table `_links`
 --
 
-CREATE TABLE `_links` (
+CREATE TABLE IF NOT EXISTS `_links` (
   `link_code` int(11) NOT NULL,
   `link_root` int(11) NOT NULL,
   `link_link` int(11) NOT NULL
@@ -432,13 +385,10 @@ CREATE TABLE `_links` (
 INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (1, 1, 2),
 (1, 1, 1),
-(4, 3, 2),
 (4, 7, 1),
 (16, 1, 1),
 (16, 3, 1),
 (16, 3, 2),
-(5, 1, 1),
-(5, 1, 2),
 (17, 1, 1),
 (17, 1, 2),
 (2, 1, 1),
@@ -448,7 +398,11 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (2, 7, 11),
 (2, 7, 12),
 (2, 4, 13),
-(18, 1, 1);
+(18, 1, 1),
+(5, 1, 1),
+(5, 1, 2),
+(4, 3, 1),
+(2, 3, 14);
 
 -- --------------------------------------------------------
 
@@ -456,7 +410,7 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 -- Structure de la table `_params`
 --
 
-CREATE TABLE `_params` (
+CREATE TABLE IF NOT EXISTS `_params` (
   `link_number` int(11) NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL
@@ -467,4 +421,8 @@ CREATE TABLE `_params` (
 --
 
 INSERT INTO `_params` (`link_number`, `title`, `description`) VALUES
-(20, 'WEBTUTS CMS TRES FUN', 'CECI EST UN SITE ;)');
+(20, 'Webtuts CMS', 'Ceci est votre nouveau site');
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

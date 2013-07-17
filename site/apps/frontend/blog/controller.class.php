@@ -12,29 +12,11 @@ class BlogController extends Controller {
 	if ($article = $this->Model->Tutorial->getById($id)) {
 
 	    if ($this->Request->is("post")) {
-		$data = $this->Request->getData();
-
-		$pseudo = htmlspecialchars($data["user"]);
-		$message = htmlspecialchars($data["message-text"]);
-		$article_id = intval($data["article"]);
-
-		if (isset($message) && !empty($message)) {
-		    if ($user = $this->Model->User->getBy("pseudo", $this->String->sanityze($pseudo))) {
-
-			$attr = array();
-			$attr["article"] = $article_id;
-			$attr["author"] = $user->get("id");
-			$attr["text"] = $message;
-			$attr["deleted"] = 0;
-			$attr["date"] = date("Y-m-d H:i:s");
-
-			if ($comment = $this->Model->Comment->save($attr)) {
-			    $this->render(compact('article', 'link'));
-			}
-		    }
-		}
+		$comment = $this->Model->save();
+		$shema = $article->getShema();
+		$this->Model->addLink($shema["comments"]["Link"]["code"], $id, $comment->get("id"));
 	    }
-	    $this->render(compact('article', 'link'));
+	    $this->render(compact('article'));
 	}
 	else
 	    $this->redirect(Router::getUrl("error", "http", array('codeError' => '404')));
@@ -112,14 +94,15 @@ class BlogController extends Controller {
 	$this->Rss->setTitle("Webtuts");
 	$this->Rss->setLink("http://www.webtuts.fr");
 	$this->Rss->setDescription("Les tutoriaux de webtuts");
-
 	foreach ($articles as $article) {
-	    $link = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("title"), "article" => $article->get("title")));
-	    $return[] = array("title" => $article->get("title"), "link" => $link, "guid" => $link, "description" => $article->get("text"), "date" => $article->get("date"));
+	    $link = Router::getUrl("blog", "article", array("category" => $article->get("category")->get("slug")."", "article" => $article->get("slug")."", "id" => $article->get("id")));
+	    $return[] = array("title" => $article->get("title")."", "link" => $link, "guid" => $link, "description" => substr(strip_tags($article->get("text")), 0, 240)."...", "date" => $article->get("date"));
 	}
+	
 	$this->Rss->setItems($return);
+	
+	$this->Rss->toPrint();
     }
-
 }
 
 ?>

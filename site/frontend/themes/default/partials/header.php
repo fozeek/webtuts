@@ -1,7 +1,7 @@
 <header>
     <div id="top-header">
 	<?php
-	if (Kernel::route("action") != "404" &&
+	if (Kernel::route("action") != "http" &&
 		(Kernel::route("action") != "compte" ||
 		(Kernel::route("action") == "compte" && !$this->Session->containsKey("first_connection")) ||
 		(Kernel::route("action") == "compte" && $this->Session->containsKey("first_connection") && !$this->Session->read("first_connection")))) {

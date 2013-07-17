@@ -62,7 +62,7 @@ class RssComponent extends Component {
 	}
 
 	public function __toString() {
-		$this->print();
+		$this->toPrint();
 	}
 
 	/*
@@ -72,39 +72,39 @@ class RssComponent extends Component {
 	public function toPrint() {
 		header('Content-type: text/xml');
 		echo "<rss version=\"2.0\">\n<channel>\n<title>".$this->_title."</title>\n<link>".$this->_link."</link>\n<description>".$this->_description."</description>\n";
-		$title = $this->_attributs["title"];
-		$link = $this->_attributs["link"];
+
 		$guid = $this->_attributs["guid"];
 		$ispermalink = $this->_attributs["ispermalink"];
-		$description = $this->_attributs["description"];
 		$pubDate = $this->_attributs["pubDate"];
-		foreach ($this->items as $item) {
-			if(is_array($item)) {
-				$title = $item->$title;
-				$link = $item->$link;
-				$guid = $item->$guid;
-				$description = $item->$description;
-				$pubDate = $item->$pubDate;
+		
+		foreach ($this->_items as $item) {
+		    
+			if(is_object($item)) {
+				$title = $item->title;
+				$link = $item->link;
+				$guid = $item->guid;
+				$description = $item->description;
+				$pubDate = $item->pubDate;
 			}
-			elseif(is_object($item)) {
-				$title = $item[$title];
-				$link = $item[$link];
-				$guid = $item[$guid];
-				$description = $item[$description];
-				$pubDate = $item[$pubDate];
+			elseif(is_array($item)) {
+				$title = $item["title"];
+				$link = $item["link"];
+				$guid = $item["guid"];
+				$description = $item["description"];
+				$pubDate = $item["date"];
 			}
 			echo"\t<item>\n";
 			if($title)
-				echo"\t\t<title>".$item->$title."</title>\n";
+				echo"\t\t<title>".$title."</title>\n";
 			if($link)
-				echo"\t\t<link>".$item->$link."</link>\n";
+				echo"\t\t<link>".$link."</link>\n";
 			if($guid)
-				echo"\t\t<guid isPermaLink=\"".$ispermalink."\">".$item->$guid."</guid>\n";
+				echo"\t\t<guid isPermaLink=\"".$ispermalink."\">".$guid."</guid>\n";
 			if($description)
-				echo"\t\t<description><![CDATA[".strip_tags($item->$description)."]]></description>\n";
+				echo"\t\t<description><![CDATA[".strip_tags($description)."]]></description>\n";
 			if($pubDate)
-				echo"\t\t<pubDate>".$item->$pubDate."</pubDate>\n";
-			echo "\t<item>\n";
+				echo"\t\t<pubDate>".$pubDate."</pubDate>\n";
+			echo "\t</item>\n";
 		}
 		echo  "</channel>\n</rss>";
 	}

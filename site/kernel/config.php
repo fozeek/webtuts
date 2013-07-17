@@ -33,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp((array_key_exists("__app_name", $_SESSION)) ? $_SESSION["__app_name"]: "frontendcms");
+	Kernel::setApp("frontend");
 
 	/*
 		Paths files
