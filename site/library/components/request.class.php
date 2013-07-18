@@ -7,9 +7,9 @@ Class RequestComponent extends Component {
 	public function __construct($controller) {
 		parent::__construct($controller);
 		$files = array();
-		foreach ($_FILES as $value) {
+		foreach ($_FILES as $key => $value) {
 			if($value["name"] != "")
-				array_push($files, $value);
+				$files[$key] = $value;
 		}
 		$data = array_merge($_REQUEST, $files);
 		unset($data["url"]);
