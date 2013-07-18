@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 18 Juillet 2013 à 13:18
+-- Généré le: Jeu 18 Juillet 2013 à 23:09
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `image` (
   `type` text NOT NULL,
   `width` int(4) NOT NULL DEFAULT '80',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `image`
@@ -124,7 +124,8 @@ INSERT INTO `image` (`id`, `date`, `nom`, `type`, `width`) VALUES
 (7, '2013-07-12 00:00:00', 'outils', 'png', 90),
 (8, '2013-07-12 00:00:00', 'lancement-webtuts', 'jpg', 339),
 (9, '2013-07-12 00:00:00', 'positionnement-css', 'jpg', 339),
-(10, '2013-07-12 00:00:00', 'session-php', 'jpg', 339);
+(10, '2013-07-12 00:00:00', 'session-php', 'jpg', 339),
+(11, '2013-06-14 00:00:00', 'backgrounds-css3', 'jpg', 339);
 
 -- --------------------------------------------------------
 
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `lang` (
   `fr` text NOT NULL,
   `en` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=62 ;
 
 --
 -- Contenu de la table `lang`
@@ -196,7 +197,10 @@ INSERT INTO `lang` (`id`, `fr`, `en`) VALUES
 (52, 'autres', 'others'),
 (53, 'webtuts-se-lance-sur-le-web', 'webtuts-on-the-web'),
 (54, 'savoir-gerer-les-sessions-sur-son-site-web', 'how-to-manage-sessions-in-your-website'),
-(55, 'les-positionnements-en-css', 'positioning-in-css');
+(55, 'les-positionnements-en-css', 'positioning-in-css'),
+(59, 'Les backgrounds en CSS3', 'Backgrounds in CSS3'),
+(60, '<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">Introduction aux arrière-plans CSS3</h1>\n<p> </p><p> </p>\n<p>Depuis que les feuilles de style existent, la gestion des couleurs images d''arrière-plan est prévue : les célèbres propriétés background-color, background-image, background-position, background-repeat et background-attachment naissent avec CSS1.\n\nCes propriétés connues de tout bon webdesigner-intégrateur permettent de contrôler l''apparence du fond d''un élément (en général une boîte rectangulaire).\n\nLe module CSS Backgrounds and Borders Level 3 étend ce contrôle de façon à répondre à des besoins plus évolués, notamment via le redimensionnement, le positionnement et la superposition de plusieurs images. Ces nouvelles propriétés pour les arrière-plans sont :\n</p>\n<p> </p>\n<ul>\n	<li>background-size</li>\n	<li>background-clip</li>\n	<li>background-origin</li>\n</ul>\n<p> </p><p> </p>\n\n<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">background-size</h1>\n<p> </p><p> </p>\n\n<p>La propriété CSS background-size spécifie la taille de l''image dans l''arrière plan.</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background-size: x y;\n</pre>\n\n<p>x détermine la dimension horizontale (pixels, em, auto, pourcentage %, etc.) et y détermine la dimension verticale (pixels, em, auto, pourcentage %, etc.). Mais plusieurs valeurs sont possibles.</p>\n<p> </p>\n<ul>\n	<li>Dimensions : par exemple "px" ou "%" : précise la hauteur ou la largeur de l''image.</li>\n	<li>"cover" : forcera à couvrir toute la surface sans déformer l''image. Quitte à la rogner.</li>\n	<li>"contain" : forcera l''image à ne pas dépasser de l''élément sans la déformer.</li>\n</ul>\n<p> </p><p> </p>\n<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">background-clip</h1>\n<p> </p><p> </p>\n<p>La propriété background-clip permet de définir les limites de l''arrière-plan à l''intérieur de la boîte représentée par l''élément.</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background-clip: [border-box|padding-box|content-box];\n</pre>\n<p> </p>\n<p>Valeurs possibles :</p>\n<ul>\n	<li>"border-box" : L''arrière plan s''étend jusqu''a l''extrême limite de la bordure</li>\n	<li>"padding-box" : Aucun arrière-plan sera présent en-dessous de la bordure : l''extrême limite sera celle du padding</li>\n	<li>"content-box" : L''arrière plan se limite au contenu</li>\n</ul>\n<p> </p><p> </p>\n<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">background-origin</h1>\n<p> </p><p> </p>\n<p>La propriété background-origin positionne la zone de l''arrière plan (ou plutôt le point d''origine de l''image d''arrière plan).</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background-origin: [border-box|padding-box|content-box];\n</pre>\n<p> </p>\n<p>Valeurs possibles :</p>\n<ul>\n	<li>border-box : La position de l''arrière plan est relative au bord : l''image peut donc se positionner derrière les bords.</li>\n	<li>padding-box : La position de l''arrière plan est relative au padding (marge interne)</li>\n	<li>content-box : La position de l''arrière plan est relative au contenu.</li>\n</ul>\n<p> </p><p> </p>\n<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">Plusieurs images dans un arrière-plan : background multiple</h1>\n<p> </p><p> </p>\n<p>CSS 3 rend possible l''affichage de plusieurs images en arrière-plan, dans un même élément en proposant de cumuler les valeurs au sein des propriétés background-image, background-position et background-repeat.</p>\n<p>Le résultat est similaire à des calques (ou strates) d''un logiciel graphique tel que Photoshop : l''image la plus proche de la propriété (la première énumérée) sera l''image de premier plan. Si une couleur de fond est déclarée, elle sera toujours reléguée au dernier plan.</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background-image: url("image1"), url("image2"); \n	background-position: x y, x y;\n	background-repeat: no-repeat;\n</pre>\n<p>Les différentes valeurs doivent être ajustées en fonction du nombre d''images à charger et de leurs positions respectives.</p>\n<p> </p><p> </p>\n<h1 style="font-family: ''Segoe UI light'', verdana; font-size: 22px; color: #335681;">Les dégradés en CSS</h1>\n<p> </p><p> </p>\n<p>De nouvelles propriétés permettent de réaliser et gérer des arrière-plans de teintes dégradées. Il s''agit de linear-gradient pour les dégradés linéaires et radial-gradient pour les dégradés radiaux.</p>\n<p>Les dégradés linéaires empruntent la valeur-fonction linear-gradient() de la propriété background-image (ou background en raccourci). Il convient de préciser au minimum le point d''arrivée du dégradé ainsi que deux couleurs (ou plus).</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background: linear-gradient(x y, couleur1, couleur2, couleurN)\n</pre>\n<p> </p>\n<p>Valeurs possibles :</p>\n<ul>\n	<li>x et/ou y définissent la direction du dégradé. Exemple : "to right" ou "to left bottom"</li>\n	<li>couleur : le nom, la valeur hexadécimal ou la valeur RGBa</li>\n</ul>\n\n<p>Vous risquez de rencontrer des syntaxes de dégradé radial suivantes sur d''anciens tutoriels ou de vieux navigateurs. Sachez qu''elles ne sont plus standardisées et ne seront plus maintenues à l''avenir par les navigateurs :</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background: linear-gradient(top, green, blue); \n	/* faux : il faut indiquer la position finale, donc to bottom */\n\n	background: linear-gradient(bottom right, green, blue);\n	/* faux : il faut indiquer la position finale, donc to left top */\n</pre>\n\n<p>Les dégradés radiaux sont réalisables à l''aide de la valeur-fonction radial-gradient(). Elle nécessite d''indiquer la forme du dégradé : circulaire (circle) ou elliptique (ellipse) ainsi que son point de départ.</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background: radial-gradient(forme at x y, couleur1, ..., couleurN)\n</pre>\n<ul>\n	<li>x et/ou y définissent le point d''origine du dégradé radial</li>\n	<li>couleur : le nom, la valeur hexadécimal ou la valeur RGBa</li>\n</ul>\n<p>Vous risquez de rencontrer des syntaxes de dégradé radial suivantes sur d''anciens tutoriels ou de vieux navigateurs. Sachez qu''elles ne sont plus standardisées et ne seront plus maintenues à l''avenir par les navigateurs :</p>\n<pre style="font-family: ''courier new''; font-size: 12px;" class="brush: css">\n	background: radial-gradient(center top, green, blue);\n	/* faux : il faut indiquer la position initiale et la forme, donc ellipse at center top */\n\n	background: radial-gradient(circle, center, green, blue);\n	/* faux : il faut indiquer la position initiale et la forme, donc circle at center */\n</pre>', 'Soon...'),
+(61, 'les-backgrounds-en-css3', 'backgrounds-in-css3');
 
 -- --------------------------------------------------------
 
@@ -286,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `tutorial` (
   `author` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToOne", "reference":"user"}',
   `tags` int(10) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany","reference":"tag","code":4}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `tutorial`
@@ -294,7 +298,8 @@ CREATE TABLE IF NOT EXISTS `tutorial` (
 
 INSERT INTO `tutorial` (`id`, `deleted`, `date`, `title`, `text`, `image`, `comments`, `slug`, `category`, `author`, `tags`) VALUES
 (1, 0, '2013-05-13 23:05:05', 42, 43, 10, NULL, '54', 6, 2, 0),
-(2, 0, '2013-07-12 00:00:00', 45, 46, 9, NULL, '55', 1, 2, 0);
+(2, 0, '2013-07-12 00:00:00', 45, 46, 9, NULL, '55', 1, 2, 0),
+(3, 0, '2013-06-14 22:38:16', 59, 60, 11, 0, '61', 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +379,6 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (5, 2, 1),
 (5, 2, 2),
 (4, 7, 1),
-(4, 3, 2),
 (4, 2, 1),
 (4, 2, 2),
 (4, 1, 5),
@@ -383,7 +387,10 @@ INSERT INTO `_links` (`link_code`, `link_root`, `link_link`) VALUES
 (3, 1, 2),
 (3, 2, 2),
 (3, 5, 1),
-(2, 2, 3);
+(2, 2, 3),
+(3, 2, 3),
+(4, 3, 2),
+(9, 1, 3);
 
 -- --------------------------------------------------------
 
