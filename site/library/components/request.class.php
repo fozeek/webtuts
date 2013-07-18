@@ -6,7 +6,7 @@ Class RequestComponent extends Component {
 
 	public function __construct($controller) {
 		parent::__construct($controller);
-		$data = $_REQUEST;
+		$data = array_merge($_REQUEST, $_FILES);
 		unset($data["url"]);
 		unset($data["PHPSESSID"]);
 		$this->_data = $data;
