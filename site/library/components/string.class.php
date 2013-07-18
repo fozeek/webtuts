@@ -8,7 +8,7 @@
 */
 class StringComponent extends Component {
     
-    public static function sanityze($string) {
+    public static function sanitize($string) {
 	$string = strtolower($string);
 	$string = str_replace(" ", "-", $string);
 	$string = str_replace("'", "-", $string);

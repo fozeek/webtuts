@@ -57,6 +57,8 @@ class ModelComponent extends Component {
 				$hasSlug = true;
 			if($key == "date")
 				$hasDate = true;
+			if($key == "password")
+				$hasPassword = true;
 			if(array_key_exists($key, $data) && !in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
 				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"])) {
 					$attrToUpdate[$key] = $data[$key];
@@ -91,6 +93,9 @@ class ModelComponent extends Component {
 		if($hasDate) {
 			$attrToUpdate["date"] = date("Y-m-d H:i:s");
 		}
+		if($hasPassword) {
+			$attrToUpdate["password"] = md5($attrToUpdate["password"]);
+		}
 		return $this->$objectName->save($attrToUpdate);
 	}
 
@@ -104,6 +109,8 @@ class ModelComponent extends Component {
 		foreach ($object->getShema() as $key => $shema) {
 			if($key == "slug")
 				$hasSlug = true;
+			if($key == "password")
+				$hasPassword = true;
 			if(array_key_exists($key, $data) && !in_array($key, array("id", "deleted", "slug", "date")) && (!is_array($shema["Link"]) || (is_array($shema["Link"]) && !array_key_exists("editable", $shema["Link"])))) {
 				if(!is_array($shema["Link"]) || !array_key_exists("link", $shema["Link"]))
 					$attrToUpdate[$key] = $data[$key];
@@ -136,6 +143,9 @@ class ModelComponent extends Component {
 			foreach (Kernel::getLangs() as $lang)
 				$slug[$lang] = $this->_controller->String->sanitize($data["title"][$lang]);
 			$this->Lang->update($object->get("slug")->get("id"), $slug);
+		}
+		if($hasPassword) {
+			$attrToUpdate["password"] = md5($attrToUpdate["password"]);
 		}
 		if(count($attrToUpdate)>0)
 			$this->$objectName->update($object->get("id"), $attrToUpdate);

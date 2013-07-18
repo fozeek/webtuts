@@ -1,1 +1,1 @@
-{"content":{"tables":["tutorial","news","page","produit"],"fields":["id","deleted","title","text","date","image"]},"taxonomy":{"tables":["category","tag"],"fields":["id","deleted","title","text"]}}
+{"content":{"tables":["tutorial","news","page"],"fields":["id","deleted","title","text","date","image"]},"taxonomy":{"tables":["category","tag"],"fields":["id","deleted","title","text"]}}

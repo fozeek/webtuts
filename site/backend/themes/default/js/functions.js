@@ -128,7 +128,13 @@ $("document").ready(function() {
 		});
 	});
 	$("#save-content").live("click", function() {
-		var formData = new FormData(document.forms.namedItem("addContentForm"));
+		var form = document.forms.namedItem("addContentForm");
+		var formData = new FormData(form);
+/*
+		var fileInput = document.getElementById('image');
+		var file = fileInput.files[0];
+		console.log(file);
+		formData.append('file', file);*/
 
 		//console.log(formData);
 		$.ajax({

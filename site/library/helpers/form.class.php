@@ -126,8 +126,10 @@ class FormHelper extends Helper {
 		$html = '<input type="file" name="'.$name.'" ';
 		if(isset($options["id"]))
 			$html .= 'id="'.$options["id"].'" ';
+		$html .= 'class="input-file ';
 		if(isset($options["class"]))
-			$html .= 'class="'.$options["class"].'" ';
+			$html .= $options["class"];
+		$html .= '" ';
 		if(isset($options["style"]))
 			$html .= 'style="'.$options["style"].'" ';
 		$html .= '/>';
