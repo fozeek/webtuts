@@ -2,6 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
 <link type="text/css" rel="stylesheet" href="<?= Kernel::path("themes", true) ?>default/css/style.css" />
 <script src="<?= Kernel::path("themes", true) ?>default/js/jquery.js"></script>
+<script src="<?= Kernel::path("themes", true) ?>default/js/tiny_mce/tiny_mce.js"></script>
 <script src="<?= Kernel::path("themes", true) ?>default/js/functions.js"></script>
 
 <script type="text/javascript">
