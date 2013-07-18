@@ -59,7 +59,7 @@ class BlogController extends Controller {
 	if ($news = $this->Model->News->getById($id)) {
 
 	    // Retourne à la vue l'article et les liens
-	    $this->render(array("news" => $news, 'link' => $link));
+	    $this->render(array("news" => $news));
 	}
 	else // Si aucun article n'est trouvé : page 404
 	    $this->redirect(Router::getUrl("error", "http", array('codeError' => 404)));

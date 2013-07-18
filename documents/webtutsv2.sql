@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 17 Juillet 2013 à 23:11
+-- Généré le: Jeu 18 Juillet 2013 à 13:18
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `title` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang", "size":"small"}',
   `text` int(11) NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   `image` int(11) NOT NULL COMMENT '{"link":"OneToOne","reference":"image"}',
-  `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":2,"editable":false}',
+  `comments` int(11) NOT NULL DEFAULT '0' COMMENT '{"link":"OneToMany", "reference":"comment","code":8,"editable":false}',
   `slug` text NOT NULL COMMENT '{"link" : "OneToOne", "reference":"lang"}',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
@@ -320,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `language` text NOT NULL,
   `access` int(11) DEFAULT NULL COMMENT '{"link":"OneToMany", "reference":"access","code":5}',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
 --
 -- Contenu de la table `user`
@@ -329,8 +329,24 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `deleted`, `banned`, `pseudo`, `name`, `surname`, `mail`, `image`, `date`, `civility`, `password`, `country`, `city`, `site`, `language`, `access`) VALUES
 (1, 0, 0, 'fozeek', 'Deneuve', 'Quentin', 'dark.quent@free.fr', 0, '2013-02-17 09:31:39', 'homme', 'e1d75b9a8b4d045d96180b6ec6f5e686', 'France', 'Paris', 'http://fozeek.com', 'html,css,php', 0),
 (2, 0, 0, 'fitzlucassen', 'Thibault', 'Dulon', 'thibault.dulon@gmail.com', 1, '2013-07-11 21:29:39', 'homme', 'ce0608b1cb5f1b15c59f9344f53729fd', 'France', 'Paris', 'http://fitz.hebergratuit.com/portfolio', 'asp,html,javascript,css,csharp,jquery,php', 0),
-(3, 0, 0, 'muusha', 'Jonathan', 'Bicheux', 'jonathan.bicheux@gmail.com', 0, '2013-07-15 21:02:11', 'homme', 'b4b8daf4b8ea9d39568719e1e320076f', 'France', 'Paris', '', 'php,html,css,javascript', 0),
-(4, 0, 0, 'richard', 'Richard', 'Ettou', 'richard.ettou@gmail.com', 0, '2013-07-15 21:03:49', 'homme', 'b4b8daf4b8ea9d39568719e1e320076f', 'France', 'Paris', '', 'php,html,css', 0);
+(5, 0, 0, 'muusha', 'Jonathan', 'BICHEUX', 'bicheuxj@gmail.com', 0, '2013-02-11 20:10:40', 'homme', 'cf9ee5bcb36b4936dd7064ee9b2f139e', 'France', 'Rueil Malmaison', '', 'php,html,css,javascript,jquery', 1),
+(6, 0, 0, 'granny', 'Elodie', 'Maizeray', 'elodie.maizeray@gmail.com', 0, '2013-02-11 22:54:34', 'femme', '9a286406c252a3d14218228974e1f567', 'France', 'Eaubonne', 'http://www.elodiemaizeray.com', 'html,css', 0),
+(7, 0, 0, 'hammker', 'Thomas', 'Millochau', 'hammker@gmail.com', 0, '2013-02-11 23:30:24', 'homme', '37220eebb4b544705b49f200e7ef7ad7', 'France', 'Corbreuse', '', 'php,html,css', 0),
+(8, 0, 0, 'onirik', 'Ivanis', 'Kouamé', 'ivanis.kouame@gmail.com', 0, '2013-02-11 23:40:58', 'homme', 'ab4f63f9ac65152575886860dde480a1', 'France', 'Paris', '', 'php,html,css', 0),
+(9, 0, 0, 'richard', 'Richard', 'ETTOU', 'kybix@hotmail.com', 0, '2013-02-12 00:46:33', 'homme', '6ae199a93c381bf6d5de27491139d3f9', 'France', 'Athis-Mons', '', 'html,css,php,javascript,jquery', 0),
+(10, 0, 0, 'ebusinessmaster', 'Cédric', 'Descoutures', 'cdescoutures@gmail.com', 0, '2013-02-12 10:37:40', 'homme', '32f655bf7367316d606a9daea861da96', 'France', '', '', '', 0),
+(11, 0, 0, 'dextraise', 'Gilles', 'TADDEI', 'gilles.taddei@gmail.com', 0, '2013-02-12 11:10:01', 'homme', 'baa79455f0c59550d4e773a02c12dc88', 'France', 'Villemoisson sur orge', 'http://fetestival.fr.nf', 'php,html,css,javascript,jquery', 0),
+(12, 0, 0, 'justine', 'Justine', 'Gilbert', 'j.ustine-x3@hotmail.fr', 0, '2013-02-16 21:42:53', 'femme', 'b55050b2f605b7cf0d48346ff3d432d3', 'France', '', '', '', 0),
+(13, 0, 0, 'rachel', 'Rachel', 'Rachel', 'thebest@hotmail.com', 0, '2013-05-07 07:36:28', 'homme', '86e528c67fe0792f07caa6fd9732ef89', 'France', 'New York', 'http://buyviagrarc.com/', '', 0),
+(14, 0, 0, 'fandelor', 'julien', 'chaux', 'j.chaux1992@gmail.com', 0, '2013-05-11 13:24:14', 'homme', 'e3d06383f05d4c829ee09c28c6ea06ab', 'France', '', '', 'php,html,css,javascript,jquery', 0),
+(15, 0, 0, 'william', 'William', 'William', 'heyjew@msn.com', 0, '2013-05-23 23:48:29', 'homme', '95b863310d57322adf7bb73b31124c3c', 'France', 'New York', 'http://www.jenehrfamilyfarm.com/category/featured/', '', 0),
+(16, 0, 0, 'bourriquet', 'L''Ourson', 'Winny', 'bourriquet@yopmail.com', 0, '2013-06-03 21:35:27', 'homme', '769ed17738a7ed1d5e9f4a94d6738a0b', 'France', '', '', '', 0),
+(17, 0, 0, 'getjoy', 'getjoy', 'getjoy', 'freelove@msn.com', 0, '2013-06-08 01:51:09', 'homme', '5de75e2bd2697ac448d0cf0cb83d26ff', 'France', 'New York', 'ï»¿http://www.congo-bongo.com', '', 0),
+(18, 0, 0, 'nathan', 'Nathan', 'Nathan', 'getjoy@msn.com', 0, '2013-06-12 23:12:26', 'homme', 'be45e6b42b7b40bfd16c6c7cca72688d', 'France', 'New York', 'http://www.dicomol.com', '', 0),
+(19, 0, 0, 'alyssa', 'Alyssa', 'Alyssa', 'crazyivan@yahoo.com', 0, '2013-06-18 19:41:28', 'homme', 'bf40c14a7da7315b37a2d82b920558bd', 'France', 'New York', 'ï»¿http://www.credit911online.com', '', 0),
+(20, 0, 0, 'austin', 'Austin', 'Austin', 'dogkill@yahoo.com', 0, '2013-06-23 09:46:00', 'homme', 'a07ddd81ae6b31e2cec10dd2ee000e09', 'France', 'New York', 'http://elliottworkgroup.com/profile/', '', 0),
+(21, 0, 0, 'addison', 'Addison', 'Addison', 'deadman@gmail.com', 0, '2013-06-29 10:21:41', 'homme', '29202e03f69a213d7e1252917c7b75cb', 'France', 'New York', 'ï»¿http://ubikhead.com', '', 0),
+(22, 0, 0, 'eblanned', 'eblanned', 'eblanned', 'freelove@msn.com', 0, '2013-07-07 03:32:17', 'homme', '8bfd8df7a64b1df1d059c5f0b5713cf2', 'France', 'New York', 'http://www.peepshowstories.com', '', 0);
 
 -- --------------------------------------------------------
 
