@@ -8,7 +8,7 @@ class FormComponent extends Component {
 	public function __construct($controller, $params = null) {
 		parent::__construct($controller, $params);
 		// token csrf
-
+/*
 		$formToken = $this->getController()->Request->getData("token_csrf");
 		$sessionToken = $this->getController()->Session->read("Form");
 		if(!empty($formToken) && $formToken!=$sessionToken)
@@ -16,6 +16,7 @@ class FormComponent extends Component {
 
 		$token = md5(Config::read("key").uniqid('csrf_'));
 		$this->getController()->Session->write("Form", $token);
+		*/
 	}
 
 	public function __transmit($params) {

@@ -52,6 +52,7 @@ class ModelComponent extends Component {
 		$objectName = ucfirst($data["_object_name"]);
 		$hasSlug = false;
 		$hasDate = false;
+		$hasPassword = false;
 		foreach ($this->$objectName->getShema() as $key => $shema) {
 			if($key == "slug")
 				$hasSlug = true;
@@ -105,6 +106,7 @@ class ModelComponent extends Component {
 		$objectName = $data["_object_name"];
 		$attrToUpdate = array();
 		$hasSlug = false;
+		$hasPassword = false;
 		$object = $this->_controller->Model->$objectName->getById($data["_object_id"]);
 		foreach ($object->getShema() as $key => $shema) {
 			if($key == "slug")
@@ -119,8 +121,11 @@ class ModelComponent extends Component {
 						$classOfKey = ucfirst($shema["Link"]["reference"])."Object";
 						$ref = $shema["Link"]["reference"];
 						$this->_controller->Model->$ref;
-						if(class_exists($classOfKey) && property_exists($classOfKey, "isType"))
-							$object->get($key)->__executeForm($data[$key]);
+						if(class_exists($classOfKey) && property_exists($classOfKey, "isType")) {
+							$retourneRes = $object->get($key)->__executeForm($this, $data[$key]);
+							if($retourneRes != false)
+								$attrToUpdate[$key] = $retourneRes;
+						}
 						else
 							$attrToUpdate[$key] = $data[$key];
 					}
