@@ -35,7 +35,7 @@ class LangObject extends ObjectModel {
 		return $string;
 	}
 
-	public function __executeForm(array $data) {
+	public function __executeForm($model, array $data) {
 		$table = $this->getTable();
 		$table->update($this->get("id"), $data);
 		return false;
