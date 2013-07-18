@@ -122,9 +122,13 @@ class ModelComponent extends Component {
 						$ref = $shema["Link"]["reference"];
 						$this->_controller->Model->$ref;
 						if(class_exists($classOfKey) && property_exists($classOfKey, "isType")) {
-							$retourneRes = $object->get($key)->__executeForm($this, $data[$key]);
-							if($retourneRes != false)
-								$attrToUpdate[$key] = $retourneRes;
+							if(is_object($object->get($key))) {
+								$retourneRes = $object->get($key)->__executeForm($this, $data[$key]);
+								if($retourneRes != false)
+									$attrToUpdate[$key] = $retourneRes;
+							}
+							else
+								$attrToUpdate[$key] = $classOfKey::__executeFormNew($this, $data[$key]);
 						}
 						else
 							$attrToUpdate[$key] = $data[$key];
