@@ -23,6 +23,8 @@
 	Router::add("fr", "page", "sitemap", "/plan-du-site.html");
 	Router::add("fr", "page", "partners", "/tous-les-partenaires-de-webtuts.html");
 
+	Router::add("fr", "error", "http", "/404.html");
+
 	// EN
 	Router::add("en", "home", "index", "/home.html");
 	

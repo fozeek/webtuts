@@ -13,7 +13,7 @@
 			true		active le mode débug
 			false		désative le mode débug
 	*/
-	Kernel::setDebugMode(true);
+	Kernel::setDebugMode(false);
 
 	/*
 		Routes par défaut
@@ -33,7 +33,7 @@
 	/* 
 		Définition de l'application
 	*/
-	Kernel::setApp("backend");
+	Kernel::setApp("frontend");
 
 	/*
 		Paths files

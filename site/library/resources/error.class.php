@@ -9,7 +9,7 @@
 class Error {
 
 	static public function redirect($url) {
-		header("Location:/".$url);
+		header("Location:".$url);
 	}
 
 	static public function render($code, $params) {
